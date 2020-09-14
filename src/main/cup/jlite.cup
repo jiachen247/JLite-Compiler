@@ -125,7 +125,7 @@ non terminal LinkedList<Argument> FmlList, FmlRest;
 non terminal Statement Stmt;
 non terminal IfStatement IfStatement;
 non terminal LinkedList<Statement> Stmts, StmtRest;
-non terminal Expression Exp, BExp, Conj, RExp, BGrd, NotOp, AExp, Term, Ftr, Atom;
+non terminal Expression Exp, BExp, Conj, RExp, BGrd, SExp, NotOp, AExp, Term, Ftr, Atom;
 non terminal LinkedList<Expression> ExpList, ExpRest;
 non terminal BinaryOperator BOp;
    
@@ -414,10 +414,9 @@ Exp
   {:
     RESULT = arithmeticExpr;
   :}
-  | STRING_LITERAL:stringLiteral
+  | SExp:stringExpr
   {:
-    // todo dont you need string operations here?
-    RESULT = new StringLiteral(stringLiteral);
+    RESULT = stringExpr;
   :}
   ;
 
@@ -583,6 +582,21 @@ Ftr
   {:
     RESULT = atom;
   :}
+  ;
+
+SExp
+::= SExp:s1 PLUS STRING_LITERAL:s2
+  {:
+    RESULT = new ConcatExpression(s1, s2);
+  :}
+  | STRING_LITERAL:s1
+  {:
+    RESULT = new StringLiteral(s1);
+  :}
+//  | Atom:atom
+//  {:
+//    RESULT = atom;
+//  :}
   ;
 
 Atom
