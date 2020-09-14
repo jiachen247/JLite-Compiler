@@ -1,8 +1,9 @@
-package main.java.ast.statement;
+package main.java.parsetree.statement;
 
 import java.util.LinkedList;
 
-import main.java.ast.expression.Expression;
+import main.java.parsetree.expression.Expression;
+import main.java.parsetree.shared.Helper;
 
 public class WhileStatement extends Statement {
 
@@ -18,6 +19,6 @@ public class WhileStatement extends Statement {
     public String toString() {
         return String.format("While (%s) {\n%s}\n",
             conditionPredicate.toString(),
-            main.java.ast.common.Helper.indent(main.java.ast.common.Helper.join(stmts)));
+            Helper.getInstance().indent(Helper.getInstance().join(stmts)));
     }
 }

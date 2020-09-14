@@ -1,4 +1,4 @@
-package main.java.ast.common;
+package main.java.parsetree.shared;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,6 +1,6 @@
-package main.java.ast.statement;
+package main.java.parsetree.statement;
 
-import main.java.ast.expression.CallExpression;
+import main.java.parsetree.expression.CallExpression;
 
 public class CallStatement extends Statement {
 

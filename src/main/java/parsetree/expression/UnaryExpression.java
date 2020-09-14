@@ -1,7 +1,7 @@
-package main.java.ast.expression;
+package main.java.parsetree.expression;
 
 
-import main.java.ast.common.Operator;
+import main.java.parsetree.shared.Operator;
 
 public class UnaryExpression extends Expression {
 

@@ -1,8 +1,9 @@
-package main.java.ast.statement;
+package main.java.parsetree.statement;
 
 import java.util.LinkedList;
 
-import main.java.ast.expression.Expression;
+import main.java.parsetree.expression.Expression;
+import main.java.parsetree.shared.Helper;
 
 public class IfStatement extends Statement {
 
@@ -19,6 +20,8 @@ public class IfStatement extends Statement {
     @Override
     public String toString() {
         return String.format("If (%s) {\n%s} else {\n%s}", condition.toString(),
-            main.java.ast.common.Helper.indent(main.java.ast.common.Helper.join(ifBlock)), main.java.ast.common.Helper.indent(main.java.ast.common.Helper.join(elseBlock)));
+            Helper.getInstance().indent(
+                Helper.getInstance().join(ifBlock)),
+                Helper.getInstance().indent(Helper.getInstance().join(elseBlock)));
     }
 }

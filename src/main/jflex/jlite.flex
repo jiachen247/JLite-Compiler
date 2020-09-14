@@ -182,56 +182,56 @@ cname = [A-Z][A-Za-z_0-9]*
 
     /* Print the token found that was declared in the class sym and then
         return it. */
-    "+" { System.out.print(" + "); return symbol(sym.PLUS); }
-    "-" { System.out.print(" - "); return symbol(sym.MINUS); }
-    "*" { System.out.print(" * "); return symbol(sym.TIMES); }
-    "/" { System.out.print(" / "); return symbol(sym.DIVIDE); }
-    "(" { System.out.print(" ( "); return symbol(sym.LPAREN); }
-    ")" { System.out.print(" ) "); return symbol(sym.RPAREN); }
-    "{" { System.out.print(" { "); return symbol(sym.LBRACE); }
-    "}" { System.out.print(" } ");return symbol(sym.RBRACE); }
+    "+" { return symbol(sym.PLUS); }
+    "-" { return symbol(sym.MINUS); }
+    "*" { return symbol(sym.TIMES); }
+    "/" { return symbol(sym.DIVIDE); }
+    "(" { return symbol(sym.LPAREN); }
+    ")" { return symbol(sym.RPAREN); }
+    "{" { return symbol(sym.LBRACE); }
+    "}" { return symbol(sym.RBRACE); }
 
 
     // comparision operators
-    "<" { System.out.print(" < "); return symbol(sym.GT); }
-    ">" { System.out.print(" > "); return symbol(sym.LT); }
-    ">=" { System.out.print(" >= "); return symbol(sym.GEQ); }
-    "<=" { System.out.print(" <= "); return symbol(sym.LEQ); }
-    "==" { System.out.print(" == "); return symbol(sym.EQ); }
-    "!=" { System.out.print(" != "); return symbol(sym.NEQ); }
+    "<" { return symbol(sym.GT); }
+    ">" { return symbol(sym.LT); }
+    ">=" { return symbol(sym.GEQ); }
+    "<=" { return symbol(sym.LEQ); }
+    "==" { return symbol(sym.EQ); }
+    "!=" { return symbol(sym.NEQ); }
 
     // logical operators
     "&&" { return symbol(sym.AND); }
     "||" { return symbol(sym.OR); }
 
     // misc
-    "=" { System.out.print(" = "); return symbol(sym.ASSIGN); }
-    "!" { System.out.print(" ! "); return symbol(sym.NOT); }
-    "." { System.out.print(" . "); return symbol(sym.IN); }
+    "=" { return symbol(sym.ASSIGN); }
+    "!" { return symbol(sym.NOT); }
+    "." { return symbol(sym.IN); }
 
     // boolean literals
-    "true" { System.out.print(" true "); return symbol(sym.TRUE); }
-    "false" { System.out.print(" false "); return symbol(sym.FALSE); }
+    "true" { return symbol(sym.TRUE); }
+    "false" { return symbol(sym.FALSE); }
 
     // Base types
-    "Int" { System.out.print(" Int "); return symbol(sym.INT);}
-    "Bool" { System.out.print(" Bool "); return symbol(sym.BOOL);}
-    "String" { System.out.print(" String "); return symbol(sym.STRING);}
-    "Void" { System.out.print(" Void "); return symbol(sym.VOID);}
+    "Int" { return symbol(sym.INT);}
+    "Bool" { return symbol(sym.BOOL);}
+    "String" { return symbol(sym.STRING);}
+    "Void" { return symbol(sym.VOID);}
 
 
     // Jlite keywords
-    "class" { System.out.print(" class "); return symbol(sym.CLASS);}
-    "if" { System.out.print(" if "); return symbol(sym.IF);}
-    "else" { System.out.print(" else "); return symbol(sym.ELSE);}
-    "while" { System.out.print(" while "); return symbol(sym.WHILE);}
-    "readln" { System.out.print(" readln "); return symbol(sym.READLN);}
-    "println" {System.out.print(" println "); return symbol(sym.PRINTLN);}
-    "return" { System.out.print(" return "); return symbol(sym.RETURN);}
-    "main" { System.out.print(" main "); return symbol(sym.MAIN);}
-    "this" { System.out.print(" this "); return symbol(sym.THIS);}
-    "new" { System.out.print(" new "); return symbol(sym.NEW);}
-    "null" { System.out.print(" null "); return symbol(sym.NULL);}
+    "class" { return symbol(sym.CLASS);}
+    "if" { return symbol(sym.IF);}
+    "else" { return symbol(sym.ELSE);}
+    "while" { return symbol(sym.WHILE);}
+    "readln" { return symbol(sym.READLN);}
+    "println" {return symbol(sym.PRINTLN);}
+    "return" { return symbol(sym.RETURN);}
+    "main" { return symbol(sym.MAIN);}
+    "this" { return symbol(sym.THIS);}
+    "new" { return symbol(sym.NEW);}
+    "null" { return symbol(sym.NULL);}
 
 
     /* Don't do anything if whitespace is found */
@@ -250,12 +250,12 @@ cname = [A-Z][A-Za-z_0-9]*
        that represents an integer and the value of the integer that is
        held in the string yytext which will get turned into an integer
        before returning */
-    {dec_int_lit}   { System.out.print(yytext()); return symbol(sym.INTEGER_LITERAL, Integer.valueOf(yytext())); }
+    {dec_int_lit}   { return symbol(sym.INTEGER_LITERAL, Integer.valueOf(yytext())); }
    
     /* If an id is found print it out, return the token ID
        that represents an id and the default value one that is
        given to all identifiers. */
-    {id}  { System.out.print(yytext()); return symbol(sym.ID, yytext());}
+    {id}  { return symbol(sym.ID, yytext());}
 
     {cname} { return symbol(sym.CNAME, (yytext())); }
 

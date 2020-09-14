@@ -1,6 +1,6 @@
-package main.java.ast.statement;
+package main.java.parsetree.statement;
 
-import main.java.ast.expression.Expression;
+import main.java.parsetree.expression.Expression;
 
 public class PrintLineStatement extends Statement {
     private Expression expr;

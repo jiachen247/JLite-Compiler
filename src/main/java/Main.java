@@ -21,7 +21,7 @@
 
 import java.io.FileReader;
 
-import main.java.ast.Program;
+import main.java.parsetree.Program;
 
 
 public class Main {

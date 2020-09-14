@@ -7,8 +7,8 @@
 MAIN = Main
 
 # test data
-TEST_IN  = src/test/3.in
-OUT_GOOD = src/test/3.ans
+TEST_IN  = src/test/1.in
+OUT_GOOD = src/test/1.ans
 
 # jflex input and output
 LEXER_IN = src/main/jflex/jlite.flex
@@ -31,7 +31,7 @@ CUP        = java -jar $(CUPJAR)
 
 OUT    = out
 GEN    = $(OUT)/genfiles
-MAIN_JAVA_FILES ?= src/main/java/*.java src/main/java/ast/*.java src/main/java/ast/**/*.java
+MAIN_JAVA_FILES ?= src/main/java/*.java src/main/java/parsetree/*.java src/main/java/parsetree/**/*.java
 MORE_JAVA_FILES ?=
 
 LEXER_CLASS ?= Yylex

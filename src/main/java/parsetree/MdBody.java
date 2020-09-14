@@ -1,10 +1,10 @@
-package main.java.ast;
+package main.java.parsetree;
 
 import java.util.LinkedList;
 
-import main.java.ast.common.Helper;
-import main.java.ast.common.VarDecl;
-import main.java.ast.statement.Statement;
+import main.java.parsetree.shared.Helper;
+import main.java.parsetree.shared.VarDecl;
+import main.java.parsetree.statement.Statement;
 
 public class MdBody implements Node {
 

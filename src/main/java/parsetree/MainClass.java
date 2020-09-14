@@ -1,10 +1,10 @@
-package main.java.ast;
+package main.java.parsetree;
 
 import java.util.LinkedList;
 
-import main.java.ast.common.Argument;
-import main.java.ast.common.Helper;
-import main.java.ast.common.Type;
+import main.java.parsetree.shared.Argument;
+import main.java.parsetree.shared.Helper;
+import main.java.parsetree.shared.Type;
 
 public class MainClass implements Node {
 
@@ -20,6 +20,9 @@ public class MainClass implements Node {
 
     @Override
     public String toString() {
-        return String.format("class %s {\n\tVoid main(%s) {\n%s\t}\n}", type, Helper.getInstance().concat(arguments), main.java.ast.common.Helper.indent(body.toString()));
+        return String.format("class %s {\n\tVoid main(%s) {\n%s\t}\n}\n",
+            type,
+            Helper.getInstance().concat(arguments),
+            Helper.getInstance().indent(body.toString()));
     }
 }

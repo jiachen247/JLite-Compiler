@@ -20,10 +20,10 @@
    
 /* Import the class java_cup.runtime.*  */
 import java_cup.runtime.*;
-import main.java.ast.expression.*;
-import main.java.ast.common.*;
-import main.java.ast.statement.*;
-import main.java.ast.*;
+import main.java.parsetree.expression.*;
+import main.java.parsetree.shared.*;
+import main.java.parsetree.statement.*;
+import main.java.parsetree.*;
 import java.util.*;
 
 /* Parser code to change the way the parser reports errors (include

@@ -1,6 +1,6 @@
-package main.java.ast.statement;
+package main.java.parsetree.statement;
 
-import main.java.ast.common.Id;
+import main.java.parsetree.shared.Id;
 
 public class ReadLineStatement extends Statement {
     private Id id;

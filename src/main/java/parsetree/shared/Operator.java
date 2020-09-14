@@ -1,4 +1,4 @@
-package main.java.ast.common;
+package main.java.parsetree.shared;
 
 public class Operator {
 

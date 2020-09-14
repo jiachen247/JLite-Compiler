@@ -1,7 +1,7 @@
-package main.java.ast.statement;
+package main.java.parsetree.statement;
 
 
-import main.java.ast.Node;
+import main.java.parsetree.Node;
 
 public abstract class Statement implements Node {
 }

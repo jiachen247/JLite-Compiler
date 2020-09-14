@@ -1,4 +1,4 @@
-package main.java.ast;
+package main.java.parsetree;
 
 public interface Node {
 }

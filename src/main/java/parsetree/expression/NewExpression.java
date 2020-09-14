@@ -1,7 +1,7 @@
-package main.java.ast.expression;
+package main.java.parsetree.expression;
 
 
-import main.java.ast.common.Type;
+import main.java.parsetree.shared.Type;
 
 public class NewExpression extends Expression {
 

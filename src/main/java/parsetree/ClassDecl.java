@@ -1,10 +1,10 @@
-package main.java.ast;
+package main.java.parsetree;
 
 import java.util.List;
 
-import main.java.ast.common.Helper;
-import main.java.ast.common.Type;
-import main.java.ast.common.VarDecl;
+import main.java.parsetree.shared.Helper;
+import main.java.parsetree.shared.Type;
+import main.java.parsetree.shared.VarDecl;
 
 public class ClassDecl implements Node {
 

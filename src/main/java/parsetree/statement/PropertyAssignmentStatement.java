@@ -1,7 +1,7 @@
-package main.java.ast.statement;
+package main.java.parsetree.statement;
 
-import main.java.ast.common.Id;
-import main.java.ast.expression.Expression;
+import main.java.parsetree.shared.Id;
+import main.java.parsetree.expression.Expression;
 
 public class PropertyAssignmentStatement extends Statement {
 

@@ -1,5 +1,3 @@
- class  {  Void  main  (  Int i Int a Int b Int d )  {  Int t1 Int t2help while  (  true  )  { t1 = t2 }  }  }  class  { c Int ij Int dummy (  )  {  Bool i Bool j if  ( ij )  {  return 1 }  else  {  while  ( i )  { i =  ! j } c =  this  . getCompute (  )  }  return  this  . getCompute (  )  . square (  - 3 )  return i } getCompute (  )  {  return c }  }
-
 class Main {
 	Void main(Int i, Int a, Int b, Int d) {
 		Int t1;
@@ -11,6 +9,7 @@ class Main {
 		
 	}
 }
+
 class Dummy {
 	Compute c;
 	Int i;
@@ -29,9 +28,9 @@ class Dummy {
 				i = (!)[j];
 			}
 			
-			c = [[this.getCompute]()];
+			c = [this.getCompute()];
 		}
-		Return [[[[this.getCompute]()].square]((-)[3])];
+		Return [[this.getCompute()].square((-)[3])];
 		Return i;
 	}
 }

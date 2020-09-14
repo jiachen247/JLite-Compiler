@@ -1,4 +1,4 @@
-package main.java.ast.expression;
+package main.java.parsetree.expression;
 
 public class ThisExpression extends Expression {
     @Override

@@ -1,6 +1,8 @@
-package main.java.ast.expression;
+package main.java.parsetree.expression;
 
 import java.util.LinkedList;
+
+import main.java.parsetree.shared.Helper;
 
 public class CallExpression extends Expression {
 
@@ -15,7 +17,7 @@ public class CallExpression extends Expression {
 
     @Override
     public String toString() {
-        return "[" + callee.toString() + "(" + main.java.ast.common.Helper.concat(arguments) + ")]";
+        return "[" + callee.toString() + "(" + Helper.getInstance().concat(arguments) + ")]";
     }
 
 }

@@ -1,7 +1,7 @@
-package main.java.ast.expression;
+package main.java.parsetree.expression;
 
 
-import main.java.ast.common.Id;
+import main.java.parsetree.shared.Id;
 
 public class InExpression extends Expression {
 

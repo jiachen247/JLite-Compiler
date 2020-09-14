@@ -1,4 +1,4 @@
-package main.java.ast;
+package main.java.parsetree;
 
 import java.util.LinkedList;
 

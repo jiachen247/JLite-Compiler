@@ -1,6 +1,6 @@
-package main.java.ast.common;
+package main.java.parsetree.shared;
 
-import main.java.ast.Node;
+import main.java.parsetree.Node;
 
 public class VarDecl implements Node {
 
