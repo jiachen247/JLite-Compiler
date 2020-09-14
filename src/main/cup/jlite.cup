@@ -226,7 +226,7 @@ MainClass
   :}
   | CLASS CNAME:cname LBRACE error VOID MAIN LPAREN FmlList:args RPAREN MdBody:mdBody RBRACE
   {:
-    report_fatal_error("Main class shgould only have one method", null);
+    report_fatal_error("Main class should only have one method", null);
     RESULT = new MainClass(new Type(cname), args, mdBody);
   :}
   ;
