@@ -30,6 +30,9 @@ public class Main {
         try {
             parser p = new parser(new Lexer(new FileReader(argv[0])));
             Program result = (Program) p.parse().value;
+
+            System.out.println(result);
+
         } catch (Exception e) {
             /* do cleanup here -- possibly rethrow e */
             e.printStackTrace();

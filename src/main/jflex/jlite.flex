@@ -126,6 +126,8 @@ cname = [A-Z][A-Za-z_0-9]*
     \*\/ { yybegin(YYINITIAL); }
     
     . { }
+
+    {line_terminator} { }
     
     <<EOF>> { throw new Error("Unexpected eof. multi line comment not terminated."); }
 }

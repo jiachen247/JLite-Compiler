@@ -1,0 +1,39 @@
+ class  {  Void  main  (  Int i Int a Int b Int d )  {  Int t1 Int t2help while  (  true  )  { t1 = t2 }  }  }  class  { c Int ij Int dummy (  )  {  Bool i Bool j if  ( ij )  {  return 1 }  else  {  while  ( i )  { i =  ! j } c =  this  . getCompute (  )  }  return  this  . getCompute (  )  . square (  - 3 )  return i } getCompute (  )  {  return c }  }
+
+class Main {
+	Void main(Int i, Int a, Int b, Int d) {
+		Int t1;
+		Int t2;
+		Compute help;
+		While (true) {
+			t1 = t2;
+		}
+		
+	}
+}
+class Dummy {
+	Compute c;
+	Int i;
+	Dummy j;
+
+	Compute getCompute() {
+		Return c;
+	}
+	Int dummy() {
+		Bool i;
+		Bool j;
+		If ([i, j](||)) {
+			Return 1;
+		} else {
+			While (i) {
+				i = (!)[j];
+			}
+			
+			c = [[this.getCompute]()];
+		}
+		Return [[[[this.getCompute]()].square]((-)[3])];
+		Return i;
+	}
+}
+
+
