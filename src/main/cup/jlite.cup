@@ -23,6 +23,7 @@ import java_cup.runtime.*;
 import main.java.parsetree.expression.*;
 import main.java.parsetree.shared.*;
 import main.java.parsetree.statement.*;
+import main.java.parsetree.operator.*;
 import main.java.parsetree.*;
 import java.util.*;
 
@@ -126,7 +127,7 @@ non terminal IfStatement IfStatement;
 non terminal LinkedList<Statement> Stmts, StmtRest;
 non terminal Expression Exp, BExp, Conj, RExp, BGrd, NotOp, AExp, Term, Ftr, Atom;
 non terminal LinkedList<Expression> ExpList, ExpRest;
-non terminal Operator.Binary BOp;
+non terminal BinaryOperator BOp;
    
 
 /* -------------Precedence and Associatively of Terminals Section----------- */
@@ -423,19 +424,19 @@ Exp
 BExp
 ::= BExp:booleanExp OR:op Conj:conjunction
   {:
-    RESULT = new BinaryExpression(Operator.Binary.OR, booleanExp, conjunction);
+    RESULT = new BinaryExpression(new OrOperator(), booleanExp, conjunction);
   :}
   | BExp:booleanExp OR:op Atom:atom
   {:
-    RESULT = new BinaryExpression(Operator.Binary.OR, booleanExp, atom);
+    RESULT = new BinaryExpression(new OrOperator(), booleanExp, atom);
   :}
   | Atom:atom OR:op Conj:conjunction
   {:
-    RESULT = new BinaryExpression(Operator.Binary.OR, atom, conjunction);
+    RESULT = new BinaryExpression(new OrOperator(), atom, conjunction);
   :}
   | Atom:atom1 OR:op Atom:atom2
   {:
-    RESULT = new BinaryExpression(Operator.Binary.OR, atom1, atom2);
+    RESULT = new BinaryExpression(new OrOperator(), atom1, atom2);
   :}
   | Conj:conj
   {:
@@ -446,19 +447,19 @@ BExp
 Conj
 ::= Conj:conj AND:op RExp:exp
   {:
-    RESULT = new BinaryExpression(Operator.Binary.AND, conj, exp);
+    RESULT = new BinaryExpression(new AndOperator(), conj, exp);
   :}
   | Conj:conj AND:op Atom:atom
   {:
-    RESULT = new BinaryExpression(Operator.Binary.AND, conj, atom);
+    RESULT = new BinaryExpression(new AndOperator(), conj, atom);
   :}
   | Atom:atom AND:op RExp:exp
   {:
-    RESULT = new BinaryExpression(Operator.Binary.AND, atom, exp);
+    RESULT = new BinaryExpression(new AndOperator(), atom, exp);
   :}
   | Atom:atom1 AND:op Atom:atom2
   {:
-    RESULT = new BinaryExpression(Operator.Binary.AND, atom1, atom2);
+    RESULT = new BinaryExpression(new AndOperator(), atom1, atom2);
   :}
   | RExp:exp
   {:
@@ -480,27 +481,27 @@ RExp
 BOp
 ::= LT
   {:
-    RESULT = Operator.Binary.LT;
+    RESULT = new LTOperator();
   :}
   | GT
   {:
-    RESULT = Operator.Binary.GT;
+    RESULT = new GTOperator();
   :}
   | LEQ
   {:
-    RESULT = Operator.Binary.LTE;
+    RESULT = new LEQOperator();
   :}
   | GEQ
   {:
-    RESULT = Operator.Binary.GTE;
+    RESULT = new GEQOperator();
   :}
   | EQ
   {:
-    RESULT = Operator.Binary.EQ;
+    RESULT = new EqualOperator();
   :}
   | NEQ
   {:
-    RESULT = Operator.Binary.NEQ;
+    RESULT = new NotEqualOperator();
   :}
   ;
 
@@ -522,19 +523,19 @@ BGrd
 NotOp
 ::= NOT TRUE
   {:
-    RESULT = new UnaryExpression(Operator.Unary.NOT, new BoolLiteral(true));
+    RESULT = new UnaryExpression(new NotOperator(), new BoolLiteral(true));
   :}
   | NOT FALSE
   {:
-    RESULT = new UnaryExpression(Operator.Unary.NOT, new BoolLiteral(false));
+    RESULT = new UnaryExpression(new NotOperator(), new BoolLiteral(false));
   :}
   | NOT Atom:atom
   {:
-    RESULT = new UnaryExpression(Operator.Unary.NOT, atom);
+    RESULT = new UnaryExpression(new NotOperator(), atom);
   :}
   | NOT NotOp:notOp
   {:
-    RESULT = new UnaryExpression(Operator.Unary.NOT, notOp);
+    RESULT = new UnaryExpression(new NotOperator(), notOp);
   :}
   ;
 
@@ -542,11 +543,11 @@ NotOp
 AExp
 ::= AExp:exp PLUS:op Term:term
   {:
-    RESULT = new BinaryExpression(Operator.Binary.PLUS, exp, term);
+    RESULT = new BinaryExpression(new PlusOperator(), exp, term);
   :}
   | AExp:exp1 MINUS:op Term:term
   {:
-    RESULT = new BinaryExpression(Operator.Binary.MINUS, exp1, term);
+    RESULT = new BinaryExpression(new MinusOperator(), exp1, term);
   :}
   | Term:term
   {:
@@ -557,11 +558,11 @@ AExp
 Term
 ::= Term:term TIMES:op Ftr:ftr
   {:
-    RESULT = new BinaryExpression(Operator.Binary.TIMES, term, ftr);
+    RESULT = new BinaryExpression(new TimesOperator(), term, ftr);
   :}
   | Term:term DIVIDE:op Ftr:ftr
   {:
-    RESULT = new BinaryExpression(Operator.Binary.DIVIDE, term, ftr);
+    RESULT = new BinaryExpression(new DivideOperator(), term, ftr);
   :}
   | Ftr:ftr
   {:
@@ -576,7 +577,7 @@ Ftr
   :}
   | MINUS Ftr:ftr
   {:
-    RESULT = new UnaryExpression(Operator.Unary.NEGATE, ftr);
+    RESULT = new UnaryExpression(new NegateOperator(), ftr);
   :}
   | Atom:atom
   {:

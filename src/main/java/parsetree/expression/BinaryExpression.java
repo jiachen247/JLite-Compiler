@@ -1,15 +1,14 @@
 package main.java.parsetree.expression;
 
-
-import main.java.parsetree.shared.Operator;
+import main.java.parsetree.operator.BinaryOperator;
 
 public class BinaryExpression extends Expression {
 
-    private final Operator.Binary operator;
+    private final BinaryOperator operator;
     public final Expression left;
     public final Expression right;
 
-    public BinaryExpression(Operator.Binary operator, Expression left, Expression right) {
+    public BinaryExpression(BinaryOperator operator, Expression left, Expression right) {
         this.operator = operator;
         this.left = left;
         this.right = right;
