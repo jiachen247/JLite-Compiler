@@ -5,7 +5,6 @@ import java.util.List;
 import main.java.ast.common.Argument;
 import main.java.ast.common.Id;
 import main.java.ast.common.Type;
-import main.java.ast.common.Util;
 
 public class MdDecl implements Node {
 
@@ -26,7 +25,7 @@ public class MdDecl implements Node {
     public String toString() {
         return String.format("%s %s(%s) {\n%s}",
             type.toString(),
-            id.toString(), Util.listToString(arguments),
+            id.toString(), main.java.ast.common.Helper.concat(arguments),
             mdBody.toString());
     }
 }

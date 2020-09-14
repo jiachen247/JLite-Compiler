@@ -2,7 +2,6 @@ package main.java.ast.statement;
 
 import java.util.LinkedList;
 
-import main.java.ast.common.Util;
 import main.java.ast.expression.Expression;
 
 public class IfStatement extends Statement {
@@ -20,6 +19,6 @@ public class IfStatement extends Statement {
     @Override
     public String toString() {
         return String.format("If (%s) {\n%s} else {\n%s}", condition.toString(),
-            Util.indent(Util.joinWithNewLine(ifBlock)), Util.indent(Util.joinWithNewLine(elseBlock)));
+            main.java.ast.common.Helper.indent(main.java.ast.common.Helper.join(ifBlock)), main.java.ast.common.Helper.indent(main.java.ast.common.Helper.join(elseBlock)));
     }
 }

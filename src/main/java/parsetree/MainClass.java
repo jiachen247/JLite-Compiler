@@ -3,8 +3,8 @@ package main.java.ast;
 import java.util.LinkedList;
 
 import main.java.ast.common.Argument;
+import main.java.ast.common.Helper;
 import main.java.ast.common.Type;
-import main.java.ast.common.Util;
 
 public class MainClass implements Node {
 
@@ -20,6 +20,6 @@ public class MainClass implements Node {
 
     @Override
     public String toString() {
-        return String.format("class %s {\n\tVoid main(%s) {\n%s\t}\n}", type, Util.listToString(arguments), Util.indent(body.toString()));
+        return String.format("class %s {\n\tVoid main(%s) {\n%s\t}\n}", type, Helper.getInstance().concat(arguments), main.java.ast.common.Helper.indent(body.toString()));
     }
 }

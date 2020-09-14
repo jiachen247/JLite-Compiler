@@ -2,8 +2,6 @@ package main.java.ast.expression;
 
 import java.util.LinkedList;
 
-import main.java.ast.common.Util;
-
 public class CallExpression extends Expression {
 
     private final Expression callee;
@@ -17,7 +15,7 @@ public class CallExpression extends Expression {
 
     @Override
     public String toString() {
-        return "[" + callee.toString() + "(" + Util.listToString(arguments) + ")]";
+        return "[" + callee.toString() + "(" + main.java.ast.common.Helper.concat(arguments) + ")]";
     }
 
 }

@@ -15,7 +15,7 @@ public class InExpression extends Expression {
 
     @Override
     public String toString() {
-        return "[" + object.toString() + "." + property.toString() + "]";
+        return object.toString() + "." + property.toString();
     }
 
 }

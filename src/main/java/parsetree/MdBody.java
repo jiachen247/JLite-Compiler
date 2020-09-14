@@ -2,7 +2,7 @@ package main.java.ast;
 
 import java.util.LinkedList;
 
-import main.java.ast.common.Util;
+import main.java.ast.common.Helper;
 import main.java.ast.common.VarDecl;
 import main.java.ast.statement.Statement;
 
@@ -18,8 +18,8 @@ public class MdBody implements Node {
 
     @Override
     public String toString() {
-        return Util.indent(
-            Util.joinWithNewLine(variableDeclarations)) +
-            Util.indent(Util.joinWithNewLine(stmts));
+        return Helper.getInstance().indent(
+            Helper.getInstance().join(variableDeclarations)) +
+            Helper.getInstance().indent(Helper.getInstance().join(stmts));
     }
 }
