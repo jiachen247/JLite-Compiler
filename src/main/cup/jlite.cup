@@ -125,10 +125,10 @@ non terminal LinkedList<Argument> FmlList, FmlRest;
 non terminal Statement Stmt;
 non terminal IfStatement IfStatement;
 non terminal LinkedList<Statement> Stmts, StmtRest;
-non terminal Expression Exp, BExp, Conj, RExp, BGrd, SExp, NotOp, AExp, Term, Ftr, Atom;
+non terminal Expression Exp, BExp, Conj, RExp, BGrd, NotOp, ASExp, Term, Ftr, Atom;
 non terminal LinkedList<Expression> ExpList, ExpRest;
 non terminal BinaryOperator BOp;
-   
+
 
 /* -------------Precedence and Associatively of Terminals Section----------- */
    
@@ -144,7 +144,6 @@ non terminal BinaryOperator BOp;
   precedence left PLUS, MINUS; 
   precedence left TIMES, DIVIDE; 
 */
-
 
 /* ----------------------------Grammar Section-------------------- */
    
@@ -410,13 +409,9 @@ Exp
   {:
     RESULT = booleanExpr;
   :}
-  | AExp:arithmeticExpr
+  | ASExp:arithmeticExpr
   {:
     RESULT = arithmeticExpr;
-  :}
-  | SExp:stringExpr
-  {:
-    RESULT = stringExpr;
   :}
   ;
 
@@ -467,7 +462,7 @@ Conj
   ;
 
 RExp
-::= AExp:exp1 BOp:bop AExp:exp2
+::= ASExp:exp1 BOp:bop ASExp:exp2
   {:
     RESULT = new BinaryExpression(bop, exp1, exp2);
   :}
@@ -539,12 +534,12 @@ NotOp
   ;
 
 
-AExp
-::= AExp:exp PLUS:op Term:term
+ASExp
+::= ASExp:exp PLUS:op Term:term
   {:
     RESULT = new BinaryExpression(new PlusOperator(), exp, term);
   :}
-  | AExp:exp1 MINUS:op Term:term
+  | ASExp:exp1 MINUS:op Term:term
   {:
     RESULT = new BinaryExpression(new MinusOperator(), exp1, term);
   :}
@@ -567,6 +562,10 @@ Term
   {:
     RESULT = ftr;
   :}
+  | STRING_LITERAL:slit
+  {:
+     RESULT = new StringLiteral(slit);;
+  :}
   ;
 
 Ftr
@@ -584,20 +583,28 @@ Ftr
   :}
   ;
 
-SExp
-::= SExp:s1 PLUS STRING_LITERAL:s2
-  {:
-    RESULT = new ConcatExpression(s1, s2);
-  :}
-  | STRING_LITERAL:s1
-  {:
-    RESULT = new StringLiteral(s1);
-  :}
+//SExp
+//::= SExp:s1 PLUS SExpTerm:s2
+//  {:
+//    RESULT = new ConcatExpression(s1, s2);
+//  :}
+//  | SExpTerm:term
+//  {:
+//    RESULT = term;
+//  :}
+//
+//  ;
+
+//SExpTerm
+//::= STRING_LITERAL:slit
+//  {:
+//    RESULT = new StringLiteral(slit);
+//  :}
 //  | Atom:atom
 //  {:
 //    RESULT = atom;
 //  :}
-  ;
+//  ;
 
 Atom
 ::= Atom:atom IN ID:id

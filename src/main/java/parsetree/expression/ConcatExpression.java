@@ -2,9 +2,9 @@ package main.java.parsetree.expression;
 
 public class ConcatExpression extends Expression {
     public final Expression left;
-    public final String right;
+    public final Expression right;
 
-    public ConcatExpression(Expression left, String right) {
+    public ConcatExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
     }

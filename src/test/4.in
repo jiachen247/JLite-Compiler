@@ -1,0 +1,33 @@
+/*
+    This input tests string concatenation operations.
+    I had to rework the grammar a little due to ambiguity in the grammar.
+*/
+
+
+class Main {
+    Void main() {
+        id = "str1" + "str1";
+        id = 1 + 1;
+
+        id = "str1" + atom1;
+        id = atom1 + "str1";
+
+
+        id = 1 + atom1;
+        id = atom1 + 1;
+
+        id = "str1" + "str2" + "str3";
+        id = 1 + 2 + 3;
+
+
+        id = "str1" + atom1 + "str3";
+        id = 1 + atom1 + 3;
+
+
+        id = atom1 + "str2" + "str3";
+        id = atom1 + 2 + 3;
+
+        // type checker will throw an error for this later on***
+        id = "123" + 4;
+    }
+}

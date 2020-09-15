@@ -1,0 +1,19 @@
+class Main {
+	Void main() {
+		id = ["str1", "str1"](+);
+		id = [1, 1](+);
+		id = ["str1", atom1](+);
+		id = [atom1, "str1"](+);
+		id = [1, atom1](+);
+		id = [atom1, 1](+);
+		id = [["str1", "str2"](+), "str3"](+);
+		id = [[1, 2](+), 3](+);
+		id = [["str1", atom1](+), "str3"](+);
+		id = [[1, atom1](+), 3](+);
+		id = [[atom1, "str2"](+), "str3"](+);
+		id = [[atom1, 2](+), 3](+);
+		id = ["123", 4](+);
+	}
+}
+
+
