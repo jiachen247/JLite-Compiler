@@ -1,0 +1,39 @@
+# CS4212 Programming Assignment
+Liow Jia Chen
+A0184022R
+
+Notes:
+Relaxed Grammar
+
+## Building and running
+
+To run with input from file
+```
+$ make
+$ java -cp ./bin/java-cup-11b.jar:out Main  src/test/1.in
+```
+
+To diff output with expected output
+```
+$ java -cp ./bin/java-cup-11b.jar:out Main  src/test/4.in | diff src/test/4.ans -
+```
+
+to compare with output
+
+
+
+## Error Handling
+1. Line Numbers
+2. Error Productions
+
+## Test Cases
+test cases can be found at `src/main/test`, <id>.in corresponds with <id>.ans
+
+1. test 1 - First example program
+2. test 2 - Second example program
+3. test 3 - Test for lexer features
+3. test 4 - Test for CFG grammar features
+4. test 5 - Test for string concatenation grammar
+5. test 6 - Edge cases failure
+6. test 7 - Error production test cases
+

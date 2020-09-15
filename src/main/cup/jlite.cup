@@ -146,66 +146,6 @@ non terminal BinaryOperator BOp;
 */
 
 /* ----------------------------Grammar Section-------------------- */
-   
-/* The grammar for our parser.
-   
-    <Program> -> <MainClass> <ClassDecl*>
-
-    <MainClass> -> class <cname> { Void main ( <FmlList> ) <mdBody> }
-
-    <ClassDecl> -> class <cname> { <VarDecl*> <MdDecl*> }
-
-    <VarDecl> -> <Type> <id> ;
-
-    <MdDecl> -> <Type> <id> (<FmlList>) <MdBody>
-
-    <FmlList> -> <Type> <id> <FmlRest*> | e
-
-    <FmlRest> -> , <Type> <id>
-
-    <Type> -> Int | Bool | String | Void | <cname>
-
-    <MdBody> -> { <VarDecl*> <Stmt+> }
-
-    <Stmt> -> if ( <Exp> ) { <Stmt+> } else { <Stmt> }
-            | while ( <Exp> ) { <Stmt*> }
-            | readln ( <id> ) ;
-            | println ( <Exp> ) ;
-            | <id> = <Exp>
-            | <Atom>.<id> = <Exp>
-            | <Atom> ( <Exp> ) ;
-            | return <exp> ;
-            | return ;
-
-    <Exp> -> <BExp> | <AExp> | <SExp>
-
-    <BExp> -> <BExp> || <Conj> | <Conj>
-
-    <Conj> -> <Conj> && <RExp> | <RExp>
-
-    <RExp> -> <AExp> <BOp> <AExp> | <BGrd>
-
-    <BOp> -> > | < | <= | >= | == | !=
-
-    <BGrd> -> !<BGrd> | true | false | <Atom>
-
-    <AExp> -> <AExp> + <Term> | <AExp> - <Term> | <Term>
-
-    <SExp> -> <SExp> + <SExp> | STRING_LITERAL | <Atom>
-
-    <Atom> -> <Atom>.<id>
-            | <Atom> ( <ExpList> )
-            | this
-            | <id>
-            | new <cname>()
-            | ( <Exp> )
-            | null
-
-    <ExpList> -> <Exp> <ExpRest*> | e
-
-    <ExpRest> -> , <Exp>
-*/
-
 Program
 ::= MainClass:mainClass ClassDeclList:classDeclList
   {:

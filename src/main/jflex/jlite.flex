@@ -133,13 +133,9 @@ cname = [A-Z][A-Za-z_0-9]*
 }
 
 <STRING_LITERAL> {
-// todo change this
-// we just append any contiguous string of non \ \n \t \r \b " characters to the string
 [^\\\n\t\r\b\"]+ { sb.append(yytext()); }
-
 {line_terminator} { throw new Error("Unexpected new line within a string"); }
 
-// special characters
 \\\\ { sb.append('\\'); }
 \\n { sb.append('\n'); }
 \\t { sb.append('\t'); }
@@ -147,31 +143,21 @@ cname = [A-Z][A-Za-z_0-9]*
 \\b { sb.append('\b'); }
 \\\" { sb.append('"'); }
 
-// escaped ascii hex code
 \\x[a-fA-F0-9][a-fA-F0-9] {
   int value = Integer.parseInt(yytext().substring(2), 16);
-//  if (value > MAX_ASCII_CHAR) {
-//    error(yytext() + " is not a valid ascii character in hex");
-//  }
   sb.append((char) value);
 }
 
-// escaped decimal character
 \\[0-9][0-9][0-9] {
   int value = Integer.parseInt(yytext().substring(1), 10);
-//  if (value > MAX_ASCII_CHAR) {
-//    error(yytext() + " is not a valid ascii character in decimal");
-//  }
   sb.append((char) value);
 }
 
-// allow any other character after \ to return itself (redundant escape)
 \\. { sb.append(yytext().substring(1)); }
 
-// end of string, build the string then return to YYINITIAL state
 \" { yybegin(YYINITIAL); return symbol(sym.STRING_LITERAL, sb.toString());}
 
-<<EOF>> { throw new Error("Unexpected EOF, string not yet terminated."); }
+<<EOF>> { throw new Error("String was not terminated when EOF."); }
 }
 
    
