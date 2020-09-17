@@ -1,0 +1,21 @@
+/*
+    Wrong naming
+*/
+class Main {
+    Void main() {
+       return ;
+    }
+}
+
+// Class names should start with a capital letter
+
+class clazz {
+    // identifiers should start with a small letter
+    Bool Method (String Str) {
+        Int I;
+        Int J;
+        Int k;
+        Int Abc123;
+        return false;
+    }
+}

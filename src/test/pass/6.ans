@@ -1,3 +1,5 @@
+Successfully parsed program! :-)
+
 class Main {
 	Void main() {
 		id = ["str1", "str1"](+);

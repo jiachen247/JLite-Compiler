@@ -1,0 +1,25 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void main() {
+		Fib fib;
+		Int result;
+		fib = new Fib();
+		result = [fib.solve(10)];
+		println(result);
+		return;
+	}
+}
+
+class Fib {
+
+	Int solve(Int n) {
+		If ([n, 2](>)) {
+			Return n;
+		} else {
+			Return [[this.solve([n, 1](-))], [this.solve([n, 2](-))]](+);
+		}
+	}
+}
+
+

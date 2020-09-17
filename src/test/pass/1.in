@@ -1,3 +1,5 @@
+/* Sample program 1 (provided) */
+
 class Main {
 Void main(Int i, Int a, Int b,Int d){
     while(true){

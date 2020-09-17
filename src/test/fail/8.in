@@ -1,0 +1,8 @@
+/*
+    Missing main function
+*/
+class Main {
+    Void mmain() {
+       return ;
+    }
+}

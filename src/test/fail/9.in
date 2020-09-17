@@ -1,0 +1,14 @@
+/*
+    Missing semiolon
+*/
+class Main {
+    Void main() {
+       return 1;
+    }
+}
+
+class Clazz {
+    Int i;
+    Int j
+    Int k;
+}

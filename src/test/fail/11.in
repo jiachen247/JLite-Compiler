@@ -1,0 +1,6 @@
+/* Panic mode recovery example */
+class Main {
+    Void main() {
+       id = (1++2) / 2;
+    }
+}

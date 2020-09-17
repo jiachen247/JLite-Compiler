@@ -30,55 +30,59 @@ import java.util.*;
 /* Parser code to change the way the parser reports errors (include
    line and column number of the error). */
 parser code {:
-    
+    int errorCount = 0;
+    String MISSING_MAIN_CLASS_ERROR = "Failed to find a Main class! Jlite expects a the first class to be a Main class containing exactly one main method of type Void. Eg. Void main(...) { ... }. \n\t Common causes of this include, \n\t\t- missing main class \n\t\t- misspelling the 'main' function \n\t\t- having a return type other than `Void` \n\t\t- having additional functions in the main class";
+    String MALFORMED_CLASS = "Failed to parse Class! Did you forget to group all your class variable declarations at the top before all the methods?";
+    String MISSING_SEMI = "Missing a semicolon";
+    String ILLIGAL_CLASSNAME = "Class name should start with a upper case letter.";
+    String ILLIGAL_ID = "Identifiers should start with a lower case letter.";
     /* Change the method report_error so it will display the line and
        column of where the error occurred in the input as well as the
        reason for the error which is passed into the method in the
        String 'message'. */
-    public void report_error(String message, Object info) {
-   
-        /* Create a StringBuilder called 'm' with the string 'Error' in it. */
-        StringBuilder m = new StringBuilder("Error");
-   
-        /* Check if the information passed to the method is the same
-           type as the type java_cup.runtime.Symbol. */
-        if (info instanceof java_cup.runtime.Symbol) {
-            /* Declare a java_cup.runtime.Symbol object 's' with the
-               information in the object info that is being typecasted
-               as a java_cup.runtime.Symbol object. */
-            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
-   
-            /* Check if the line number in the input is greater or
-               equal to zero. */
-            if (s.left >= 0) {                
-                /* Add to the end of the StringBuilder error message
-                   the line number of the error in the input. */
-                m.append(" in line "+(s.left+1));   
-                /* Check if the column number in the input is greater
-                   or equal to zero. */
-                if (s.right >= 0)                    
-                    /* Add to the end of the StringBuilder error message
-                       the column number of the error in the input. */
-                    m.append(", column "+(s.right+1));
-            }
-        }
-   
-        /* Add to the end of the StringBuilder error message created in
-           this method the message that was passed into this method. */
-        m.append(" : "+message);
+    public void report_error(int row, int col, String message) {
+   errorCount += 1;
+//        /* Create a StringBuilder called 'm' with the string 'Error' in it. */
+//        StringBuilder m = new StringBuilder("Error");
+//
+//        /* Check if the information passed to the method is the same
+//           type as the type java_cup.runtime.Symbol. */
+////        if (info instanceof java_cup.runtime.Symbol) {
+//            /* Declare a java_cup.runtime.Symbol object 's' with the
+//               information in the object info that is being typecasted
+//               as a java_cup.runtime.Symbol object. */
+//            // java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+//
+//            /* Check if the line number in the input is greater or
+//               equal to zero. */
+//            // if (row >= 0) {
+//                /* Add to the end of the StringBuilder error message
+//                   the line number of the error in the input. */
+//                m.append(" in line ").append(row + 1);
+//                /* Check if the column number in the input is greater
+//                   or equal to zero. */
+//               //  if (col >= 0)
+//                    /* Add to the end of the StringBuilder error message
+//                       the column number of the error in the input. */
+//                    m.append(", column ").append(col + 1);
+//            }
+//        // }
+//
+//        /* Add to the end of the StringBuilder error message created in
+//           this method the message that was passed into this method. */
+//        m.append(" : ").append(message);
    
         /* Print the contents of the StringBuilder 'm', which contains
            an error message, out on a line. */
-        System.err.println(m);
+        System.err.println(String.format("Error in line %d, column %d : %s", row + 1, col + 1, message));
     }
-   
     /* Change the method report_fatal_error so when it reports a fatal
        error it will display the line and column number of where the
        fatal error occurred in the input as well as the reason for the
        fatal error which is passed into the method in the object
        'message' and then exit.*/
-    public void report_fatal_error(String message, Object info) {
-        report_error(message, info);
+    public void report_error_summary() {
+        System.out.println(String.format("Failed to parse program. %d errors found. Please fix them and then try again!", errorCount));
         System.exit(1);
     }
 :};
@@ -108,9 +112,6 @@ terminal    INT, BOOL, STRING;
    non terminals that have an integer value are listed.  An object
    value means that it can be any type, it isn't set to a specific
    type.  So it could be an Integer or a String or whatever. */
-non terminal Object     expr_list, expr_part;
-non terminal Integer    expr, factor, term;
-
 non terminal Type Type;
 non terminal Program Program;
 non terminal MainClass MainClass;
@@ -123,7 +124,6 @@ non terminal MdDecl MdDecl;
 non terminal MdBody MdBody;
 non terminal LinkedList<Argument> FmlList, FmlRest;
 non terminal Statement Stmt;
-non terminal IfStatement IfStatement;
 non terminal LinkedList<Statement> Stmts, StmtRest;
 non terminal Expression Exp, BExp, Conj, RExp, BGrd, NotOp, ASExp, Term, Ftr, Atom;
 non terminal LinkedList<Expression> ExpList, ExpRest;
@@ -149,12 +149,16 @@ non terminal BinaryOperator BOp;
 Program
 ::= MainClass:mainClass ClassDeclList:classDeclList
   {:
+    if (errorCount > 0) {
+        report_error_summary();
+    }
+    System.out.println("Successfully parsed program! :-)\n");
     RESULT = new Program(mainClass, classDeclList);
   :}
-  | error:error
+  | error:e ClassDeclList:classDeclList
   {:
-   report_fatal_error("Failed to parse program.", null);
-    RESULT = null;
+    report_error(eleft, eright, MISSING_MAIN_CLASS_ERROR);
+    report_error_summary();
   :}
   ;
 
@@ -163,12 +167,9 @@ MainClass
   {:
     RESULT = new MainClass(new Type(cname), args, mdBody);
   :}
-  | CLASS CNAME:cname LBRACE error VOID MAIN LPAREN FmlList:args RPAREN MdBody:mdBody RBRACE
-  {:
-    report_fatal_error("Main class should only have one method", null);
-    RESULT = new MainClass(new Type(cname), args, mdBody);
-  :}
-  ;
+   ;
+
+
 
 ClassDeclList
 ::= ClassDeclList:classDeclList ClassDecl:classDecl
@@ -186,6 +187,17 @@ ClassDecl
 ::= CLASS CNAME:cname LBRACE VarDeclList:varDeclList MdDeclList:mdDeclList RBRACE
   {:
     RESULT = new ClassDecl(new Type(cname), varDeclList, mdDeclList);
+  :}
+  // Panic mode recovery! Skip token until '}', ignore methods and extra declarations
+  | CLASS CNAME:cname LBRACE VarDeclList:varDeclList  error:e RBRACE
+  {:
+    report_error(eleft, eright, MALFORMED_CLASS);
+    RESULT = new ClassDecl(new Type(cname), varDeclList, new LinkedList<>());
+  :}
+  | CLASS ID:id LBRACE VarDeclList:varDeclList MdDeclList:mdDeclList RBRACE
+  {:
+    report_error(idleft, idright, ILLIGAL_CLASSNAME);
+    RESULT = new ClassDecl(new Type(id), varDeclList, mdDeclList);
   :}
   ;
 
@@ -206,6 +218,17 @@ VarDecl
   {:
     RESULT = new VarDecl(type, new Id(id));
   :}
+| Type:type CNAME:cname SEMI
+    {:
+      report_error(cnameleft, cnameright, ILLIGAL_CLASSNAME);
+      RESULT = new VarDecl(type, new Id(cname));
+        :}
+| Type:type ID:id
+    {:
+      report_error(idleft, idright, MISSING_SEMI);
+      RESULT = new VarDecl(type, new Id(id));
+    :}
+
   ;
 
 MdDecl
@@ -213,6 +236,11 @@ MdDecl
   {:
     RESULT = new MdDecl(type, new Id(id), args, mdBody);
   :}
+  | Type:type CNAME:cname LPAREN FmlList:args RPAREN MdBody:mdBody
+      {:
+        report_error(cnameleft, cnameright, ILLIGAL_ID);
+        RESULT = new MdDecl(type, new Id(cname), args, mdBody);
+      :}
 
   ;
 
@@ -234,6 +262,12 @@ FmlList
     args.addFirst(new Argument(type, new Id(id)));
     RESULT = args;
   :}
+  | Type:type CNAME:cname FmlRest:args
+      {:
+        report_error(cnameleft, cnameright, ILLIGAL_ID);
+        args.addFirst(new Argument(type, new Id(cname)));
+        RESULT = args;
+      :}
   |
   {:
     RESULT = new LinkedList<>();
@@ -479,6 +513,12 @@ ASExp
   {:
     RESULT = new BinaryExpression(new PlusOperator(), exp, term);
   :}
+  // example of panic mode recovery (https://www.geeksforgeeks.org/error-handling-compiler-design/)
+  | ASExp:exp PLUS:op error:e Term:term
+  {:
+    report_error(eleft, eright, "Failed to parse arithmetic expression.");
+    RESULT = new BinaryExpression(new PlusOperator(), exp, term);
+   :}
   | ASExp:exp1 MINUS:op Term:term
   {:
     RESULT = new BinaryExpression(new MinusOperator(), exp1, term);

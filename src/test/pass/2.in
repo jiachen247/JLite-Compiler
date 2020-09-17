@@ -1,4 +1,6 @@
-/* Mainly test multiple class (defined later but referenced first),
+/*
+    Sample program 2 (provided)
+    Mainly test multiple class (defined later but referenced first),
     Variable shadowing in Dummy class,
     chained field access expressions,
     e.g. this.getCompute().square(-3);

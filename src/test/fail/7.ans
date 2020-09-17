@@ -1,0 +1,9 @@
+Syntax error
+instead expected token classes are []
+Error in line 1, column 1 : Failed to find a Main class! Jlite expects a the first class to be a Main class containing exactly one main method of type Void. Eg. Void main(...) { ... }.
+         Common causes of this include,
+                - missing main class
+                - misspelling the 'main' function
+                - having a return type other than `Void`
+                - having additional functions in the main class
+null

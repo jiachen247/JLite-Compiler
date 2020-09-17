@@ -1,4 +1,4 @@
-/* This test ensure lexical analyzer is working as intended with the JLite specification*/
+/* This test ensure lexical analyzer is working as intended with the JLite specification */
 class Main {
     Void main() {
         // identifiers should start with a lower letter

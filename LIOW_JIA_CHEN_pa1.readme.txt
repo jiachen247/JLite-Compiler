@@ -23,17 +23,24 @@ to compare with output
 
 
 ## Error Handling
-1. Line Numbers
+1. Line Numbers - using `left` and `right` from cup we are able to pinpoint the exact location of an error.
 2. Error Productions
 
 ## Test Cases
 test cases can be found at `src/main/test`, <id>.in corresponds with <id>.ans
 
-1. test 1 - First example program
-2. test 2 - Second example program
-3. test 3 - Test for lexer features
-3. test 4 - Test for CFG grammar features
-4. test 5 - Test for string concatenation grammar
-5. test 6 - Edge cases failure
-6. test 7 - Error production test cases
 
+### PASS
+1. test 1 - First example program (provided in assignment)
+2. test 2 - Second example program (provided in assignment)
+3. test 3 - Sample Fib function
+3. test 4 - Test for lexical analyzer
+3. test 5 - Test for parser
+4. test 6 - Test for string concatenation grammar
+
+### FAIL
+1. test 7 - Empty Program
+2. test 8 - Missing main function
+3. test 9 - Missing Semicolon
+4. test 10 - Wrong naming
+5. test 11 - Example of Panic Mode Recovery

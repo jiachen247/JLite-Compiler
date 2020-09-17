@@ -1,0 +1,32 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void main() {
+		Int aABCD_aasckln123;
+		String string;
+		Bool bool;
+		aABCD_aasckln123 = 1234567890;
+		string = "hello world";
+		bool = false;
+		bool = true;
+		uninitialized = [[hello, world](&&), true](||);
+		id = [[[[[[1, 2](>), [1, 2](<)](||), [1, 2](<=)](||), [1, 3](>=)](||), [1, 1](!=)](||), [1, 1](==)](||);
+		id = [1, [2, 3](*)](+);
+		id = [[1, 1](+), [[2, 3](*), 4](/)](-);
+		id = [1, 0](/);
+		id = (-)[1];
+		id = (!)[abc];
+		id = [(!)[true], (!)[false]](||);
+		id = [["string 1", "string 2"](+), atom1](+);
+		return;
+	}
+}
+
+class Dummy_123 {
+
+	Void get() {
+		Return 1;
+	}
+}
+
+

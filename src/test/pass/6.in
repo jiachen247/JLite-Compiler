@@ -1,9 +1,7 @@
 /*
     This input tests string concatenation operations.
-    I had to rework the grammar a little due to ambiguity in the grammar.
+    I had to rework the grammar a little due to remove ambiguity in the grammar.
 */
-
-
 class Main {
     Void main() {
         id = "str1" + "str1";
