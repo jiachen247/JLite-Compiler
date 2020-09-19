@@ -1,3 +1,4 @@
+jiachen@jiachenscomputer-697 jlite % java -cp ./bin/java-cup-11b.jar:out Main  src/test/fail/10.in
 Error in line 14, column 25 : Identifiers should start with a lower case letter.
 Error in line 15, column 13 : Class name should start with a upper case letter.
 Error in line 16, column 13 : Class name should start with a upper case letter.
@@ -5,3 +6,4 @@ Error in line 18, column 13 : Class name should start with a upper case letter.
 Error in line 14, column 10 : Identifiers should start with a lower case letter.
 Error in line 12, column 7 : Class name should start with a upper case letter.
 Failed to parse program. 6 errors found. Please fix them and then try again!
+jiachen@jiachenscomputer-697 jlite %

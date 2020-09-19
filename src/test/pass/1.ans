@@ -1,6 +1,5 @@
 Successfully parsed program! :-)
 
-
 class Main {
 	Void main(Int i, Int a, Int b, Int d) {
 		While (true) {

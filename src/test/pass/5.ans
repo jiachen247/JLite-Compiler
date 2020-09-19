@@ -1,0 +1,56 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void main(Int x, Int y, Int x) {
+		return;
+	}
+}
+
+class Class1 {
+	Int a;
+	Bool b;
+	String c;
+	NewClass newClass;
+
+	NewClass method5() {
+		Return new NewClass();
+	}
+	String method4() {
+		Return "empty";
+	}
+	Bool method3() {
+		Return true;
+	}
+	Int method2() {
+		Return 1;
+	}
+	Void method1(Int arg1, Void arg2) {
+		Int a;
+		Bool b;
+		String c;
+		NewClass newclass;
+		If ([1, 1](==)) {
+			return;
+		} else {
+			return;
+		}
+		id = atom.id;
+		id = [atom(1, 2, 3)];
+		id = this;
+		id = id;
+		id = new NewClass();
+		id = (-)[(0)];
+		id = null;
+		return;
+	}
+}
+
+class Class2 {
+
+}
+
+class Class3 {
+
+}
+
+

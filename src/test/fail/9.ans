@@ -1,2 +1,4 @@
+jiachen@jiachenscomputer-697 jlite % java -cp ./bin/java-cup-11b.jar:out Main  src/test/fail/9.in
 Error in line 12, column 9 : Missing a semicolon
 Failed to parse program. 1 errors found. Please fix them and then try again!
+jiachen@jiachenscomputer-697 jlite %

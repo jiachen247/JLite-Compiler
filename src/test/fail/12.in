@@ -1,0 +1,13 @@
+/* Other errors caught */
+
+class Main {
+    Void main() {
+       return 1;
+    }
+}
+
+class Dummy {
+    Int method() {
+        Int x;
+    }
+}

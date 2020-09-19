@@ -1,4 +1,4 @@
-Syntax error at character 3 of input
-instead expected token classes are [MINUS, LPAREN, THIS, NEW, NULL, INTEGER_LITERAL, STRING_LITERAL, ID]
+jiachen@jiachenscomputer-697 jlite % java -cp ./bin/java-cup-11b.jar:out Main  src/test/fail/11.in
 Error in line 4, column 15 : Failed to parse arithmetic expression.
 Failed to parse program. 1 errors found. Please fix them and then try again!
+jiachen@jiachenscomputer-697 jlite %

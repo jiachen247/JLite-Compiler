@@ -31,11 +31,14 @@ import java.util.*;
    line and column number of the error). */
 parser code {:
     int errorCount = 0;
-    String MISSING_MAIN_CLASS_ERROR = "Failed to find a Main class! Jlite expects a the first class to be a Main class containing exactly one main method of type Void. Eg. Void main(...) { ... }. \n\t Common causes of this include, \n\t\t- missing main class \n\t\t- misspelling the 'main' function \n\t\t- having a return type other than `Void` \n\t\t- having additional functions in the main class";
-    String MALFORMED_CLASS = "Failed to parse Class! Did you forget to group all your class variable declarations at the top before all the methods?";
+    String METHOD_BODY_ERROR = "Error in method body!";
+    String GENERIC_FAIL_ERROR = "Failed to parse input program! Common errors include, \t\n - trying to parse an empty program \t\n - typos or spelling mistakes\n";
+    String MISSING_MAIN_CLASS_ERROR = "Failed to find a Main class! Jlite expects a the first class to be a Main class containing exactly one main method of type Void. Eg. Void main(...) { ... }. \n\t Common causes of this include, \n\t\t- missing main class \n\t\t- misspelling the name of the 'main' function \n\t\t- having a return type other than `Void` \n\t\t- having additional functions in the main class";
+    String MALFORMED_CLASS = "Error in class! Common errors, include forgetting to group all your class variable declarations at the top before all the methods.";
     String MISSING_SEMI = "Missing a semicolon";
-    String ILLIGAL_CLASSNAME = "Class name should start with a upper case letter.";
-    String ILLIGAL_ID = "Identifiers should start with a lower case letter.";
+    String ILLEGAL_CLASSNAME = "Class name should start with a upper case letter.";
+    String ILLEGAL_ID = "Identifiers should start with a lower case letter.";
+    String MISSING_STMT_IN_MDBODY = "Method body has to contain at least one statement!";
     /* Change the method report_error so it will display the line and
        column of where the error occurred in the input as well as the
        reason for the error which is passed into the method in the
@@ -155,9 +158,9 @@ Program
     System.out.println("Successfully parsed program! :-)\n");
     RESULT = new Program(mainClass, classDeclList);
   :}
-  | error:e ClassDeclList:classDeclList
+  | error:e
   {:
-    report_error(eleft, eright, MISSING_MAIN_CLASS_ERROR);
+    report_error(eleft, eright, GENERIC_FAIL_ERROR);
     report_error_summary();
   :}
   ;
@@ -167,9 +170,13 @@ MainClass
   {:
     RESULT = new MainClass(new Type(cname), args, mdBody);
   :}
+
+  | CLASS error:e RBRACE
+    {:
+      report_error(eleft, eright, MISSING_MAIN_CLASS_ERROR);
+      RESULT = new MainClass(new Type(""), new LinkedList<>(), null);
+    :}
    ;
-
-
 
 ClassDeclList
 ::= ClassDeclList:classDeclList ClassDecl:classDecl
@@ -196,8 +203,13 @@ ClassDecl
   :}
   | CLASS ID:id LBRACE VarDeclList:varDeclList MdDeclList:mdDeclList RBRACE
   {:
-    report_error(idleft, idright, ILLIGAL_CLASSNAME);
+    report_error(idleft, idright, ILLEGAL_CLASSNAME);
     RESULT = new ClassDecl(new Type(id), varDeclList, mdDeclList);
+  :}
+  | CLASS error:e RBRACE
+  {:
+    report_error(eleft, eright, MALFORMED_CLASS);
+    RESULT = new ClassDecl(new Type(""), new LinkedList<>(), new LinkedList<>());
   :}
   ;
 
@@ -220,7 +232,7 @@ VarDecl
   :}
 | Type:type CNAME:cname SEMI
     {:
-      report_error(cnameleft, cnameright, ILLIGAL_CLASSNAME);
+      report_error(cnameleft, cnameright, ILLEGAL_CLASSNAME);
       RESULT = new VarDecl(type, new Id(cname));
         :}
 | Type:type ID:id
@@ -237,11 +249,10 @@ MdDecl
     RESULT = new MdDecl(type, new Id(id), args, mdBody);
   :}
   | Type:type CNAME:cname LPAREN FmlList:args RPAREN MdBody:mdBody
-      {:
-        report_error(cnameleft, cnameright, ILLIGAL_ID);
-        RESULT = new MdDecl(type, new Id(cname), args, mdBody);
-      :}
-
+  {:
+    report_error(cnameleft, cnameright, ILLEGAL_ID);
+    RESULT = new MdDecl(type, new Id(cname), args, mdBody);
+  :}
   ;
 
 MdDeclList
@@ -264,7 +275,7 @@ FmlList
   :}
   | Type:type CNAME:cname FmlRest:args
       {:
-        report_error(cnameleft, cnameright, ILLIGAL_ID);
+        report_error(cnameleft, cnameright, ILLEGAL_ID);
         args.addFirst(new Argument(type, new Id(cname)));
         RESULT = args;
       :}
@@ -314,6 +325,16 @@ MdBody
 ::= LBRACE VarDeclList:varDeclList Stmts:stmts RBRACE
   {:
     RESULT = new MdBody(varDeclList, stmts);
+  :}
+  | LBRACE VarDeclList:varDeclList RBRACE:r
+  {:
+    report_error(rleft, rright, MISSING_STMT_IN_MDBODY);
+    RESULT = new MdBody(varDeclList, new LinkedList<>());
+  :}
+  | LBRACE error:e RBRACE
+  {:
+    report_error(eleft, eright, METHOD_BODY_ERROR);
+    RESULT = new MdBody(new LinkedList<>(), new LinkedList<>());
   :}
   ;
 
