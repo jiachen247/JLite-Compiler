@@ -65,9 +65,7 @@ class TestOverloaded {
 }
 
 class TestRedeclaration {
-    Int a;
-
-    Int a(Int a) {
+    Int method(Int a) {
         Int a;
         return 0;
     }

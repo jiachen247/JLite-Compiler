@@ -50,12 +50,13 @@ public class NameChecker implements Checker {
                 isValid = false;
             }
 
-            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
-                if (varNames.contains(mdDecl.getSignature().id.name)) {
-                    error("Variable and function within a class cannot share the same name. " + mdDecl.getSignature().id.name);
-                    isValid = false;
-                }
-            }
+            // This is actually allowed in java
+//            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
+//                if (varNames.contains(mdDecl.getSignature().id.name)) {
+//                    error("Variable and function within a class cannot share the same name. " + mdDecl.getSignature().id.name);
+//                    isValid = false;
+//                }
+//            }
         }
         return isValid;
     }
@@ -172,7 +173,7 @@ public class NameChecker implements Checker {
     }
 
     private void error(String e) {
-        System.out.println("NameChecker Error: " + e);
+        System.out.println("[NameChecker]: " + e);
     }
 
     // check if list contains distinct / unique objects

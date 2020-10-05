@@ -2,6 +2,7 @@ package main.java.parsetree.statement;
 
 import main.java.parsetree.shared.Id;
 import main.java.parsetree.expression.Expression;
+import main.java.staticcheckers.type.Environment;
 
 public class PropertyAssignmentStatement extends Statement {
 
@@ -18,5 +19,10 @@ public class PropertyAssignmentStatement extends Statement {
     @Override
     public String toString() {
         return String.format("%s.%s = %s", object, property, expression);
+    }
+
+    @Override
+    public boolean typeCheck(Environment env) {
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package main.java.parsetree.statement;
 
 import main.java.parsetree.expression.Expression;
+import main.java.staticcheckers.type.Environment;
 
 public class PrintLineStatement extends Statement {
     private Expression expr;
@@ -12,5 +13,10 @@ public class PrintLineStatement extends Statement {
     @Override
     public String toString() {
         return "println(" + expr.toString() + ");";
+    }
+
+    @Override
+    public boolean typeCheck(Environment env) {
+        return true;
     }
 }

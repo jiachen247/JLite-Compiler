@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Helper;
+import main.java.staticcheckers.type.Environment;
 
 public class IfStatement extends Statement {
 
@@ -23,5 +24,10 @@ public class IfStatement extends Statement {
             Helper.getInstance().indent(
                 Helper.getInstance().join(ifBlock)),
                 Helper.getInstance().indent(Helper.getInstance().join(elseBlock)));
+    }
+
+    @Override
+    public boolean typeCheck(Environment env) {
+        return false;
     }
 }

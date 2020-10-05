@@ -24,6 +24,7 @@ import java.io.FileReader;
 import main.java.parsetree.Program;
 import main.java.staticcheckers.Checker;
 import main.java.staticcheckers.NameChecker;
+import main.java.staticcheckers.TypeChecker;
 
 
 public class Main {
@@ -38,11 +39,21 @@ public class Main {
 
             Checker nameChecker = new NameChecker(program);
 
-            if (nameChecker.isOK()) {
-                System.out.println("Distinct Name Checker: PASS");
-            } else {
-                System.out.println("Distinct Name Checker: FAIL");
+            if (!nameChecker.isOK()) {
+                System.out.println("[1/2] DistinctNameChecker: FAIL");
+                return;
             }
+
+            System.out.println("[1/2] DistinctNameChecker: PASS");
+
+            Checker typeChecker = new TypeChecker(program);
+
+            if (!typeChecker.isOK()) {
+                System.out.println("[2/2] TypeChecker: FAIL");
+                return;
+            }
+            System.out.println("[2/2] TypeChecker: PASS");
+            // proceed to gen IR
 
         } catch (Exception e) {
             /* do cleanup here -- possibly rethrow e */

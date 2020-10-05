@@ -12,6 +12,7 @@ public class MdDecl implements Node {
 
     public final MdSignature signature;
     public final List<Argument> arguments;
+    public final MdBody mdBody;
 
     public MdSignature getSignature() {
         return signature;
@@ -25,7 +26,7 @@ public class MdDecl implements Node {
         return mdBody;
     }
 
-    public final MdBody mdBody;
+
 
     public MdDecl(Type type, Id id, List<Argument> args, MdBody mdBody) {
         this.signature = new MdSignature(type, id, args.stream().map(arg -> arg.type).collect(Collectors.toList()));

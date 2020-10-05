@@ -1,6 +1,7 @@
 package main.java.parsetree.statement;
 
 import main.java.parsetree.shared.Id;
+import main.java.staticcheckers.type.Environment;
 
 public class ReadLineStatement extends Statement {
     private Id id;
@@ -12,5 +13,10 @@ public class ReadLineStatement extends Statement {
     @Override
     public String toString() {
         return "readln(" + id.toString() + ");";
+    }
+
+    @Override
+    public boolean typeCheck(Environment env) {
+        return false;
     }
 }

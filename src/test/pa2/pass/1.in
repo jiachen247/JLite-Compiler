@@ -68,7 +68,7 @@ class TestD {
 // Some allowed edge cases
 class Edge {
     Int a;
-    Int method1(Int a) { // shadowing is allowed
+    Int a(Int a) { // class field and method can have the same name
         return 1;
     }
 

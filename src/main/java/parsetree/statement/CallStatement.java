@@ -1,6 +1,7 @@
 package main.java.parsetree.statement;
 
 import main.java.parsetree.expression.CallExpression;
+import main.java.staticcheckers.type.Environment;
 
 public class CallStatement extends Statement {
 
@@ -15,4 +16,8 @@ public class CallStatement extends Statement {
         return callExpression.toString() + ";";
     }
 
+    @Override
+    public boolean typeCheck(Environment env) {
+        return true;
+    }
 }

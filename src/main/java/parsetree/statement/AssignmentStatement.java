@@ -3,6 +3,7 @@ package main.java.parsetree.statement;
 
 import main.java.parsetree.shared.Id;
 import main.java.parsetree.expression.Expression;
+import main.java.staticcheckers.type.Environment;
 
 public class AssignmentStatement extends Statement {
 
@@ -17,5 +18,10 @@ public class AssignmentStatement extends Statement {
     @Override
     public String toString() {
         return String.format("%s = %s;", id, expression);
+    }
+
+    @Override
+    public boolean typeCheck(Environment env) {
+        return true;
     }
 }

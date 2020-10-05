@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Helper;
+import main.java.staticcheckers.type.Environment;
 
 public class WhileStatement extends Statement {
 
@@ -20,5 +21,10 @@ public class WhileStatement extends Statement {
         return String.format("While (%s) {\n%s}\n",
             conditionPredicate.toString(),
             Helper.getInstance().indent(Helper.getInstance().join(stmts)));
+    }
+
+    @Override
+    public boolean typeCheck(Environment env) {
+        return false;
     }
 }

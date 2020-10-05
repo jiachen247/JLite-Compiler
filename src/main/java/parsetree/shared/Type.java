@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import main.java.parsetree.Node;
 
+
 public class Type implements Node {
 
     public String getName() {
