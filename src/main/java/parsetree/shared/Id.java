@@ -4,7 +4,7 @@ import main.java.parsetree.Node;
 
 public class Id implements Node {
 
-    private String name;
+    public String name;
 
     public Id(String name) {
         this.name = name;

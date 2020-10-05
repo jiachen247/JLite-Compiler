@@ -6,11 +6,17 @@ Notes:
 Relaxed Grammar - Note that i relaxed the grammar a little bit to to handle `Atom + Atom` ambigioury introducted by the string concatination operator! see test case 12 for more examples.
 When we introduce type checking next,  we will handle the type mismatch class of errors such as `1 + "2"`.
 
+Adapted base project from https://github.com/moy/JFlex/tree/master/jflex/examples/cup
+
 ## Building and running
+
+To build
+```
+$ make
+```
 
 To run with input from file
 ```
-$ make
 $ java -cp ./bin/java-cup-11b.jar:out Main  src/test/pass/1.in
 ```
 

@@ -1,0 +1,75 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void main() {
+		Return 1;
+	}
+}
+
+class TestA {
+	Int a;
+	Int b;
+	Int c;
+
+}
+
+class TestB {
+	Int a;
+	Int b;
+	Int c;
+
+}
+
+class TestB1 {
+	Int a;
+	Int b;
+	Int c;
+
+}
+
+class TestC {
+
+	Int method1(Int a, Int b) {
+		Return 1;
+	}
+}
+
+class TestD {
+
+	Void methodOverloaded(Int a, Int b, Int c) {
+		Return false;
+	}
+	Bool methodOverloaded(Int a, Int b) {
+		Return true;
+	}
+	Int methodOverloaded(Int a) {
+		Return 1;
+	}
+	Int methodOverloaded() {
+		Return 0;
+	}
+	Int method2(Int a, Int b) {
+		Return 1;
+	}
+	Int method1(Int a, Int b) {
+		Return 1;
+	}
+}
+
+class Edge {
+	Int a;
+
+	Int b(Int b) {
+		Return 1;
+	}
+	Int method2() {
+		Int a;
+		Return 1;
+	}
+	Int method1(Int a) {
+		Return 1;
+	}
+}
+
+
+Distinct Name Checker: PASS

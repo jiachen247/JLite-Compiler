@@ -22,6 +22,8 @@
 import java.io.FileReader;
 
 import main.java.parsetree.Program;
+import main.java.staticcheckers.Checker;
+import main.java.staticcheckers.NameChecker;
 
 
 public class Main {
@@ -29,9 +31,18 @@ public class Main {
         /* Start the parser */
         try {
             parser p = new parser(new Lexer(new FileReader(argv[0])));
-            Program result = (Program) p.parse().value;
+            Program program = (Program) p.parse().value;
 
-            System.out.println(result);
+
+            System.out.println(program);
+
+            Checker nameChecker = new NameChecker(program);
+
+            if (nameChecker.isOK()) {
+                System.out.println("Distinct Name Checker: PASS");
+            } else {
+                System.out.println("Distinct Name Checker: FAIL");
+            }
 
         } catch (Exception e) {
             /* do cleanup here -- possibly rethrow e */

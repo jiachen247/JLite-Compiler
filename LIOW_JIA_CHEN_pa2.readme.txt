@@ -1,0 +1,17 @@
+
+
+
+## Overloading (Distinct Name Checker)
+
+I implemented a mechanism for allowing method overloading by introducing a method signature which includes the method name and the argument type
+We allow overloading iff method signature are different.
+Method signatures are equal iff method name are the same and arg types are the identical (order matters)
+This is derived from overloading rules from modern languages.
+See implementation of ClassDecl::checkUniqueMethodSignature for impl details.
+
+- Overloaded methods MUST change the argument type list
+- Overloaded methods CAN change the return type
+- Overloaded methods CAN change the access modifier (not applicable to jlite)
+- Overloaded methods CAN declare new or broader checked exceptions (not applicable to jlite)
+- A method can be overloaded in the same class or in a subclass (not applicable to jlite)
+https://stackoverflow.com/questions/2807840/is-it-possible-to-have-different-return-types-for-a-overloaded-method

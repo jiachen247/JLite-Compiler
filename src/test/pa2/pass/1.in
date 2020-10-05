@@ -1,0 +1,83 @@
+/* Test for Distinct-Name Checking */
+
+
+class Main {
+    Void main(){
+        return 1;
+    }
+}
+
+// (A) No two fields in a class can have the same name.
+class TestA {
+    Int a;
+    Int b;
+    Int c;
+}
+
+
+// (B) No two classes can be declared in a program with the same (class) name.
+class TestB {
+    Int a;
+    Int b;
+    Int c;
+}
+
+class TestB1 {
+    Int a;
+    Int b;
+    Int c;
+}
+
+// (C) No two parameters in a method declaration can have the same name.
+class TestC {
+    Int method1(Int a, Int b) {
+     return 1;
+    }
+}
+
+ // (D) No two methods within a class declaration can have the same name.
+class TestD {
+    Int method1(Int a, Int b) {
+    return 1;
+    }
+
+    Int method2(Int a,  Int b) {
+        return 1;
+    }
+
+    Int  methodOverloaded() {
+        return 0;
+    }
+
+    Int methodOverloaded(Int a) {
+        return 1;
+    }
+
+
+    Bool methodOverloaded(Int a, Int b) {
+        return true;
+    }
+
+    // different return type is allowed if arg types are different
+    Void methodOverloaded(Int a, Int b, Int c) {
+        return false;
+    }
+}
+
+
+// Some allowed edge cases
+class Edge {
+    Int a;
+    Int method1(Int a) { // shadowing is allowed
+        return 1;
+    }
+
+    Int method2() {
+        Int a; // shadowing is allowed
+        return 1;
+    }
+
+    Int b(Int b) { // also allowed.
+        return 1;
+    }
+}

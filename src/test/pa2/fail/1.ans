@@ -1,0 +1,82 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void main() {
+		Return 1;
+	}
+}
+
+class TestA {
+	Int a;
+	Int a;
+
+}
+
+class TestB {
+	Int a;
+	Int b;
+	Int c;
+
+}
+
+class TestB {
+	Int d;
+	Int e;
+	Int f;
+
+}
+
+class TestC {
+
+	Int method1(Int z, String z) {
+		Return 1;
+	}
+}
+
+class TestD {
+
+	Int method1() {
+		Return 1;
+	}
+	Int method1() {
+		Return 1;
+	}
+}
+
+class TestOverloaded {
+
+	Int overload(Int b) {
+		Return 1;
+	}
+	Void overload(Int a) {
+		Return 1;
+	}
+	Int overload(Int a) {
+		Return 1;
+	}
+	Int overload() {
+		Return 1;
+	}
+}
+
+class TestRedeclaration {
+	Int a;
+
+	Int a(Int a) {
+		Int a;
+		Return 0;
+	}
+}
+
+
+NameChecker Error: Found duplicate class name.
+NameChecker Error: Found duplicate class variable name. [a, a]
+NameChecker Error: Variable and function within a class cannot share the same name. a
+NameChecker Error: Found duplicate parameter names. [z, z]
+NameChecker Error: Failed to overlaod, found duplicate method signature.
+NameChecker Error: Failed to overlaod, found duplicate method signature.
+NameChecker Error: Failed to overlaod, found duplicate method signature.
+NameChecker Error: Failed to overlaod, found duplicate method signature.
+NameChecker Error: Variable has already been declared in method parameters.
+NameChecker Error: Variable has already been declared in method parameters.
+Distinct Name Checker: FAIL

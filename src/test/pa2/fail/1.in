@@ -1,0 +1,74 @@
+/* Fail Test for Distinct-Name Checking */
+
+class Main {
+    Void main(){
+        return 1;
+    }
+}
+
+// (A) No two fields in a class can have the same name.
+class TestA {
+    Int a;
+    Int a;
+}
+
+
+// (B) No two classes can be declared in a program with the same (class) name.
+class TestB {
+    Int a;
+    Int b;
+    Int c;
+}
+
+class TestB {
+    Int d;
+    Int e;
+    Int f;
+}
+
+// (C) No two parameters in a method declaration can have the same name.
+class TestC {
+    Int method1(Int z, String z) {
+        return 1;
+    }
+}
+
+ // (D) No two methods within a class declaration can have the same name.
+class TestD {
+    Int method1() {
+        return 1;
+    }
+
+    Int method1() {
+        return 1;
+    }
+}
+
+class TestOverloaded {
+    Int overload() {
+         return 1;
+    }
+
+    Int overload(Int a) {
+        return 1;
+    }
+
+    // not allowed (same arg type)
+    Void overload(Int a) {
+        return 1;
+    }
+
+    // not allowed (md signature still the same)
+    Int overload(Int b) {
+        return 1;
+    }
+}
+
+class TestRedeclaration {
+    Int a;
+
+    Int a(Int a) {
+        Int a;
+        return 0;
+    }
+}
