@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Helper;
+import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
 public class IfStatement extends Statement {
@@ -27,7 +28,12 @@ public class IfStatement extends Statement {
     }
 
     @Override
-    public boolean typeCheck(Environment env) {
-        return false;
+    public BasicType typeCheck(Environment env) {
+        if (!condition.typeCheck(env).equals(BasicType.BOOL_TYPE)) {
+            return BasicType.ERROR_TYPE;
+        }
+
+        // to refractor into blocks
+        return BasicType.NULL_TYPE;
     }
 }

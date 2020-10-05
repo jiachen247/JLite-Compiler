@@ -3,11 +3,14 @@ package main.java.staticcheckers.type;
 import main.java.parsetree.shared.Type;
 
 public class BasicType {
+    public String getName() {
+        return name;
+    }
+
     private String name;
 
 
-
-    public  BasicType(String name) {
+    public BasicType(String name) {
         this.name = name;
     }
 
@@ -39,4 +42,8 @@ public class BasicType {
     public static BasicType STRING_TYPE = new BasicType("String");
     public static BasicType CHAR_TYPE = new BasicType("Char");
     public static BasicType BOOL_TYPE = new BasicType("Bool");
+
+    // for internal use only
+    public static BasicType NULL_TYPE = new BasicType("null");
+    public static BasicType ERROR_TYPE = new BasicType("error");
 }

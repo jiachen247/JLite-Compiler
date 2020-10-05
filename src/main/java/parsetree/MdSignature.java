@@ -5,15 +5,13 @@ import java.util.Objects;
 
 import main.java.parsetree.shared.Id;
 import main.java.parsetree.shared.Type;
+import main.java.staticcheckers.type.BasicType;
 
 public class MdSignature {
-
-    public final Type returnType;
     public final Id id;
-    public final List<Type> argTypes;
+    public final List<BasicType> argTypes;
 
-    public MdSignature(Type returnType, Id id, List<Type> types) {
-        this.returnType = returnType;
+    public MdSignature(Id id, List<BasicType> types) {
         this.id = id;
         this.argTypes = types;
     }

@@ -5,6 +5,14 @@ import java.util.List;
 import main.java.parsetree.shared.Type;
 
 public class FunctionType {
+    public List<BasicType> getParametersType() {
+        return parametersType;
+    }
+
+    public BasicType getReturnType() {
+        return returnType;
+    }
+
     private List<BasicType> parametersType;
     private BasicType returnType;
 

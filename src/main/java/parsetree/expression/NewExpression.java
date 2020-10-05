@@ -2,6 +2,8 @@ package main.java.parsetree.expression;
 
 
 import main.java.parsetree.shared.Type;
+import main.java.staticcheckers.type.BasicType;
+import main.java.staticcheckers.type.Environment;
 
 public class NewExpression extends Expression {
 
@@ -16,4 +18,8 @@ public class NewExpression extends Expression {
         return "new " + type.toString() + "()";
     }
 
+    @Override
+    public BasicType typeCheck(Environment env) {
+        return BasicType.fromType(type);
+    }
 }

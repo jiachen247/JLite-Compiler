@@ -7,12 +7,19 @@ import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Id;
 import main.java.parsetree.shared.Type;
+import main.java.staticcheckers.type.BasicType;
 
 public class MdDecl implements Node {
 
     public final MdSignature signature;
     public final List<Argument> arguments;
     public final MdBody mdBody;
+
+    public BasicType getReturnType() {
+        return returnType;
+    }
+
+    public final BasicType returnType;
 
     public MdSignature getSignature() {
         return signature;
@@ -29,15 +36,16 @@ public class MdDecl implements Node {
 
 
     public MdDecl(Type type, Id id, List<Argument> args, MdBody mdBody) {
-        this.signature = new MdSignature(type, id, args.stream().map(arg -> arg.type).collect(Collectors.toList()));
+        this.signature = new MdSignature(id, args.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList()));
         this.arguments = args;
         this.mdBody = mdBody;
+        this.returnType = BasicType.fromType(type);
     }
 
     @Override
     public String toString() {
         return String.format("%s %s(%s) {\n%s}",
-            signature.returnType.toString(),
+            returnType.toString(),
             signature.id.toString(), Helper.getInstance().concat(arguments),
             mdBody.toString());
     }

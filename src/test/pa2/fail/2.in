@@ -1,0 +1,17 @@
+/* Fail Test for Type Checking */
+
+class Main {
+    Void main(){
+        return 1;
+    }
+}
+
+class TestA {
+    Void method(Int a) {
+        return ;
+    }
+
+    Int method(bool b) {
+        return true;
+    }
+}

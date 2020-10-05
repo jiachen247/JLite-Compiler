@@ -1,5 +1,8 @@
 package main.java.parsetree.expression;
 
+import main.java.staticcheckers.type.BasicType;
+import main.java.staticcheckers.type.Environment;
+
 public class NullLiteral extends Expression {
 
     @Override
@@ -8,4 +11,8 @@ public class NullLiteral extends Expression {
     }
 
 
+    @Override
+    public BasicType typeCheck(Environment env) {
+        return BasicType.NULL_TYPE;
+    }
 }

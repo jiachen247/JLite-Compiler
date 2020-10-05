@@ -1,4 +1,4 @@
-/* Test for Distinct-Name Checking */
+/* Test for TypeChecking for Expression */
 
 class Main {
     Void main(){
@@ -6,15 +6,21 @@ class Main {
     }
 }
 
-// (D) No two methods within a class declaration can have the same name.
-class TestD {
+class ClassA {
 
-    // different return type
-    Bool methodOverloaded(Int a, Int b) {
-        return true;
+}
+
+class ClassB {
+
+}
+
+class ClassC {
+
+}
+
+class Test1 {
+    Void method() {
+        Int a = getA();
     }
 
-    Bool methodOverloaded(Int a, Int b) {
-        return false;
-    }
 }

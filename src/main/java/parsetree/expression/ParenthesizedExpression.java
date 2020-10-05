@@ -1,6 +1,9 @@
 package main.java.parsetree.expression;
 
 
+import main.java.staticcheckers.type.BasicType;
+import main.java.staticcheckers.type.Environment;
+
 public class ParenthesizedExpression extends Expression {
     private Expression expression;
 
@@ -13,4 +16,9 @@ public class ParenthesizedExpression extends Expression {
         return "(" + expression.toString() + ")";
     }
 
+
+    @Override
+    public BasicType typeCheck(Environment env) {
+        return expression.typeCheck(env);
+    }
 }

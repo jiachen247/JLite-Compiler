@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Helper;
+import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
 public class WhileStatement extends Statement {
@@ -24,7 +25,7 @@ public class WhileStatement extends Statement {
     }
 
     @Override
-    public boolean typeCheck(Environment env) {
-        return false;
+    public BasicType typeCheck(Environment env) {
+        return BasicType.NULL_TYPE;
     }
 }

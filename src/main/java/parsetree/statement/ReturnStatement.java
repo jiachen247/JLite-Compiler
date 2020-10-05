@@ -2,6 +2,7 @@ package main.java.parsetree.statement;
 
 
 import main.java.parsetree.expression.Expression;
+import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
 public class ReturnStatement extends Statement {
@@ -18,7 +19,7 @@ public class ReturnStatement extends Statement {
     }
 
     @Override
-    public boolean typeCheck(Environment env) {
-        return false;
+    public BasicType typeCheck(Environment env) {
+        return BasicType.NULL_TYPE;
     }
 }
