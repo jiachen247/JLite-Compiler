@@ -3,7 +3,6 @@ package main.java.parsetree.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import main.java.parsetree.MdSignature;
@@ -75,6 +74,6 @@ public class CallExpression extends Expression {
             return BasicType.ERROR_TYPE;
         }
 
-        return  descriptor.getMethods().get(sig).getReturnType();
+        return descriptor.getMethods().get(sig).getReturnType();
     }
 }

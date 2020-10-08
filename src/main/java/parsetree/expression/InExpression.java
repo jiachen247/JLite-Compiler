@@ -2,7 +2,6 @@ package main.java.parsetree.expression;
 
 
 import java.util.List;
-import java.util.Map;
 
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;

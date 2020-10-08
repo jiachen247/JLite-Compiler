@@ -1,6 +1,7 @@
 package main.java.staticcheckers;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import main.java.parsetree.ClassDecl;
@@ -79,7 +80,7 @@ public class NameChecker extends Checker {
 
         HashSet<String> seen = new HashSet<>();
 
-        for (ClassDecl classDecl :  program.getClassDeclList()) {
+        for (ClassDecl classDecl : program.getClassDeclList()) {
             String cname = classDecl.type.getName();
 
             if (cname.equals("Main")) {

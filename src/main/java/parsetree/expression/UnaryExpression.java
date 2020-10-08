@@ -25,7 +25,7 @@ public class UnaryExpression extends Expression {
     }
 
     @Override
-    public BasicType typeCheck(Environment env, List< CheckError > errors) {
+    public BasicType typeCheck(Environment env, List<CheckError> errors) {
         // negation and not
         return expression.typeCheck(env, errors);
     }

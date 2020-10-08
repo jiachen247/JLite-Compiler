@@ -1,10 +1,9 @@
 package main.java.parsetree.statement;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
-import main.java.parsetree.shared.Id;
 import main.java.parsetree.expression.Expression;
+import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
@@ -32,7 +31,7 @@ public class PropertyAssignmentStatement extends Statement {
         BasicType objType = object.typeCheck(env, errors);
         BasicType exprType = expression.typeCheck(env, errors);
 
-        if (objType.equals(BasicType.ERROR_TYPE) || exprType.equals(BasicType.ERROR_TYPE) ) {
+        if (objType.equals(BasicType.ERROR_TYPE) || exprType.equals(BasicType.ERROR_TYPE)) {
             return BasicType.ERROR_TYPE;
         }
 

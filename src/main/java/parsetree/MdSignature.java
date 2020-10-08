@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import main.java.parsetree.shared.Id;
-import main.java.parsetree.shared.Type;
 import main.java.staticcheckers.type.BasicType;
 
 public class MdSignature extends Node {
@@ -42,7 +41,7 @@ public class MdSignature extends Node {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)",id.name, argTypes.stream().map(BasicType::toString).collect(Collectors.joining(",")));
+        return String.format("%s(%s)", id.name, argTypes.stream().map(BasicType::toString).collect(Collectors.joining(",")));
     }
 
 

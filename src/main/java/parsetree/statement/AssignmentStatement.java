@@ -3,8 +3,8 @@ package main.java.parsetree.statement;
 
 import java.util.List;
 
-import main.java.parsetree.shared.Id;
 import main.java.parsetree.expression.Expression;
+import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;

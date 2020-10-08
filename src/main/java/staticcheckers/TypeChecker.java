@@ -17,8 +17,8 @@ import main.java.parsetree.statement.Statement;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.ClassDescriptor;
 import main.java.staticcheckers.type.Environment;
-import main.java.staticcheckers.type.LocalEnvironment;
 import main.java.staticcheckers.type.FunctionType;
+import main.java.staticcheckers.type.LocalEnvironment;
 
 public class TypeChecker extends Checker {
     private HashMap<BasicType, ClassDescriptor> classDescriptors = new HashMap<>();
@@ -120,9 +120,10 @@ public class TypeChecker extends Checker {
 
         return new LocalEnvironment(local, md.returnType);
     }
+
     @Override
     public void printErrors() {
-        for (CheckError e: errors.stream().sorted().collect(Collectors.toList())) {
+        for (CheckError e : errors.stream().sorted().collect(Collectors.toList())) {
             System.out.println(e);
         }
         System.out.println(String.format("%s failed with %d errors. Please fix before proceeding!", "TypeCheck", errors.size()));
@@ -132,7 +133,6 @@ public class TypeChecker extends Checker {
     public static CheckError buildTypeError(int x, int y, String err) {
         return new CheckError(x, y, String.format("[TypeCheck] Error at (%d, %d): %s", x, y, err));
     }
-
 
 
 }

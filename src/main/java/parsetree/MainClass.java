@@ -1,14 +1,10 @@
 package main.java.parsetree;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Type;
-import main.java.staticcheckers.CheckError;
-import main.java.staticcheckers.type.BasicType;
-import main.java.staticcheckers.type.Environment;
 
 public class MainClass extends Node {
 

@@ -1,8 +1,6 @@
 package main.java.parsetree;
 
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Type;

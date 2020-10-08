@@ -27,14 +27,14 @@ public class IfStatement extends Statement {
         return String.format("If (%s) {\n%s} else {\n%s}", condition.toString(),
             Helper.getInstance().indent(
                 Helper.getInstance().join(ifBlock)),
-                Helper.getInstance().indent(Helper.getInstance().join(elseBlock)));
+            Helper.getInstance().indent(Helper.getInstance().join(elseBlock)));
     }
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         BasicType predicate = condition.typeCheck(env, errors);
         if (!predicate.equals(BasicType.BOOL_TYPE)) {
-            System.out.println("If statement expect a boolean function, found " + predicate );
+            System.out.println("If statement expect a boolean function, found " + predicate);
             return BasicType.ERROR_TYPE;
         }
 

@@ -1,8 +1,6 @@
 package main.java.parsetree;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import main.java.parsetree.shared.Helper;
+import java.util.LinkedList;
 
 public class Program extends Node {
 

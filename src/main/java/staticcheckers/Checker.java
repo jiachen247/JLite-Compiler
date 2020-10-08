@@ -1,7 +1,6 @@
 package main.java.staticcheckers;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +14,7 @@ public abstract class Checker {
         this.name = name;
         errors = new ArrayList<>();
     }
+
     public abstract boolean isOK();
 
     public void reportError(Node node, String error) {
@@ -27,7 +27,7 @@ public abstract class Checker {
 
     // print sorted by line
     public void printErrors() {
-        for (CheckError e: errors.stream().sorted().collect(Collectors.toList())) {
+        for (CheckError e : errors.stream().sorted().collect(Collectors.toList())) {
             System.out.println(e);
         }
         System.out.println(String.format("%s failed with %d errors. Please fix before proceeding!", name, errors.size()));

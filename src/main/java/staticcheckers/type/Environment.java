@@ -1,12 +1,11 @@
 package main.java.staticcheckers.type;
 
 import java.util.HashMap;
-import java.util.List;
 
 import main.java.parsetree.shared.Id;
 
 public class Environment {
-    public Environment(HashMap<BasicType, ClassDescriptor>  classDescriptors, ClassDescriptor classContext, LocalEnvironment localEnvironment) {
+    public Environment(HashMap<BasicType, ClassDescriptor> classDescriptors, ClassDescriptor classContext, LocalEnvironment localEnvironment) {
         this.classDescriptors = classDescriptors;
         this.localEnvironment = localEnvironment;
         this.classContext = classContext;
@@ -22,7 +21,7 @@ public class Environment {
 
     private ClassDescriptor classContext;
 
-    public HashMap<BasicType, ClassDescriptor>  getClassDescriptors() {
+    public HashMap<BasicType, ClassDescriptor> getClassDescriptors() {
         return classDescriptors;
     }
 

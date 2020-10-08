@@ -1,7 +1,6 @@
 package main.java.parsetree.statement;
 
 import java.util.List;
-import java.util.jar.JarOutputStream;
 
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;

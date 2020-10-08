@@ -2,8 +2,6 @@ package main.java.staticcheckers.type;
 
 import java.util.List;
 
-import main.java.parsetree.shared.Type;
-
 public class FunctionType {
     public List<BasicType> getParametersType() {
         return parametersType;

@@ -31,7 +31,7 @@ public class WhileStatement extends Statement {
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         BasicType predicate = conditionPredicate.typeCheck(env, errors);
         if (!predicate.equals(BasicType.BOOL_TYPE)) {
-            System.out.println("While statement expect a boolean function, found " + predicate );
+            System.out.println("While statement expect a boolean function, found " + predicate);
             return BasicType.ERROR_TYPE;
         }
 

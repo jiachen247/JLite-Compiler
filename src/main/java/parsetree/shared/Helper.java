@@ -1,6 +1,7 @@
 package main.java.parsetree.shared;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import main.java.parsetree.statement.Statement;

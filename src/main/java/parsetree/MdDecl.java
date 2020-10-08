@@ -34,7 +34,6 @@ public class MdDecl extends Node {
     }
 
 
-
     public MdDecl(int x, int y, Type type, Id id, List<Argument> args, MdBody mdBody) {
         super(x, y);
         this.signature = new MdSignature(type.x, type.y, id, args.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList()));
