@@ -131,7 +131,7 @@ public class TypeChecker extends Checker {
     }
 
     public static CheckError buildTypeError(int x, int y, String err) {
-        return new CheckError(x, y, String.format("[TypeCheck] Error at (%d, %d): %s", x, y, err));
+        return new CheckError(x, y, String.format("[TypeCheck] Error at (%d, %d): %s", x + 1, y + 1, err));
     }
 
 

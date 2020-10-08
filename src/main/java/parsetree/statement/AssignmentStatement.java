@@ -28,7 +28,7 @@ public class AssignmentStatement extends Statement {
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         System.out.println(toString());
-        BasicType idType = env.lookup(id);
+        BasicType idType = env.lookup(id); // todo need to check for error
         BasicType expType = expression.typeCheck(env, errors);
         if (idType.equals(BasicType.ERROR_TYPE) || expType.equals(BasicType.ERROR_TYPE)) {
             return BasicType.ERROR_TYPE;

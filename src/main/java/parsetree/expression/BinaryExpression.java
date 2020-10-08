@@ -43,7 +43,7 @@ public class BinaryExpression extends Expression {
         } else if (isArithOp(operator) && leftType.equals(BasicType.INT_TYPE) && rightType.equals(BasicType.INT_TYPE)) {
             return BasicType.INT_TYPE;
         } else if (isRelOp(operator) && leftType.equals(BasicType.INT_TYPE) && rightType.equals(BasicType.INT_TYPE)) {
-            return BasicType.INT_TYPE;
+            return BasicType.BOOL_TYPE;
         } else {
             errors.add(TypeChecker.buildTypeError(operator.x, operator.y,
                 String.format("Type `[%s](%s, %s)` not supported for Binary Expressions. Expected `[+-*/](Int, Int)` or [<,<=,>,>=,==,!=](Bool, Bool) or `[+](String, String)` operations.",

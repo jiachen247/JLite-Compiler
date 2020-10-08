@@ -7,42 +7,33 @@ class Main {
 }
 
 class Dummy {
+    Int i;
+    Bool b;
+    String s;
+
+    Int test(Int a) {
+        return 2;
+    }
     Int retInt() {
-        return 1;
+        return i;
     }
 
     Bool returnBool() {
-        return true;
+        return b;
     }
 
     String retString() {
-        return "";
+        return s;
     }
 
     Void retVoid() {
         return ;
     }
+
 }
 
-// (A) No two fields in a class can have the same name.
-class TestA {
-    Int a;
-    Bool b;
-    String c;
-
-    Void method1() {
-        return ;
-    }
-
-    Int invalidReturn() {
-        return ;
-    }
-
-    Int return1() {
-        return 1;
-    }
-
-    Void stmt() {
+class TestStatements {
+    Void test() {
         Int x;
         String s;
         Bool b;
@@ -72,6 +63,49 @@ class TestA {
     }
 
     Void expr () {
+        Int x;
+        String s;
+        Bool b;
+        Dummy d;
+
+
+
+        // BinaryExpression
+
         return ;
+    }
+}
+
+class TestExpressions {
+    Void test() {
+        Int x;
+        String s;
+        Bool b;
+        Dummy d;
+
+        d = new Dummy();
+
+        // Illegal Unary Expressions
+        x = -(1 > 2);
+        b = !(1 + 2);
+
+        // Illegal Boolean Expressions
+        s = "pwd" + 1;
+        s = s * s;
+
+        // Illegal new expression
+        d = new UndefinedClass();
+        x = new Dummy();
+
+        // Undefined variables
+        x = undefinedVariable;
+        x = undefinedVariable.x;
+        x = d.undefinedVariable;
+        x = d.undefinedMethod();
+        x = (test())();
+
+        // Test call expressions
+        x = d.test(undefined);
+        x = d.test(1, 2, 3);
     }
 }

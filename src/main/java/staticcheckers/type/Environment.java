@@ -35,7 +35,6 @@ public class Environment {
         } else if (classContext.getFields().containsKey(id)) {
             return classContext.getFields().get(id);
         } else {
-            System.out.println("Failed to lookup [" + id + "]");
             return BasicType.ERROR_TYPE;
         }
     }
