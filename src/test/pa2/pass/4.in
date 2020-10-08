@@ -1,0 +1,7 @@
+/* Pass test for null String / Objects */
+
+class Main {
+    Void main(){
+        return 1;
+    }
+}

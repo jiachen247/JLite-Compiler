@@ -5,7 +5,7 @@ import java.util.Objects;
 import main.java.parsetree.Node;
 
 
-public class Type implements Node {
+public class Type extends Node {
 
     public String getName() {
         return name;
@@ -13,7 +13,8 @@ public class Type implements Node {
 
     private String name;
 
-    public Type(String name) {
+    public Type(int x, int y, String name) {
+        super(x, y);
         this.name = name;
     }
 

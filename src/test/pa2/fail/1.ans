@@ -6,6 +6,13 @@ class Main {
 	}
 }
 
+class Main {
+
+	Void main2() {
+		Return 1;
+	}
+}
+
 class TestA {
 	Int a;
 	Int a;
@@ -35,7 +42,7 @@ class TestC {
 
 class TestD {
 
-	Int method1() {
+	Void method1() {
 		Return 1;
 	}
 	Int method1() {
@@ -60,23 +67,20 @@ class TestOverloaded {
 }
 
 class TestRedeclaration {
-	Int a;
 
-	Int a(Int a) {
+	Int method(Int a) {
 		Int a;
 		Return 0;
 	}
 }
 
 
-NameChecker Error: Found duplicate class name.
-NameChecker Error: Found duplicate class variable name. [a, a]
-NameChecker Error: Variable and function within a class cannot share the same name. a
-NameChecker Error: Found duplicate parameter names. [z, z]
-NameChecker Error: Failed to overlaod, found duplicate method signature.
-NameChecker Error: Failed to overlaod, found duplicate method signature.
-NameChecker Error: Failed to overlaod, found duplicate method signature.
-NameChecker Error: Failed to overlaod, found duplicate method signature.
-NameChecker Error: Variable has already been declared in method parameters.
-NameChecker Error: Variable has already been declared in method parameters.
-Distinct Name Checker: FAIL
+[DistinctNameCheck] Error at (9, 7): Only one `Main` class is allowed.
+[DistinctNameCheck] Error at (18, 9): Variable `a` has already been declared previously.
+[DistinctNameCheck] Error at (29, 7): Class `TestB` has already been declared previously.
+[DistinctNameCheck] Error at (37, 31): Parameter name `z` has already been declared earlier for another function parameter.
+[DistinctNameCheck] Error at (44, 9): Failed to overload `method1`, method signature `method1()` already exist. 
+[DistinctNameCheck] Error at (58, 9): Failed to overload `overload`, method signature `overload(Int)` already exist. 
+[DistinctNameCheck] Error at (63, 10): Failed to overload `overload`, method signature `overload(Int)` already exist. 
+[DistinctNameCheck] Error at (75, 13): Variable `a` has already been declared earlier for another function parameter or field.
+[1/2] DistinctNameChecker: FAIL

@@ -103,7 +103,7 @@ terminal    SEMI, COMMA, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, LBRACE, RBR
 terminal    GT, LT, GEQ, LEQ, EQ, NEQ;
 terminal    AND, OR, NOT, IN;
 terminal    ASSIGN, VOID;
-terminal Bolean    TRUE, FALSE;
+terminal Boolean    TRUE, FALSE;
 terminal Integer   INTEGER_LITERAL;
 terminal String    STRING_LITERAL, ID, CNAME;
 terminal    INT, BOOL, STRING;
@@ -133,7 +133,7 @@ non terminal LinkedList<Expression> ExpList, ExpRest;
 non terminal BinaryOperator BOp;
 
 
-/* -------------Precedence and Associatively of Terminals Section----------- */
+/* -------------Precedence and AssociativeStaly of Terminals Section----------- */
    
 /*
   Precedence of non terminals could be defined here.  If you do define
@@ -156,7 +156,7 @@ Program
         report_error_summary();
     }
     System.out.println("Successfully parsed program! :-)\n");
-    RESULT = new Program(mainClass, classDeclList);
+    RESULT = new Program(mainClassleft, mainClassright, mainClass, classDeclList);
   :}
   | error:e
   {:
@@ -166,15 +166,15 @@ Program
   ;
 
 MainClass
-::= CLASS CNAME:cname LBRACE VOID MAIN LPAREN FmlList:args RPAREN MdBody:mdBody RBRACE
+::= CLASS:c CNAME:cname LBRACE VOID MAIN LPAREN FmlList:args RPAREN MdBody:mdBody RBRACE
   {:
-    RESULT = new MainClass(new Type(cname), args, mdBody);
+    RESULT = new MainClass(cleft, cright, new Type(cnameleft, cnameright, cname), args, mdBody);
   :}
 
-  | CLASS error:e RBRACE
+  | CLASS:c error:e RBRACE
     {:
       report_error(eleft, eright, MISSING_MAIN_CLASS_ERROR);
-      RESULT = new MainClass(new Type(""), new LinkedList<>(), null);
+      RESULT = new MainClass(cleft, cright, new Type(eleft, eright, "error"), new LinkedList<>(), null);
     :}
    ;
 
@@ -191,25 +191,25 @@ ClassDeclList
 ;
 
 ClassDecl
-::= CLASS CNAME:cname LBRACE VarDeclList:varDeclList MdDeclList:mdDeclList RBRACE
+::= CLASS:c CNAME:cname LBRACE VarDeclList:varDeclList MdDeclList:mdDeclList RBRACE
   {:
-    RESULT = new ClassDecl(new Type(cname), varDeclList, mdDeclList);
+    RESULT = new ClassDecl(cleft, cright, new Type(cnameleft, cnameright, cname), varDeclList, mdDeclList);
   :}
   // Panic mode recovery! Skip token until '}', ignore methods and extra declarations
-  | CLASS CNAME:cname LBRACE VarDeclList:varDeclList  error:e RBRACE
+  | CLASS:c CNAME:cname LBRACE VarDeclList:varDeclList  error:e RBRACE
   {:
     report_error(eleft, eright, MALFORMED_CLASS);
-    RESULT = new ClassDecl(new Type(cname), varDeclList, new LinkedList<>());
+    RESULT = new ClassDecl(cleft, cright, new Type(cnameleft, cnameright, cname), varDeclList, new LinkedList<>());
   :}
-  | CLASS ID:id LBRACE VarDeclList:varDeclList MdDeclList:mdDeclList RBRACE
+  | CLASS:c ID:id LBRACE VarDeclList:varDeclList MdDeclList:mdDeclList RBRACE
   {:
     report_error(idleft, idright, ILLEGAL_CLASSNAME);
-    RESULT = new ClassDecl(new Type(id), varDeclList, mdDeclList);
+    RESULT = new ClassDecl(cleft, cright, new Type(idleft, idright, id), varDeclList, mdDeclList);
   :}
-  | CLASS error:e RBRACE
+  | CLASS:c error:e RBRACE
   {:
     report_error(eleft, eright, MALFORMED_CLASS);
-    RESULT = new ClassDecl(new Type(""), new LinkedList<>(), new LinkedList<>());
+    RESULT = new ClassDecl(cleft, cright, new Type(eleft, eright, "error"), new LinkedList<>(), new LinkedList<>());
   :}
   ;
 
@@ -228,17 +228,17 @@ VarDeclList
 VarDecl
 ::= Type:type ID:id SEMI
   {:
-    RESULT = new VarDecl(type, new Id(id));
+    RESULT = new VarDecl(typeleft, typeright, type, new Id(idleft, idright, id));
   :}
 | Type:type CNAME:cname SEMI
     {:
       report_error(cnameleft, cnameright, ILLEGAL_CLASSNAME);
-      RESULT = new VarDecl(type, new Id(cname));
+      RESULT = new VarDecl(typeleft, typeright, type, new Id(cnameleft, cnameright, cname));
         :}
 | Type:type ID:id
     {:
       report_error(idleft, idright, MISSING_SEMI);
-      RESULT = new VarDecl(type, new Id(id));
+      RESULT = new VarDecl(typeleft, typeright, type, new Id(idleft, idright, id));
     :}
 
   ;
@@ -246,12 +246,12 @@ VarDecl
 MdDecl
 ::= Type:type ID:id LPAREN FmlList:args RPAREN MdBody:mdBody
   {:
-    RESULT = new MdDecl(type, new Id(id), args, mdBody);
+    RESULT = new MdDecl(typeleft, typeright, type, new Id(idleft, idright, id), args, mdBody);
   :}
   | Type:type CNAME:cname LPAREN FmlList:args RPAREN MdBody:mdBody
   {:
     report_error(cnameleft, cnameright, ILLEGAL_ID);
-    RESULT = new MdDecl(type, new Id(cname), args, mdBody);
+    RESULT = new MdDecl(typeleft, typeright, type, new Id(cnameleft, cnameright, cname), args, mdBody);
   :}
   ;
 
@@ -270,13 +270,13 @@ MdDeclList
 FmlList
 ::= Type:type ID:id FmlRest:args
   {:
-    args.addFirst(new Argument(type, new Id(id)));
+    args.addFirst(new Argument(typeleft, typeright, type, new Id(idleft, idright, id)));
     RESULT = args;
   :}
   | Type:type CNAME:cname FmlRest:args
       {:
         report_error(cnameleft, cnameright, ILLEGAL_ID);
-        args.addFirst(new Argument(type, new Id(cname)));
+        args.addFirst(new Argument(typeleft, typeright, type, new Id(cnameleft, cnameright, cname)));
         RESULT = args;
       :}
   |
@@ -288,7 +288,7 @@ FmlList
 FmlRest
 ::= COMMA Type:type ID:id FmlRest:args
   {:
-    args.addFirst(new Argument(type, new Id(id)));
+    args.addFirst(new Argument(typeleft, typeright, type, new Id(idleft, idright, id)));
     RESULT = args;
   :}
 
@@ -299,81 +299,81 @@ FmlRest
   ;
 
 Type
-::= INT
+::= INT:i
     {:
-      RESULT = new Type("Int");
+      RESULT = new Type(ileft, iright, "Int");
     :}
-  | BOOL
+  | BOOL:b
     {:
-      RESULT = new Type("Bool");
+      RESULT = new Type(bleft, bright, "Bool");
     :}
-  | STRING
+  | STRING:s
     {:
-      RESULT = new Type("String");
+      RESULT = new Type(sleft, sright, "String");
     :}
   | CNAME:cname
     {:
-      RESULT = new Type(cname);
+      RESULT = new Type(cnameleft, cnameright, cname);
     :}
-  | VOID
+  | VOID:v
     {:
-      RESULT = new Type("Void");
+      RESULT = new Type(vleft, vright, "Void");
     :}
   ;
 
 MdBody
 ::= LBRACE VarDeclList:varDeclList Stmts:stmts RBRACE
   {:
-    RESULT = new MdBody(varDeclList, stmts);
+    RESULT = new MdBody(varDeclListleft, varDeclListright, varDeclList, stmts);
   :}
   | LBRACE VarDeclList:varDeclList RBRACE:r
   {:
     report_error(rleft, rright, MISSING_STMT_IN_MDBODY);
-    RESULT = new MdBody(varDeclList, new LinkedList<>());
+    RESULT = new MdBody(varDeclListleft, varDeclListright, varDeclList, new LinkedList<>());
   :}
   | LBRACE error:e RBRACE
   {:
     report_error(eleft, eright, METHOD_BODY_ERROR);
-    RESULT = new MdBody(new LinkedList<>(), new LinkedList<>());
+    RESULT = new MdBody(eleft, eright, new LinkedList<>(), new LinkedList<>());
   :}
   ;
 
 Stmt
-::= IF LPAREN Exp:exp RPAREN LBRACE Stmts:ifBlock RBRACE ELSE LBRACE Stmts:elseBlock RBRACE
+::= IF:i LPAREN Exp:exp RPAREN LBRACE Stmts:ifBlock RBRACE ELSE LBRACE Stmts:elseBlock RBRACE
   {:
-    RESULT = new IfStatement(exp, ifBlock, elseBlock);
+    RESULT = new IfStatement(ileft, iright, exp, ifBlock, elseBlock);
   :}
-  | WHILE LPAREN Exp:exp RPAREN LBRACE StmtRest:stmtRest RBRACE
+  | WHILE:w LPAREN Exp:exp RPAREN LBRACE StmtRest:stmtRest RBRACE
   {:
-    RESULT = new WhileStatement(exp, stmtRest);
+    RESULT = new WhileStatement(wleft, wright, exp, stmtRest);
   :}
-  | READLN LPAREN ID:id RPAREN SEMI
+  | READLN:r LPAREN ID:id RPAREN SEMI
   {:
-    RESULT = new ReadLineStatement(new Id(id));
+    RESULT = new ReadLineStatement(rleft, rright, new Id(idleft, idright, id));
   :}
-  | PRINTLN LPAREN Exp:exp RPAREN SEMI
+  | PRINTLN:p LPAREN Exp:exp RPAREN SEMI
   {:
-    RESULT = new PrintLineStatement(exp);
+    RESULT = new PrintLineStatement(pleft, pright, exp);
   :}
-  | ID:id ASSIGN Exp:exp SEMI
+  | ID:id ASSIGN:a Exp:exp SEMI
   {:
-    RESULT = new AssignmentStatement(new Id(id), exp);
+    RESULT = new AssignmentStatement(aleft, aright, new Id(idleft, idright, id), exp);
   :}
-  | Atom:atom IN ID:property ASSIGN Exp:exp SEMI
+  | Atom:atom IN ID:property ASSIGN:a Exp:exp SEMI
   {:
-    RESULT = new PropertyAssignmentStatement(atom, new Id(property), exp);
+    RESULT = new PropertyAssignmentStatement(aleft, aright, atom, new Id(propertyleft, propertyright, property), exp);
   :}
   | Atom:callee LPAREN ExpList:args RPAREN SEMI
   {:
-    RESULT = new CallStatement(new CallExpression(callee, args));
+    RESULT = new CallStatement(calleeleft, calleeright, new CallExpression(calleeleft, calleeright, callee, args));
   :}
-  | RETURN Exp:exp SEMI
+  | RETURN:r Exp:exp SEMI
   {:
-    RESULT = new ReturnStatement(exp);
+    RESULT = new ReturnStatement(rleft, rright, exp);
   :}
-  | RETURN SEMI
+  | RETURN:r SEMI
   {:
-    RESULT = new EmptyReturnStatement();
+    RESULT = new EmptyReturnStatement(rleft, rright);
   :}
   ;
 
@@ -413,19 +413,19 @@ Exp
 BExp
 ::= BExp:booleanExp OR:op Conj:conjunction
   {:
-    RESULT = new BinaryExpression(new OrOperator(), booleanExp, conjunction);
+    RESULT = new BinaryExpression(booleanExpleft, booleanExpright, new OrOperator(opleft, opright), booleanExp, conjunction);
   :}
   | BExp:booleanExp OR:op Atom:atom
   {:
-    RESULT = new BinaryExpression(new OrOperator(), booleanExp, atom);
+    RESULT = new BinaryExpression(booleanExpleft, booleanExpright, new OrOperator(opleft, opright), booleanExp, atom);
   :}
   | Atom:atom OR:op Conj:conjunction
   {:
-    RESULT = new BinaryExpression(new OrOperator(), atom, conjunction);
+    RESULT = new BinaryExpression(atomleft, atomright, new OrOperator(opleft, opright),  atom, conjunction);
   :}
   | Atom:atom1 OR:op Atom:atom2
   {:
-    RESULT = new BinaryExpression(new OrOperator(), atom1, atom2);
+    RESULT = new BinaryExpression(atom1left, atom1right, new OrOperator(opleft, opright),  atom1, atom2);
   :}
   | Conj:conj
   {:
@@ -436,19 +436,19 @@ BExp
 Conj
 ::= Conj:conj AND:op RExp:exp
   {:
-    RESULT = new BinaryExpression(new AndOperator(), conj, exp);
+    RESULT = new BinaryExpression(conjleft, conjright, new AndOperator(opleft, opright), conj, exp);
   :}
   | Conj:conj AND:op Atom:atom
   {:
-    RESULT = new BinaryExpression(new AndOperator(), conj, atom);
+    RESULT = new BinaryExpression(conjleft, conjright, new AndOperator(opleft, opright), conj, atom);
   :}
   | Atom:atom AND:op RExp:exp
   {:
-    RESULT = new BinaryExpression(new AndOperator(), atom, exp);
+    RESULT = new BinaryExpression(atomleft, atomright, new AndOperator(opleft, opright), atom, exp);
   :}
   | Atom:atom1 AND:op Atom:atom2
   {:
-    RESULT = new BinaryExpression(new AndOperator(), atom1, atom2);
+    RESULT = new BinaryExpression(atom2left, atom2right, new AndOperator(opleft, opright), atom1, atom2);
   :}
   | RExp:exp
   {:
@@ -459,7 +459,7 @@ Conj
 RExp
 ::= ASExp:exp1 BOp:bop ASExp:exp2
   {:
-    RESULT = new BinaryExpression(bop, exp1, exp2);
+    RESULT = new BinaryExpression(exp1left, exp1right, bop, exp1, exp2);
   :}
   | BGrd:exp
   {:
@@ -468,40 +468,40 @@ RExp
   ;
 
 BOp
-::= LT
+::= LT:op
   {:
-    RESULT = new LTOperator();
+    RESULT = new LTOperator(opleft, opright);
   :}
-  | GT
+  | GT:op
   {:
-    RESULT = new GTOperator();
+    RESULT = new GTOperator(opleft, opright);
   :}
-  | LEQ
+  | LEQ:op
   {:
-    RESULT = new LEQOperator();
+    RESULT = new LEQOperator(opleft, opright);
   :}
-  | GEQ
+  | GEQ:op
   {:
-    RESULT = new GEQOperator();
+    RESULT = new GEQOperator(opleft, opright);
   :}
-  | EQ
+  | EQ:op
   {:
-    RESULT = new EqualOperator();
+    RESULT = new EqualOperator(opleft, opright);
   :}
-  | NEQ
+  | NEQ:op
   {:
-    RESULT = new NotEqualOperator();
+    RESULT = new NotEqualOperator(opleft, opright);
   :}
   ;
 
 BGrd
-::= TRUE
+::= TRUE:t
   {:
-    RESULT = new BoolLiteral(true);
+    RESULT = new BoolLiteral(tleft, tright, true);
   :}
-  | FALSE
+  | FALSE:f
   {:
-    RESULT = new BoolLiteral(false);
+    RESULT = new BoolLiteral(fleft, fright, false);
   :}
   | NotOp:e
   {:
@@ -510,21 +510,21 @@ BGrd
   ;
 
 NotOp
-::= NOT TRUE
+::= NOT:n TRUE:t
   {:
-    RESULT = new UnaryExpression(new NotOperator(), new BoolLiteral(true));
+    RESULT = new UnaryExpression(nleft, nright, new NotOperator(nleft, nright), new BoolLiteral(tleft, tright, true));
   :}
-  | NOT FALSE
+  | NOT:n FALSE:f
   {:
-    RESULT = new UnaryExpression(new NotOperator(), new BoolLiteral(false));
+    RESULT = new UnaryExpression(nleft, nright, new NotOperator(nleft, nright), new BoolLiteral(fleft, fright, false));
   :}
-  | NOT Atom:atom
+  | NOT:n Atom:atom
   {:
-    RESULT = new UnaryExpression(new NotOperator(), atom);
+    RESULT = new UnaryExpression(nleft, nright, new NotOperator(nleft, nright), atom);
   :}
-  | NOT NotOp:notOp
+  | NOT:n NotOp:notOp
   {:
-    RESULT = new UnaryExpression(new NotOperator(), notOp);
+    RESULT = new UnaryExpression(nleft, nright, new NotOperator(nleft, nright), notOp);
   :}
   ;
 
@@ -532,17 +532,17 @@ NotOp
 ASExp
 ::= ASExp:exp PLUS:op Term:term
   {:
-    RESULT = new BinaryExpression(new PlusOperator(), exp, term);
+    RESULT = new BinaryExpression(expleft, expright, new PlusOperator(opleft, opright), exp, term);
   :}
   // example of panic mode recovery (https://www.geeksforgeeks.org/error-handling-compiler-design/)
   | ASExp:exp PLUS:op error:e Term:term
   {:
     report_error(eleft, eright, "Failed to parse arithmetic expression.");
-    RESULT = new BinaryExpression(new PlusOperator(), exp, term);
+    RESULT = new BinaryExpression(expleft, expright, new PlusOperator(opleft, opright), exp, term);
    :}
-  | ASExp:exp1 MINUS:op Term:term
+  | ASExp:exp MINUS:op Term:term
   {:
-    RESULT = new BinaryExpression(new MinusOperator(), exp1, term);
+    RESULT = new BinaryExpression(expleft, expright, new MinusOperator(opleft, opright), exp, term);
   :}
   | Term:term
   {:
@@ -553,11 +553,11 @@ ASExp
 Term
 ::= Term:term TIMES:op Ftr:ftr
   {:
-    RESULT = new BinaryExpression(new TimesOperator(), term, ftr);
+    RESULT = new BinaryExpression(termleft, termright, new TimesOperator(opleft, opright), term, ftr);
   :}
   | Term:term DIVIDE:op Ftr:ftr
   {:
-    RESULT = new BinaryExpression(new DivideOperator(), term, ftr);
+    RESULT = new BinaryExpression(termleft, termright, new DivideOperator(opleft, opright), term, ftr);
   :}
   | Ftr:ftr
   {:
@@ -565,18 +565,18 @@ Term
   :}
   | STRING_LITERAL:slit
   {:
-     RESULT = new StringLiteral(slit);;
+     RESULT = new StringLiteral(slitleft, slitright, slit);;
   :}
   ;
 
 Ftr
 ::= INTEGER_LITERAL:intLit
   {:
-    RESULT = new IntLiteral(intLit);
+    RESULT = new IntLiteral(intLitleft, intLitright, intLit);
   :}
-  | MINUS Ftr:ftr
+  | MINUS:op Ftr:ftr
   {:
-    RESULT = new UnaryExpression(new NegateOperator(), ftr);
+    RESULT = new UnaryExpression(opleft, opright, new NegateOperator(opleft, opright), ftr);
   :}
   | Atom:atom
   {:
@@ -610,31 +610,31 @@ Ftr
 Atom
 ::= Atom:atom IN ID:id
   {:
-    RESULT = new InExpression(atom, new Id(id));
+    RESULT = new InExpression(atomleft, atomright, atom, new Id(idleft, idright, id));
   :}
   | Atom:atom LPAREN ExpList:expList RPAREN
   {:
-    RESULT = new CallExpression(atom, expList);
+    RESULT = new CallExpression(atomleft, atomright,atom, expList);
   :}
-  | THIS
+  | THIS:t
   {:
-    RESULT = new ThisExpression();
+    RESULT = new ThisExpression(tleft, tright);
   :}
   | ID:id
   {:
-    RESULT = new IdExpression(new Id(id));
+    RESULT = new IdExpression(idleft, idright, new Id(idleft, idright, id));
   :}
-  | NEW CNAME:cname LPAREN RPAREN
+  | NEW:n CNAME:cname LPAREN RPAREN
   {:
-    RESULT = new NewExpression(new Type(cname));
+    RESULT = new NewExpression(nleft, nright, new Type(cnameleft, cnameright, cname));
   :}
-  | LPAREN Exp:exp RPAREN
+  | LPAREN:l Exp:exp RPAREN
   {:
-    RESULT = new ParenthesizedExpression(exp);
+    RESULT = new ParenthesizedExpression(lleft, lright, exp);
   :}
-  | NULL
+  | NULL:n
   {:
-    RESULT = new NullLiteral();
+    RESULT = new NullLiteral(nleft, nright);
   :}
   ;
 

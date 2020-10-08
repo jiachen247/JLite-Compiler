@@ -7,15 +7,18 @@ import main.java.parsetree.ClassDecl;
 import main.java.parsetree.MdDecl;
 import main.java.parsetree.MdSignature;
 import main.java.parsetree.Program;
+import main.java.parsetree.shared.Argument;
+import main.java.parsetree.shared.VarDecl;
 
 /**
  * The type Name checker.
  */
-public class NameChecker implements Checker {
+public class NameChecker extends Checker {
 
     private Program program;
 
     public NameChecker(Program program) {
+        super("DistinctNameCheck");
         this.program = program;
     }
 
@@ -23,40 +26,42 @@ public class NameChecker implements Checker {
     public boolean isOK() {
         boolean uniqueClassNames = checkForUniqueClassNames();
         boolean uniqueClassFields = checkForUniqueClassFields();
-        boolean uniqueMethodParameters = checkForUniqueMethodParameters();
+        boolean uniqueMethodParameters = checkForUniqueMethodClassScope();
         boolean uniqueMethodSignatures = checkForUniqueMethodSignatures();
-        boolean uniqueVariablesInMethod = checkForUniqueFieldsInMethods();
 
         return uniqueClassNames
             && uniqueClassFields
             && uniqueMethodParameters
-            && uniqueMethodSignatures
-            && uniqueVariablesInMethod;
+            && uniqueMethodSignatures;
     }
 
     /*
-        (a) Checks if all fields in class are unique, both class variables and methods.
+        (a) Checks if all fields in class are unique, (java actually allows class methods and names to be the same since they are treated differently)
+        Since the specification is ambiguous about this, we will go ahead an allow this to be consistent with Java.
+        class Test {
+            int a;
+            void a() {
+                return ;
+            }
+        }
+
      */
     private boolean checkForUniqueClassFields() {
         boolean isValid = true;
         for (ClassDecl classDecl : program.getClassDeclList()) {
-            List<String> varNames = classDecl.getVarDeclList()
-                .stream()
-                .map(var -> var.id.name)
-                .collect(Collectors.toList());
+            HashSet<String> seen = new HashSet();
 
-            if (!areDistinct(varNames)) {
-                error("Found duplicate class variable name. " + varNames);
-                isValid = false;
+            for (VarDecl varDecl : classDecl.getVarDeclList()) {
+                String varname = varDecl.id.name;
+
+                if (seen.contains(varname)) {
+                    reportError(varDecl.id, String.format("Variable `%s` has already been declared previously.", varDecl.id));
+                    isValid = false;
+                } else {
+                    seen.add(varname);
+                }
             }
 
-            // This is actually allowed in java
-//            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
-//                if (varNames.contains(mdDecl.getSignature().id.name)) {
-//                    error("Variable and function within a class cannot share the same name. " + mdDecl.getSignature().id.name);
-//                    isValid = false;
-//                }
-//            }
         }
         return isValid;
     }
@@ -72,37 +77,54 @@ public class NameChecker implements Checker {
 
         boolean isValid = true;
 
-        if (names.contains("Main")) {
-            error("Found duplicate main class.");
-            isValid = false;
-        }
+        HashSet<String> seen = new HashSet<>();
 
-        if (!areDistinct(names)) {
-            // find out which class
-            error("Found duplicate class name.");
-            isValid = false;
+        for (ClassDecl classDecl :  program.getClassDeclList()) {
+            String cname = classDecl.type.getName();
+
+            if (cname.equals("Main")) {
+                reportError(classDecl.type, "Only one `Main` class is allowed.");
+                isValid = false;
+            } else if (seen.contains(cname)) {
+                reportError(classDecl.type, String.format("Class `%s` has already been declared previously.", cname));
+                isValid = false;
+            } else {
+                seen.add(cname);
+            }
         }
 
         return isValid;
     }
 
     /*
-        (c) Checks for duplicate parameters names in method declaration
+        (c) Checks for duplicate parameters names in method declaration and field declarations
     */
-    private boolean checkForUniqueMethodParameters() {
+    private boolean checkForUniqueMethodClassScope() {
         boolean isValid = true;
+
         for (ClassDecl classDecl : program.getClassDeclList()) {
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
-                List<String> parameterNames = mdDecl
-                    .getArguments()
-                    .stream()
-                    .map(arg -> arg.id.name)
-                    .collect(Collectors.toList());
-
-                if (!areDistinct(parameterNames)) {
-                    error("Found duplicate parameter names. " + parameterNames);
-                    isValid = false;
+                HashSet<String> seen = new HashSet<>();
+                for (Argument arg : mdDecl.getArguments()) {
+                    String argname = arg.id.name;
+                    if (seen.contains(argname)) {
+                        reportError(arg.id, String.format("Parameter name `%s` has already been declared earlier for another function parameter.", argname));
+                        isValid = false;
+                    } else {
+                        seen.add(argname);
+                    }
                 }
+
+                for (VarDecl varDecl : mdDecl.getMdBody().variableDeclarations) {
+                    String varname = varDecl.id.name;
+                    if (seen.contains(varname)) {
+                        reportError(varDecl.id, String.format("Variable `%s` has already been declared earlier in another parameter or field.", varname));
+                        isValid = false;
+                    } else {
+                        seen.add(varname);
+                    }
+                }
+
             }
         }
         return isValid;
@@ -114,19 +136,20 @@ public class NameChecker implements Checker {
     */
     private boolean checkForUniqueMethodSignatures() {
         boolean isValid = true;
+
         for (ClassDecl classDecl : program.getClassDeclList()) {
+            HashSet<MdSignature> seen = new HashSet();
+            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
+                MdSignature sig = mdDecl.signature;
 
-            List<MdSignature> signatures = classDecl.getMdDeclList()
-                .stream()
-                .map(md -> md.signature)
-                .collect(Collectors.toList());
-
-            for (int i = 0; i < signatures.size() - 1; i++) {
-                for (int j = i + 1; j < signatures.size(); j++) {
-                    if (signatures.get(i).equals(signatures.get(j))) {
-                        error("Failed to overlaod, found duplicate method signature.");
-                        isValid = false;
-                    }
+                if (seen.contains(sig)) {
+                    reportError(mdDecl.signature.id,
+                        String.format("Failed to overload method `%s`, method signature `%s` already exist in class.",
+                            mdDecl.signature.id.name,
+                            mdDecl.signature.toString()));
+                    isValid = false;
+                } else {
+                    seen.add(sig);
                 }
             }
         }
@@ -143,41 +166,37 @@ public class NameChecker implements Checker {
             }
         }
     */
-    private boolean checkForUniqueFieldsInMethods() {
-        boolean isValid = true;
-        for (ClassDecl classDecl : program.getClassDeclList()) {
-            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
-                // Check duplicates in parameters and var decl
-                List<String> parametersNames = mdDecl
-                    .getArguments()
-                    .stream()
-                    .map(param -> param.id.name)
-                    .collect(Collectors.toList());
-
-                List<String> varNames = mdDecl.getMdBody().variableDeclarations
-                    .stream()
-                    .map(var -> var.id.name)
-                    .collect(Collectors.toList());
-
-                ArrayList combined = new ArrayList(parametersNames);
-                combined.addAll(varNames);
-
-                if (!areDistinct(combined)) {
-                    error("Variable has already been declared in method parameters.");
-                    isValid = false;
-                }
-            }
-        }
-
-        return isValid;
-    }
-
-    private void error(String e) {
-        System.out.println("[NameChecker]: " + e);
-    }
-
-    // check if list contains distinct / unique objects
-    public <T>  boolean areDistinct(List<T> list) {
-        return list.size() == (new HashSet(list)).size();
-    }
+//    private boolean checkForUniqueFieldsInMethods() {
+//        boolean isValid = true;
+//        for (ClassDecl classDecl : program.getClassDeclList()) {
+//            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
+//                // Check duplicates in parameters and var decl
+//                List<String> parametersNames = mdDecl
+//                    .getArguments()
+//                    .stream()
+//                    .map(param -> param.id.name)
+//                    .collect(Collectors.toList());
+//
+//                List<String> varNames = mdDecl.getMdBody().variableDeclarations
+//                    .stream()
+//                    .map(var -> var.id.name)
+//                    .collect(Collectors.toList());
+//
+//                ArrayList combined = new ArrayList(parametersNames);
+//                combined.addAll(varNames);
+//
+//                if (!areDistinct(combined)) {
+//                    error("Variable has already been declared in method parameters.");
+//                    isValid = false;
+//                }
+//            }
+//        }
+//
+//        return isValid;
+//    }
+//
+//    // check if list contains distinct / unique objects
+//    public <T>  boolean areDistinct(List<T> list) {
+//        return list.size() == (new HashSet(list)).size();
+//    }
 }

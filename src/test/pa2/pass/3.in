@@ -1,0 +1,7 @@
+/* Pass test for String concat operation */
+
+class Main {
+    Void main(){
+        return 1;
+    }
+}

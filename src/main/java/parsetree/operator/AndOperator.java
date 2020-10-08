@@ -1,7 +1,7 @@
 package main.java.parsetree.operator;
 
 public class AndOperator extends BinaryOperator {
-    public AndOperator() {
-        super("&&");
+    public AndOperator(int x, int y) {
+        super(x, y, "&&");
     }
 }

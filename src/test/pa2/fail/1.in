@@ -6,6 +6,12 @@ class Main {
     }
 }
 
+class Main {
+    Void main2(){
+        return 1;
+    }
+}
+
 // (A) No two fields in a class can have the same name.
 class TestA {
     Int a;
@@ -39,7 +45,7 @@ class TestD {
         return 1;
     }
 
-    Int method1() {
+    Void method1() {
         return 1;
     }
 }

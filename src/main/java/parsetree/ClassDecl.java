@@ -8,7 +8,7 @@ import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Type;
 import main.java.parsetree.shared.VarDecl;
 
-public class ClassDecl implements Node {
+public class ClassDecl extends Node {
 
     public Type type;
     public final List<VarDecl> varDeclList;
@@ -27,7 +27,8 @@ public class ClassDecl implements Node {
 
     public final List<MdDecl> mdDeclList;
 
-    public ClassDecl(Type type, List<VarDecl> varDeclList, List<MdDecl> mdDeclList) {
+    public ClassDecl(int x, int y, Type type, List<VarDecl> varDeclList, List<MdDecl> mdDeclList) {
+        super(x, y);
         this.type = type;
         this.varDeclList = varDeclList;
         this.mdDeclList = mdDeclList;

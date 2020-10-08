@@ -1,16 +1,23 @@
 package main.java.parsetree.statement;
 
+import java.util.List;
+
+import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
 public class EmptyReturnStatement extends Statement {
+    public EmptyReturnStatement(int x, int y) {
+        super(x, y);
+    }
+
     @Override
     public String toString() {
         return "return;";
     }
 
     @Override
-    public BasicType typeCheck(Environment env) {
-        return BasicType.NULL_TYPE;
+    public BasicType typeCheck(Environment env, List<CheckError> errors) {
+        return BasicType.VOID_TYPE;
     }
 }

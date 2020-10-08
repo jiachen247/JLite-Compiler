@@ -9,7 +9,7 @@ import main.java.parsetree.shared.Id;
 import main.java.parsetree.shared.Type;
 import main.java.staticcheckers.type.BasicType;
 
-public class MdDecl implements Node {
+public class MdDecl extends Node {
 
     public final MdSignature signature;
     public final List<Argument> arguments;
@@ -35,8 +35,9 @@ public class MdDecl implements Node {
 
 
 
-    public MdDecl(Type type, Id id, List<Argument> args, MdBody mdBody) {
-        this.signature = new MdSignature(id, args.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList()));
+    public MdDecl(int x, int y, Type type, Id id, List<Argument> args, MdBody mdBody) {
+        super(x, y);
+        this.signature = new MdSignature(type.x, type.y, id, args.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList()));
         this.arguments = args;
         this.mdBody = mdBody;
         this.returnType = BasicType.fromType(type);

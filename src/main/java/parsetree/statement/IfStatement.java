@@ -1,9 +1,11 @@
 package main.java.parsetree.statement;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Helper;
+import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
@@ -13,7 +15,8 @@ public class IfStatement extends Statement {
     private final LinkedList<Statement> ifBlock;
     private final LinkedList<Statement> elseBlock;
 
-    public IfStatement(Expression condition, LinkedList<Statement> ifBlock, LinkedList<Statement> elseBlock) {
+    public IfStatement(int x, int y, Expression condition, LinkedList<Statement> ifBlock, LinkedList<Statement> elseBlock) {
+        super(x, y);
         this.condition = condition;
         this.ifBlock = ifBlock;
         this.elseBlock = elseBlock;
@@ -28,12 +31,26 @@ public class IfStatement extends Statement {
     }
 
     @Override
-    public BasicType typeCheck(Environment env) {
-        if (!condition.typeCheck(env).equals(BasicType.BOOL_TYPE)) {
+    public BasicType typeCheck(Environment env, List<CheckError> errors) {
+        BasicType predicate = condition.typeCheck(env, errors);
+        if (!predicate.equals(BasicType.BOOL_TYPE)) {
+            System.out.println("If statement expect a boolean function, found " + predicate );
             return BasicType.ERROR_TYPE;
         }
 
-        // to refractor into blocks
-        return BasicType.NULL_TYPE;
+        BasicType ifBlockType = Helper.getInstance().evalBlock(env, ifBlock, errors);
+        BasicType elseBlockType = Helper.getInstance().evalBlock(env, elseBlock, errors);
+
+        if (ifBlockType.equals(BasicType.ERROR_TYPE) || elseBlockType.equals(BasicType.ERROR_TYPE)) {
+            return BasicType.ERROR_TYPE;
+        } else if (ifBlockType.equals(elseBlockType)) {
+            // its a match
+            return ifBlockType;
+        } else {
+            System.out.println("If and else block should return the same type " + this.toString());
+            return BasicType.ERROR_TYPE;
+        }
     }
+
+
 }

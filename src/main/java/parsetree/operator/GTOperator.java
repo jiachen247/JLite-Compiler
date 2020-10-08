@@ -1,7 +1,7 @@
 package main.java.parsetree.operator;
 
 public class GTOperator extends BinaryOperator {
-    public GTOperator() {
-        super(">");
+    public GTOperator(int x, int y) {
+        super(x, y, ">");
     }
 }

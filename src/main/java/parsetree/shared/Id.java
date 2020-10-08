@@ -2,11 +2,12 @@ package main.java.parsetree.shared;
 
 import main.java.parsetree.Node;
 
-public class Id implements Node {
+public class Id extends Node {
 
     public String name;
 
-    public Id(String name) {
+    public Id(int x, int y, String name) {
+        super(x, y);
         this.name = name;
     }
 

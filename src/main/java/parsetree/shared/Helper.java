@@ -3,6 +3,11 @@ package main.java.parsetree.shared;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import main.java.parsetree.statement.Statement;
+import main.java.staticcheckers.CheckError;
+import main.java.staticcheckers.type.BasicType;
+import main.java.staticcheckers.type.Environment;
+
 public class Helper {
     private static Helper _instance = null;
 
@@ -27,5 +32,19 @@ public class Helper {
 
     public String indent(String s) {
         return s.replaceAll("(?m)^", "\t");
+    }
+
+    public BasicType evalBlock(Environment env, LinkedList<Statement> stmts, List<CheckError> errors) {
+        BasicType ret = BasicType.VOID_TYPE;
+        boolean isValid = true;
+        for (Statement stmt : stmts) {
+            ret = stmt.typeCheck(env, errors);
+            if (ret.equals(BasicType.ERROR_TYPE)) {
+                System.out.println("Failed to type check " + stmt);
+                isValid = false;
+            }
+        }
+
+        return isValid ? ret : BasicType.ERROR_TYPE;
     }
 }

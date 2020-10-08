@@ -2,7 +2,9 @@ package main.java.parsetree.operator;
 
 import java.util.Objects;
 
-public abstract class Operator {
+import main.java.parsetree.Node;
+
+public abstract class Operator extends Node {
 
     public String getOperation() {
         return operation;
@@ -10,7 +12,8 @@ public abstract class Operator {
 
     private String operation;
 
-    public Operator(String operation) {
+    public Operator(int x, int y, String operation) {
+        super(x, y);
         this.operation = operation;
     }
 

@@ -1,4 +1,4 @@
-/* Test for TypeChecking for Expression */
+/* Pass Test for Type Checking */
 
 class Main {
     Void main(){
@@ -6,21 +6,100 @@ class Main {
     }
 }
 
-class ClassA {
+class Dummy {
+    Int x;
+    Bool y;
+    String z;
 
-}
-
-class ClassB {
-
-}
-
-class ClassC {
-
-}
-
-class Test1 {
-    Void method() {
-        Int a = getA();
+    Int test() {
+        return 2;
     }
 
+    Int retInt() {
+        return 1;
+    }
+
+    Bool returnBool() {
+        return true;
+    }
+
+    String retString() {
+        return "";
+    }
+
+    Void retVoid() {
+        return ;
+    }
+
+}
+
+class TestStatements {
+    Int x;
+
+    Void testVariableAssignment() {
+        Int a;
+        Int b;
+        Dummy d;
+
+        // VarAss
+        a = b;
+        b = 1;
+
+        // FdAss
+        d = new Dummy();
+        d.x = 1;
+        d.y = true;
+        d.z = "1";
+
+        return ;
+    }
+
+    Void testControlFlows() {
+        Int c;
+        Bool b;
+        Int x;
+        Dummy d;
+
+        if (false) {
+            b = 1 == 2;
+        } else {
+            c = 1;
+        }
+
+        // return type match
+        if (true) {
+            d.retInt();
+        } else {
+            d.retInt();
+        }
+
+        c = 0;
+
+        while (c < 10) {
+            c = c + 1;
+        }
+        b = true;
+        while (b) {
+            x = x + 1;
+        }
+
+        this.x = test();
+        x = test();
+        x = d.retInt();
+
+    }
+
+    Int test() {
+        return 1;
+    }
+
+    Int testInvoke() {
+        Int a;
+        Dummy d;
+
+        d = new Dummy();
+        a = test();
+        a = d.test();
+       return a;
+    }
 }

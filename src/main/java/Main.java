@@ -40,19 +40,21 @@ public class Main {
             Checker nameChecker = new NameChecker(program);
 
             if (!nameChecker.isOK()) {
-                System.out.println("[1/2] DistinctNameChecker: FAIL");
+                nameChecker.printErrors();
                 return;
             }
 
-            System.out.println("[1/2] DistinctNameChecker: PASS");
+            System.out.println("DistinctNameCheck: PASSED");
 
             Checker typeChecker = new TypeChecker(program);
 
             if (!typeChecker.isOK()) {
-                System.out.println("[2/2] TypeChecker: FAIL");
+                typeChecker.printErrors();
                 return;
             }
-            System.out.println("[2/2] TypeChecker: PASS");
+
+            System.out.println("TypeChecked: PASSED");
+
             // proceed to gen IR
 
         } catch (Exception e) {

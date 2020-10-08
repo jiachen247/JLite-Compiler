@@ -1,12 +1,14 @@
 package main.java.parsetree.shared;
 
-public class Argument {
+import main.java.parsetree.Node;
+
+public class Argument extends Node {
 
     public final Type type;
     public final Id id;
 
-    public Argument(Type type, Id id) {
-
+    public Argument(int x, int y, Type type, Id id) {
+        super(x, y);
         this.type = type;
         this.id = id;
     }

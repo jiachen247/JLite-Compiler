@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import main.java.parsetree.shared.Helper;
 
-public class Program implements Node {
+public class Program extends Node {
 
     private final MainClass mainClass;
 
@@ -18,7 +18,8 @@ public class Program implements Node {
 
     private final LinkedList<ClassDecl> classDeclList;
 
-    public Program(MainClass mainClass, LinkedList<ClassDecl> classDeclList) {
+    public Program(int x, int y, MainClass mainClass, LinkedList<ClassDecl> classDeclList) {
+        super(x, y);
         this.mainClass = mainClass;
         this.classDeclList = classDeclList;
     }

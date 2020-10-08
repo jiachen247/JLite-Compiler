@@ -1,5 +1,6 @@
 package main.java.staticcheckers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,28 +20,31 @@ import main.java.staticcheckers.type.Environment;
 import main.java.staticcheckers.type.LocalEnvironment;
 import main.java.staticcheckers.type.FunctionType;
 
-public class TypeChecker implements Checker {
+public class TypeChecker extends Checker {
     private HashMap<BasicType, ClassDescriptor> classDescriptors = new HashMap<>();
     private Program program;
+    private static List<CheckError> errors = new ArrayList<>();
+
     public TypeChecker(Program program) {
+        super("TypeCheck");
         this.program = program;
     }
 
     @Override
     public boolean isOK() {
         initialize();
-        // do all the checks
-        classDescriptors.forEach((k,v) -> System.out.println("key: "+k+" value:"+v));
 
         boolean isValid = true;
 
         for (ClassDecl classDecl : program.getClassDeclList()) {
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
                 LocalEnvironment localEnv = buildLocalEnv(mdDecl);
-                Environment e = new Environment(classDescriptors, classDescriptors.get(BasicType.fromType(classDecl.type)), localEnv);
+                ClassDescriptor classContext = classDescriptors.get(BasicType.fromType(classDecl.type));
+                Environment enclosingEnv = new Environment(classDescriptors, classContext, localEnv);
+
                 for (Statement stmt : mdDecl.mdBody.stmts) {
-                    if (stmt.typeCheck(e).equals(BasicType.ERROR_TYPE)) {
-                        error("Failed to validate type for '" + stmt + "'");
+                    if (stmt.typeCheck(enclosingEnv, errors).equals(BasicType.ERROR_TYPE)) {
+                        // error("Failed to validate type for '" + stmt + "'");
                         isValid = false;
                     }
                 }
@@ -59,7 +63,6 @@ public class TypeChecker implements Checker {
         classDescriptors.put(BasicType.BOOL_TYPE, new ClassDescriptor(BasicType.BOOL_TYPE));
         classDescriptors.put(BasicType.STRING_TYPE, new ClassDescriptor(BasicType.STRING_TYPE));
         classDescriptors.put(BasicType.VOID_TYPE, new ClassDescriptor(BasicType.VOID_TYPE));
-        classDescriptors.put(BasicType.CHAR_TYPE, new ClassDescriptor(BasicType.CHAR_TYPE));
         classDescriptors.put(BasicType.NULL_TYPE, new ClassDescriptor(BasicType.NULL_TYPE));
 
         for (ClassDecl classDecl : program.getClassDeclList()) {
@@ -71,7 +74,7 @@ public class TypeChecker implements Checker {
         HashMap<MdSignature, FunctionType> methods = new HashMap<>();
 
         List<BasicType> parameters = mainClass.arguments.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList());
-        MdSignature mainSig = new MdSignature(new Id("main"), parameters);
+        MdSignature mainSig = new MdSignature(mainClass.x, mainClass.y, new Id(mainClass.type.x, mainClass.type.y, "main"), parameters);
         FunctionType mainFunction = new FunctionType(parameters, BasicType.VOID_TYPE);
         methods.put(mainSig, mainFunction);
         return new ClassDescriptor("Main", new HashMap<>(), methods);
@@ -115,12 +118,21 @@ public class TypeChecker implements Checker {
             }
         }
 
-        return new LocalEnvironment(local);
+        return new LocalEnvironment(local, md.returnType);
+    }
+    @Override
+    public void printErrors() {
+        for (CheckError e: errors.stream().sorted().collect(Collectors.toList())) {
+            System.out.println(e);
+        }
+        System.out.println(String.format("%s failed with %d errors. Please fix before proceeding!", "TypeCheck", errors.size()));
+
     }
 
-    private void error(String e) {
-        System.out.println("[TypeChecker] " + e);
+    public static CheckError buildTypeError(int x, int y, String err) {
+        return new CheckError(x, y, String.format("[TypeCheck] Error at (%d, %d): %s", x, y, err));
     }
+
 
 
 }

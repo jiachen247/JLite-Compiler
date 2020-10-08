@@ -1,7 +1,7 @@
 package main.java.parsetree.operator;
 
 public class TimesOperator extends BinaryOperator {
-    public TimesOperator() {
-        super("*");
+    public TimesOperator(int x, int y) {
+        super(x, y, "*");
     }
 }

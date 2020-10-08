@@ -1,7 +1,7 @@
 package main.java.parsetree.operator;
 
 public class LTOperator extends BinaryOperator {
-    public LTOperator() {
-        super("<");
+    public LTOperator(int x, int y) {
+        super(x, y, "<");
     }
 }
