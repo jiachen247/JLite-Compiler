@@ -1,4 +1,4 @@
-/* Pass test for null String / Objects */
+/* Fail test for null String / Objects */
 
 class Main {
     Void main(){
@@ -7,7 +7,11 @@ class Main {
 }
 
 class Dummy {
-    String dum;
+    Bool dum;
+
+    Dummy test(Dummy d) {
+        return null;
+    }
 }
 
 class Test {
@@ -16,9 +20,10 @@ class Test {
         Dummy d;
         Int i;
 
-        s = null;
-        d = null;
+        i = null;
         d = new Dummy();
         d.dum = null;
+
+        d.test(null);
     }
 }

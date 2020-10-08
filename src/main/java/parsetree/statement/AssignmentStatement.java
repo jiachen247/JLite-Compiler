@@ -39,9 +39,12 @@ public class AssignmentStatement extends Statement {
 
         if (idType.equals(BasicType.ERROR_TYPE) || expType.equals(BasicType.ERROR_TYPE)) {
             return BasicType.ERROR_TYPE;
+        } else if (!idType.isPrimitiveType() && expType.equals(BasicType.NULL_TYPE)) {
+            // allow assignment of null to objects
+            return BasicType.VOID_TYPE;
         } else if (!idType.equals(expType)) {
             errors.add(TypeChecker.buildTypeError(id.x, id.y,
-                String.format("Failed to assign `%s` to variable of type `%s`.", idType, expType)));
+                String.format("Failed to assign `%s` to variable of type `%s`.", expType, idType)));
             return BasicType.ERROR_TYPE;
         } else {
             return BasicType.VOID_TYPE;

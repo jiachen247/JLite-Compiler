@@ -29,7 +29,7 @@ public class BinaryExpression extends Expression {
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         BasicType leftType = left.typeCheck(env, errors);
-        BasicType rightType = left.typeCheck(env, errors);
+        BasicType rightType = right.typeCheck(env, errors);
 
         if (leftType.equals(BasicType.ERROR_TYPE) || rightType.equals(BasicType.ERROR_TYPE)) {
             return BasicType.ERROR_TYPE;

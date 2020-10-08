@@ -31,7 +31,8 @@ public class ReturnStatement extends Statement {
         if (actual.equals(BasicType.ERROR_TYPE)) {
             return BasicType.ERROR_TYPE;
         } else if (actual.equals(expected)) {
-            // todo handle null
+            return actual;
+        } else if(!expected.isPrimitiveType() && actual.equals(BasicType.NULL_TYPE)) {
             return actual;
         } else {
             errors.add(TypeChecker.buildTypeError(expression.x, expression.y,

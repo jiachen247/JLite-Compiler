@@ -1,0 +1,22 @@
+/* Failure test for String concat operation */
+
+class Main {
+    Void main(){
+        return 1;
+    }
+}
+
+class Test {
+    Void test() {
+        String s;
+        Int x;
+
+        x = 1;
+
+        s = "";
+        s = 1 + 1;
+        s = 1 + "def";
+        s = s + x;
+        s = "0" + x;
+    }
+}

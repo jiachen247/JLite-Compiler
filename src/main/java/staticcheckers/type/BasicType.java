@@ -48,6 +48,13 @@ public class BasicType {
         return name;
     }
 
+    // is non object --> can be set to null
+    public boolean isPrimitiveType() {
+        return this.equals(INT_TYPE)
+            || this.equals(VOID_TYPE)
+            || this.equals(BOOL_TYPE);
+    }
+
 
     public static BasicType INT_TYPE = new BasicType("Int");
     public static BasicType VOID_TYPE = new BasicType("Void");

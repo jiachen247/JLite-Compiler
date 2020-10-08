@@ -44,13 +44,17 @@ public class PropertyAssignmentStatement extends Statement {
 
         BasicType propType = env.getClassDescriptors().get(objType).getFields().get(property);
 
-        if (!propType.equals(exprType)) {
+        if (!propType.isPrimitiveType() && exprType.equals(BasicType.NULL_TYPE)) {
+            return BasicType.VOID_TYPE;
+        } else if (!propType.equals(exprType)) {
             // todo handle null
             errors.add(TypeChecker.buildTypeError(expression.x, expression.y,
                 String.format("Failed to assign `%s` to property of type `%s`.", exprType, propType)));
             return BasicType.ERROR_TYPE;
+        } else {
+            return BasicType.VOID_TYPE;
         }
 
-        return BasicType.VOID_TYPE;
+
     }
 }

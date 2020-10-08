@@ -5,3 +5,14 @@ class Main {
         return 1;
     }
 }
+
+class Test {
+    Void test() {
+        String s;
+
+        s = "abc";
+        s = s + "def";
+        s = s + s;
+        s = "0" + s;
+    }
+}
