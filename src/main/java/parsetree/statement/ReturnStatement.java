@@ -5,6 +5,7 @@ import java.util.List;
 
 import main.java.parsetree.expression.Expression;
 import main.java.staticcheckers.CheckError;
+import main.java.staticcheckers.TypeChecker;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
@@ -33,7 +34,9 @@ public class ReturnStatement extends Statement {
             // todo handle null
             return actual;
         } else {
-            System.out.println("Return type mismatched. Expected " + expected + " but got " + actual);
+            errors.add(TypeChecker.buildTypeError(expression.x, expression.y,
+                String.format("Expected function return type to be `%s` found `%s` instead.",
+                    expected, actual)));
             return BasicType.ERROR_TYPE;
         }
     }

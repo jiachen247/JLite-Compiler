@@ -26,81 +26,48 @@ class Dummy {
     String retString() {
         return "";
     }
-
-    Void retVoid() {
-        return ;
-    }
-
 }
 
 class TestStatements {
     Int x;
 
-    Void testVariableAssignment() {
-        Int a;
-        Int b;
-        Dummy d;
-
-        // VarAss
-        a = b;
-        b = 1;
-
-        // FdAss
-        d = new Dummy();
-        d.x = 1;
-        d.y = true;
-        d.z = "1";
-
-        return ;
-    }
-
-    Void testControlFlows() {
-        Int c;
-        Bool b;
+    Dummy stmts() {
         Int x;
+        String s;
+        Bool b;
         Dummy d;
 
-        if (false) {
-            b = 1 == 2;
-        } else {
-            c = 1;
-        }
+        d = new Dummy();
 
-        // return type match
-        if (true) {
-            d.retInt();
-        } else {
-            d.retInt();
-        }
-
-        c = 0;
-
-        while (c < 10) {
-            c = c + 1;
-        }
-        b = true;
-        while (b) {
+        // While loop
+        while(x < 10) {
             x = x + 1;
         }
 
-        this.x = test();
-        x = test();
-        x = d.retInt();
+        // If else should have the same type for if and else block
+        if ((1 + 1) > 2) {
+            d.retInt();
+        } else {
+            d.retInt();
+        }
 
-    }
+        // Println
+        println(1);
+        println(true);
+        println("Hello World");
 
-    Int test() {
-        return 1;
-    }
+        // Readline
+        readln(x);
+        readln(s);
+        readln(b);
 
-    Int testInvoke() {
-        Int a;
-        Dummy d;
+        // Assignment
+        x = 1;
+        b = true;
+        d.z = "1";
 
-        d = new Dummy();
-        a = test();
-        a = d.test(2);
-       return a;
+        // return dummy
+        return d;
     }
 }
 
@@ -131,6 +98,5 @@ class TestExpressions {
 
         // Call Expression
         x = d.test(1);
-
     }
 }

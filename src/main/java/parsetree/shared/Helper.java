@@ -41,7 +41,6 @@ public class Helper {
         for (Statement stmt : stmts) {
             ret = stmt.typeCheck(env, errors);
             if (ret.equals(BasicType.ERROR_TYPE)) {
-                System.out.println("Failed to type check " + stmt);
                 isValid = false;
             }
         }

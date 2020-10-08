@@ -4,6 +4,7 @@ import java.util.List;
 
 import main.java.parsetree.expression.Expression;
 import main.java.staticcheckers.CheckError;
+import main.java.staticcheckers.TypeChecker;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
@@ -29,7 +30,9 @@ public class PrintLineStatement extends Statement {
             // arg should be a int, bool, string
             return BasicType.VOID_TYPE;
         } else {
-            System.out.println("println() takes in either a int, bool or string, found " + type);
+            errors.add(TypeChecker.buildTypeError(expr.x, expr.y,
+                String.format("The `println` function takes either a `Int`, `String` or `Boolean` as input but found type `%s` instead.",
+                    type)));
             return BasicType.ERROR_TYPE;
         }
     }

@@ -25,54 +25,41 @@ class Dummy {
     String retString() {
         return s;
     }
-
-    Void retVoid() {
-        return ;
-    }
-
 }
 
 class TestStatements {
-    Void test() {
+    Blah stmts() {
         Int x;
         String s;
         Bool b;
         Dummy d;
 
-        d = new Dummy();
+        while(1) {
+            x = x + 1;
+        }
 
-        if (1 + 1) {
+        // If else should have the same type for if and else block
+        if (1 + 1 > 2) {
             d.retInt();
         } else {
             d.retBool();
         }
 
-        while(s) {
-            return s;
-        }
+        // Println
+        println(d);
+        println(1);
 
-        x = 1 + 1 * 2;
-        x = "1234" - 5;
+        // Readline
+        readln(d);
 
-        b = x<-x;
-        s = s + "abc";
-        b = !b || false;
+        // return dummy when return type is void
+        return d;
 
-        d.retInt();
-        method1();
-    }
-
-    Void expr () {
-        Int x;
-        String s;
-        Bool b;
-        Dummy d;
-
-
-
-        // BinaryExpression
-
-        return ;
+        // Invalid Property Assignment
+        d.i = true;
+        x = "string";
+        d = true;
+        d.z = "1";
     }
 }
 
@@ -89,8 +76,9 @@ class TestExpressions {
         x = -(1 > 2);
         b = !(1 + 2);
 
-        // Illegal Boolean Expressions
+        // Illegal Binary Expressions
         s = "pwd" + 1;
+        s = "123456" - 1;
         s = s * s;
 
         // Illegal new expression

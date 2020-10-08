@@ -5,6 +5,7 @@ import java.util.List;
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
+import main.java.staticcheckers.TypeChecker;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
@@ -36,7 +37,8 @@ public class PropertyAssignmentStatement extends Statement {
         }
 
         if (!env.getClassDescriptors().get(objType).getFields().containsKey(property)) {
-            System.out.println("Failed to find class property '" + property + "' " + this.toString());
+            errors.add(TypeChecker.buildTypeError(property.x, property.y,
+                String.format("Object `%s` does not have field `%s`.", objType.getName(), property)));
             return BasicType.ERROR_TYPE;
         }
 
@@ -44,7 +46,8 @@ public class PropertyAssignmentStatement extends Statement {
 
         if (!propType.equals(exprType)) {
             // todo handle null
-            System.out.println("Failed to assign " + exprType + " to " + propType);
+            errors.add(TypeChecker.buildTypeError(expression.x, expression.y,
+                String.format("Failed to assign `%s` to property of type `%s`.", exprType, propType)));
             return BasicType.ERROR_TYPE;
         }
 

@@ -44,7 +44,7 @@ public class Main {
                 return;
             }
 
-            System.out.println("DistinctNameCheck: PASSED");
+            System.out.println("DistinctNameCheck:\tPASSED");
 
             Checker typeChecker = new TypeChecker(program);
 
@@ -53,7 +53,7 @@ public class Main {
                 return;
             }
 
-            System.out.println("TypeChecked: PASSED");
+            System.out.println("TypeChecked:\t\tPASSED");
 
             // proceed to gen IR
 

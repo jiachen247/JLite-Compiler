@@ -6,6 +6,7 @@ import java.util.List;
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Helper;
 import main.java.staticcheckers.CheckError;
+import main.java.staticcheckers.TypeChecker;
 import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
@@ -31,7 +32,8 @@ public class WhileStatement extends Statement {
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         BasicType predicate = conditionPredicate.typeCheck(env, errors);
         if (!predicate.equals(BasicType.BOOL_TYPE)) {
-            System.out.println("While statement expect a boolean function, found " + predicate);
+            errors.add(TypeChecker.buildTypeError(conditionPredicate.x, conditionPredicate.y,
+                String.format("Expected a predicate but found `%s`.", predicate)));
             return BasicType.ERROR_TYPE;
         }
 

@@ -42,6 +42,13 @@ public class TypeChecker extends Checker {
                 ClassDescriptor classContext = classDescriptors.get(BasicType.fromType(classDecl.type));
                 Environment enclosingEnv = new Environment(classDescriptors, classContext, localEnv);
 
+                // check return type of methods
+                if (!classDescriptors.containsKey(mdDecl.returnType)) {
+                    errors.add(TypeChecker.buildTypeError(mdDecl.x, mdDecl.y,
+                        String.format("Method return type `%s` does not exist.", mdDecl.returnType)));
+                }
+
+
                 for (Statement stmt : mdDecl.mdBody.stmts) {
                     if (stmt.typeCheck(enclosingEnv, errors).equals(BasicType.ERROR_TYPE)) {
                         // error("Failed to validate type for '" + stmt + "'");

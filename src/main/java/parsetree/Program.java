@@ -1,6 +1,11 @@
 package main.java.parsetree;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import main.java.staticcheckers.CheckError;
+import main.java.staticcheckers.type.BasicType;
+import main.java.staticcheckers.type.Environment;
 
 public class Program extends Node {
 
