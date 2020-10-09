@@ -1,0 +1,33 @@
+/* Pass test ambigeous method call*/
+class Main {
+    Void main(){
+        return 1;
+    }
+}
+
+
+class Dummy2 {
+
+}
+
+class Dummy3 {
+
+}
+
+class Test {
+
+    Int method(Dummy2 d) {
+        return 1;
+    }
+
+    Bool method(Dummy2 d, Dummy3 d2) {
+        return true;
+    }
+
+    Void test() {
+        Int x;
+
+        // non ambiguous since method sig is unique
+        x = method(null);
+    }
+}

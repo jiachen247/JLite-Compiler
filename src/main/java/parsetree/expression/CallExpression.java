@@ -57,8 +57,6 @@ public class CallExpression extends Expression {
 
         ClassDescriptor descriptor = env.getClassDescriptors().get(cd);
 
-
-
         List<BasicType> argTypes = arguments.stream().map(arg -> arg.typeCheck(env, errors)).collect(Collectors.toList());
 
         if (argTypes.contains(BasicType.ERROR_TYPE)) {
@@ -66,13 +64,52 @@ public class CallExpression extends Expression {
         }
 
         MdSignature sig = new MdSignature(id.x, id.y, id, argTypes);
+        if (argTypes.contains(BasicType.NULL_TYPE)) {
+            // check for any matching method signatures
+            List<MdSignature> possible = descriptor.getMethods().keySet()
+                .stream()
+                .filter((mdSig) -> match(argTypes, mdSig.argTypes))
+                .collect(Collectors.toList());
 
-        if (!descriptor.getMethods().containsKey(sig)) {
+
+            if (possible.size() == 0) {
+                errors.add(TypeChecker.buildTypeError(id.x, id.y,
+                    String.format("Class `%s` does not contain a method with this signature `%s`.", descriptor.getCname(), sig.toString())));
+                return BasicType.ERROR_TYPE;
+            } else if (possible.size() == 1) {
+                sig = possible.get(0); // replace sig if unique possible method sig found
+            } else {
+                String possibleStr = possible.stream().map(MdSignature::toString).collect(Collectors.joining(","));
+                errors.add(TypeChecker.buildTypeError(id.x, id.y,
+                    String.format("Reference to method `%s` is ambiguous. Could be possibly referring to `%s`", sig, possibleStr)));
+                return BasicType.ERROR_TYPE;
+            }
+        } else if (!descriptor.getMethods().containsKey(sig)) {
             errors.add(TypeChecker.buildTypeError(id.x, id.y,
                 String.format("Class `%s` does not contain a method with this signature `%s`.", descriptor.getCname(), sig.toString())));
             return BasicType.ERROR_TYPE;
         }
 
         return descriptor.getMethods().get(sig).getReturnType();
+    }
+
+    // actual type could contains nulls
+    // (null, null) should match to (String, Dummy)
+    private boolean match(List<BasicType> actualTypes, List<BasicType> types) {
+        if (actualTypes.size() != types.size()) {
+            return false;
+        }
+        int n = actualTypes.size();
+
+        for (int i = 0; i < n; i++) {
+            BasicType x = actualTypes.get(i);
+            BasicType y = types.get(i);
+
+            if (!x.equals(y) && (!x.equals(BasicType.NULL_TYPE) || y.isPrimitiveType())) {
+                // can pass in null for objects
+                return false;
+            }
+        }
+        return true;
     }
 }

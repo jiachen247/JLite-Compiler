@@ -15,10 +15,13 @@ class Test {
         String s;
         Dummy d;
         Int i;
+        Boolean b;
 
         s = null;
         d = null;
         d = new Dummy();
         d.dum = null;
+
+        Int
     }
 }
