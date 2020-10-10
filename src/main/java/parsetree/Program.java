@@ -44,6 +44,7 @@ public class Program extends Node {
         List<CMtd3> cmtd = new ArrayList<>();
 
         cdata.add(mainClass.toCData3());
+        cmtd.add(mainClass.toCMtd3());
 
         for (ClassDecl classDecl : classDeclList) {
             cdata.add(classDecl.toCData3());
@@ -51,6 +52,7 @@ public class Program extends Node {
 
         for (ClassDecl classDecl : classDeclList) {
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
+                System.out.println(mdDecl.getSignature());
                 cmtd.add(mdDecl.toCMd3(classDecl));
             }
         }
@@ -63,7 +65,7 @@ public class Program extends Node {
 
         for (ClassDecl classDecl : classDeclList) {
             //
-            long index = 0;
+            long index = 1; // main class is 0
 
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
                 mdDecl.setUniqueClassMethodIndex(index);

@@ -1,7 +1,18 @@
 package main.java.parsetree.statement;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import main.java.ir3.TempVariableGenerator;
+import main.java.ir3.VarDecl3;
+import main.java.ir3.exp.Exp3;
+import main.java.ir3.exp.Exp3Result;
+import main.java.ir3.exp.Id3;
+import main.java.ir3.exp.Idc3;
+import main.java.ir3.stmt.AssignmentStatement3;
+import main.java.ir3.stmt.PropertyAssignmentStatement3;
+import main.java.ir3.stmt.Stmt3;
+import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
@@ -11,9 +22,10 @@ import main.java.staticcheckers.type.Environment;
 
 public class PropertyAssignmentStatement extends Statement {
 
-    private final Expression object;
-    private final Id property;
-    private final Expression expression;
+    private Expression object;
+    private Id property;
+    private Expression expression;
+    private BasicType type;
 
     public PropertyAssignmentStatement(int x, int y, Expression object, Id property, Expression expression) {
         super(x, y);
@@ -42,19 +54,44 @@ public class PropertyAssignmentStatement extends Statement {
             return BasicType.ERROR_TYPE;
         }
 
-        BasicType propType = env.getClassDescriptors().get(objType).getFields().get(property);
+        type = env.getClassDescriptors().get(objType).getFields().get(property);
 
-        if (!propType.isPrimitiveType() && exprType.equals(BasicType.NULL_TYPE)) {
+        if (!type.isPrimitiveType() && exprType.equals(BasicType.NULL_TYPE)) {
             return BasicType.VOID_TYPE;
-        } else if (!propType.equals(exprType)) {
+        } else if (!type.equals(exprType)) {
             // todo handle null
             errors.add(TypeChecker.buildTypeError(expression.x, expression.y,
-                String.format("Failed to assign `%s` to property of type `%s`.", exprType, propType)));
+                String.format("Failed to assign `%s` to property of type `%s`.", exprType, type)));
             return BasicType.ERROR_TYPE;
         } else {
             return BasicType.VOID_TYPE;
         }
+    }
 
+    @Override
+    public Stmt3Result toIR() {
+        List<VarDecl3> tempVars = new ArrayList<>();
+        List<Stmt3> stmt3List = new ArrayList<>();
 
+        System.out.println("obj " + object);
+
+        Exp3Result objectResult = object.toIR();
+        stmt3List.addAll(objectResult.getStatements());
+        tempVars.addAll(objectResult.getTempVars());
+        Exp3 obj = objectResult.getResult();
+
+        if (!(objectResult.getResult() instanceof Idc3)) {
+            Id3 temp = TempVariableGenerator.getId();
+            tempVars.add(new VarDecl3(type, temp));
+            stmt3List.add(new AssignmentStatement3(temp, objectResult.getResult()));
+            obj = temp;
+        }
+
+        Exp3Result expResult = expression.toIR();
+        stmt3List.addAll(expResult.getStatements());
+        tempVars.addAll(expResult.getTempVars());
+
+        stmt3List.add(new PropertyAssignmentStatement3(obj, new Id3(property.name), expResult.getResult()));
+        return new Stmt3Result(tempVars, stmt3List);
     }
 }

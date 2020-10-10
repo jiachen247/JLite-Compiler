@@ -1,8 +1,14 @@
 package main.java.parsetree.statement;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import main.java.ir3.Result;
+import main.java.ir3.exp.Exp3Result;
+import main.java.ir3.stmt.ReturnStatement3;
+import main.java.ir3.stmt.Stmt3;
+import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.expression.Expression;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
@@ -40,5 +46,13 @@ public class ReturnStatement extends Statement {
                     expected, actual)));
             return BasicType.ERROR_TYPE;
         }
+    }
+
+    @Override
+    public Stmt3Result toIR() {
+        Exp3Result res = expression.toIR();
+        List<Stmt3> s = new ArrayList<>(res.getStatements());
+        s.add(new ReturnStatement3(res.getResult()));
+        return new Stmt3Result(res.getTempVars(), s);
     }
 }

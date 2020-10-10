@@ -2,6 +2,8 @@ package main.java.parsetree.statement;
 
 import java.util.List;
 
+import main.java.ir3.Result;
+import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.expression.CallExpression;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.type.BasicType;
@@ -24,5 +26,11 @@ public class CallStatement extends Statement {
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         return callExpression.typeCheck(env, errors);
+    }
+
+    @Override
+    public Stmt3Result toIR() {
+        // todo impl
+        return new Stmt3Result();
     }
 }

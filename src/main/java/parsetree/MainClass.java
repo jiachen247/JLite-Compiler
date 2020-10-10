@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import main.java.ir3.CData3;
+import main.java.ir3.CMtd3;
 import main.java.ir3.CName3;
+import main.java.ir3.MdBody3;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
+import main.java.parsetree.shared.Id;
 import main.java.parsetree.shared.Type;
+import main.java.staticcheckers.type.BasicType;
 
 public class MainClass extends Node {
 
@@ -24,7 +28,8 @@ public class MainClass extends Node {
 
     @Override
     public String toString() {
-        return String.format("class %s {\n\tVoid main(%s) {\n%s\t}\n}\n",
+        return String.format("class %s {\n\tVoid %%%s_0(%s) {\n%s\t}\n}\n",
+            type,
             type,
             Helper.getInstance().concat(arguments),
             Helper.getInstance().indent(body.toString()));
@@ -32,5 +37,9 @@ public class MainClass extends Node {
 
     public CData3 toCData3() {
         return new CData3(new CName3(type.getName()), new ArrayList<>());
+    }
+
+    public CMtd3 toCMtd3() {
+        return new CMtd3(BasicType.VOID_TYPE, new Id(String.format("%%%s_0", type)),  arguments, body.toMdBody3());
     }
 }

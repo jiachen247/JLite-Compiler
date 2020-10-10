@@ -35,7 +35,7 @@ public class MdDecl extends Node {
         return mdBody;
     }
 
-    // unique clas method index
+    // unique class method index
     private long uniqueMethodIndex;
 
 
@@ -58,10 +58,11 @@ public class MdDecl extends Node {
 
     public CMtd3 toCMd3(ClassDecl classDecl) {
         Id methodId = getUniqueMethodId(classDecl.getType().getName());
-        List<Argument> newArgs = new ArrayList<>(this.getArguments());
+        List<Argument> newArgs = new ArrayList<>();
 
         // add class as first argument
         newArgs.add(new Argument(classDecl.type, new Id("this")));
+        newArgs.addAll(arguments);
 
         return new CMtd3(returnType, methodId, newArgs, mdBody.toMdBody3());
     }

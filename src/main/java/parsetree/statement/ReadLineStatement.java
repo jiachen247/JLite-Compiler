@@ -1,7 +1,13 @@
 package main.java.parsetree.statement;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import main.java.ir3.Result;
+import main.java.ir3.VarDecl3;
+import main.java.ir3.stmt.ReadLineStatement3;
+import main.java.ir3.stmt.Stmt3;
+import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
@@ -37,5 +43,14 @@ public class ReadLineStatement extends Statement {
                     input)));
             return BasicType.ERROR_TYPE;
         }
+    }
+
+    @Override
+    public Stmt3Result toIR() {
+        List<Stmt3> stmt3s = new ArrayList<>();
+        List<VarDecl3> tempVars = new ArrayList<>();
+
+        stmt3s.add(new ReadLineStatement3(id));
+        return new Stmt3Result(tempVars, stmt3s);
     }
 }

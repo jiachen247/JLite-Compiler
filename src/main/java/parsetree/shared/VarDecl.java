@@ -1,6 +1,7 @@
 package main.java.parsetree.shared;
 
 import main.java.parsetree.Node;
+import main.java.staticcheckers.type.BasicType;
 
 public class VarDecl extends Node {
 
@@ -12,6 +13,13 @@ public class VarDecl extends Node {
         this.type = type;
         this.id = id;
     }
+
+    public VarDecl(Type type, Id id) {
+        super(0,0);
+        this.type = type;
+        this.id = id;
+    }
+
 
     @Override
     public String toString() {

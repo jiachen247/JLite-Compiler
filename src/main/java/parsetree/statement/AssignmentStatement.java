@@ -1,8 +1,16 @@
 package main.java.parsetree.statement;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import main.java.ir3.Result;
+import main.java.ir3.VarDecl3;
+import main.java.ir3.exp.Exp3Result;
+import main.java.ir3.exp.Id3;
+import main.java.ir3.stmt.AssignmentStatement3;
+import main.java.ir3.stmt.Stmt3;
+import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
@@ -49,5 +57,19 @@ public class AssignmentStatement extends Statement {
         } else {
             return BasicType.VOID_TYPE;
         }
+    }
+
+    @Override
+    public Stmt3Result toIR() {
+        List<Stmt3> stmt3s = new ArrayList<>();
+        List<VarDecl3> tempVars = new ArrayList<>();
+
+        Exp3Result result = expression.toIR();
+        stmt3s.addAll(result.getStatements());
+        tempVars.addAll(result.getTempVars());
+
+        stmt3s.add(new AssignmentStatement3(new Id3(id), result.getResult()));
+
+        return new Stmt3Result(tempVars, stmt3s);
     }
 }

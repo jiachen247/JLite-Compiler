@@ -1,5 +1,6 @@
 package main.java.parsetree;
 
+import java.util.Collections;
 import java.util.List;
 
 import main.java.ir3.CData3;
@@ -32,6 +33,7 @@ public class ClassDecl extends Node {
         this.type = type;
         this.varDeclList = varDeclList;
         this.mdDeclList = mdDeclList;
+        Collections.reverse(mdDeclList);
     }
 
     @Override

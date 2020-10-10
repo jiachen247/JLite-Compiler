@@ -1,8 +1,20 @@
 package main.java.parsetree.expression;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import main.java.ir3.Result;
+import main.java.ir3.TempVariableGenerator;
+import main.java.ir3.VarDecl3;
+import main.java.ir3.exp.Exp3;
+import main.java.ir3.exp.Exp3Result;
+import main.java.ir3.exp.Id3;
+import main.java.ir3.exp.Idc3;
+import main.java.ir3.exp.NewExpression3;
+import main.java.ir3.stmt.AssignmentStatement3;
+import main.java.ir3.stmt.InExpression3;
+import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Type;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
@@ -35,4 +47,14 @@ public class NewExpression extends Expression {
 
         return basictype;
     }
+
+    @Override
+    public Exp3Result toIR() {
+        List<VarDecl3> tempVars = new ArrayList<>();
+        List<Stmt3> stmt3List = new ArrayList<>();
+
+        return new Exp3Result(tempVars, stmt3List, new NewExpression3(new BasicType(type.getName())));
+    }
+
+
 }

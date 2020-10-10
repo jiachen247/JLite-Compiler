@@ -1,8 +1,21 @@
 package main.java.parsetree.expression;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import main.java.ir3.Result;
+import main.java.ir3.TempVariableGenerator;
+import main.java.ir3.VarDecl3;
+import main.java.ir3.exp.Exp3;
+import main.java.ir3.exp.Exp3Result;
+import main.java.ir3.exp.Id3;
+import main.java.ir3.exp.Idc3;
+import main.java.ir3.exp.UnaryExpression3;
+import main.java.ir3.stmt.AssignmentStatement3;
+import main.java.ir3.stmt.InExpression3;
+import main.java.ir3.stmt.PropertyAssignmentStatement3;
+import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
@@ -13,6 +26,7 @@ public class InExpression extends Expression {
 
     public final Expression object;
     public final Id property;
+    public BasicType type;
 
     public InExpression(int x, int y, Expression object, Id property) {
         super(x, y);
@@ -38,6 +52,29 @@ public class InExpression extends Expression {
             return BasicType.ERROR_TYPE;
         }
 
-        return env.getClassDescriptors().get(objType).getFields().get(property);
+        type = env.getClassDescriptors().get(objType).getFields().get(property);
+        return type;
     }
+
+    @Override
+    public Exp3Result toIR() {
+        List<VarDecl3> tempVars = new ArrayList<>();
+        List<Stmt3> stmt3List = new ArrayList<>();
+
+        Exp3Result objectResult = object.toIR();
+        stmt3List.addAll(objectResult.getStatements());
+        tempVars.addAll(objectResult.getTempVars());
+        Exp3 obj = objectResult.getResult();
+
+        if (!(objectResult.getResult() instanceof Idc3)) {
+            Id3 temp = TempVariableGenerator.getId();
+            tempVars.add(new VarDecl3(type, temp));
+            stmt3List.add(new AssignmentStatement3(temp, objectResult.getResult()));
+            obj = temp;
+        }
+
+        return new Exp3Result(tempVars, stmt3List, new InExpression3(obj, property, type));
+    }
+
+
 }

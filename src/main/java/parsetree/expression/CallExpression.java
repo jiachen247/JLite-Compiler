@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import main.java.ir3.Result;
+import main.java.ir3.exp.Exp3Result;
 import main.java.parsetree.MdSignature;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Id;
@@ -111,5 +113,10 @@ public class CallExpression extends Expression {
             }
         }
         return true;
+    }
+
+    @Override
+    public Exp3Result toIR() {
+        return new Exp3Result();
     }
 }

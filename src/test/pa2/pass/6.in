@@ -8,12 +8,23 @@ class MainC {
 
 class Test {
     Int a;
+    Test t;
 
     Int f(Int b) {
-        return 3;
+        if ( (a < 2) || (a > 2)) {
+            return 1;
+        } else {
+            return 3;
+        }
     }
 
     Bool f(Bool b) {
+        a = 0;
+
+        while (!(a + 2 < 10)) {
+            a = a + 1;
+        }
+
         return true;
     }
 
@@ -22,6 +33,13 @@ class Test {
     }
 
     Int h(Int b) {
+        b = 1+ 1 + 1+ 1;
         return 3;
+    }
+
+    Void g() {
+        t.t.t.a = 1;
+        t = null;
+        return ;
     }
 }
