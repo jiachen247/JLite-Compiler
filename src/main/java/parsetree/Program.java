@@ -1,11 +1,12 @@
 package main.java.parsetree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import main.java.staticcheckers.CheckError;
-import main.java.staticcheckers.type.BasicType;
-import main.java.staticcheckers.type.Environment;
+import main.java.ir3.CData3;
+import main.java.ir3.CMtd3;
+import main.java.ir3.Program3;
 
 public class Program extends Node {
 
@@ -36,5 +37,38 @@ public class Program extends Node {
         }
 
         return sb.toString();
+    }
+
+    public Program3 toProgram3(){
+        List<CData3> cdata = new ArrayList<>();
+        List<CMtd3> cmtd = new ArrayList<>();
+
+        cdata.add(mainClass.toCData3());
+
+        for (ClassDecl classDecl : classDeclList) {
+            cdata.add(classDecl.toCData3());
+        }
+
+        for (ClassDecl classDecl : classDeclList) {
+            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
+                cmtd.add(mdDecl.toCMd3(classDecl));
+            }
+        }
+
+
+        return new Program3(cdata, cmtd);
+    }
+
+    public void assignMethodNumbers() {
+
+        for (ClassDecl classDecl : classDeclList) {
+            //
+            long index = 0;
+
+            for (MdDecl mdDecl : classDecl.getMdDeclList()) {
+                mdDecl.setUniqueClassMethodIndex(index);
+                index += 1;
+            }
+        }
     }
 }

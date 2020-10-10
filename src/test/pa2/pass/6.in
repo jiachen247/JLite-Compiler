@@ -1,0 +1,27 @@
+/* Pass test for IR Gen */
+
+class MainC {
+    Void main (){
+        return;
+    }
+}
+
+class Test {
+    Int a;
+
+    Int f(Int b) {
+        return 3;
+    }
+
+    Bool f(Bool b) {
+        return true;
+    }
+
+    Int g(Int b) {
+        return 3;
+    }
+
+    Int h(Int b) {
+        return 3;
+    }
+}

@@ -11,6 +11,11 @@ public class Id extends Node {
         this.name = name;
     }
 
+    public Id(String name) {
+        super(0, 0);
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return name;

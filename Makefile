@@ -31,7 +31,7 @@ CUP        = java -jar $(CUPJAR)
 
 OUT    = out
 GEN    = $(OUT)/genfiles
-MAIN_JAVA_FILES ?= src/main/java/*.java src/main/java/staticcheckers/*.java src/main/java/staticcheckers/type/*.java src/main/java/parsetree/*.java src/main/java/parsetree/**/*.java
+MAIN_JAVA_FILES ?= src/main/java/*.java src/main/java/ir3/*.java src/main/java/*.java src/main/java/staticcheckers/*.java src/main/java/staticcheckers/type/*.java src/main/java/parsetree/*.java src/main/java/parsetree/**/*.java
 MORE_JAVA_FILES ?=
 
 LEXER_CLASS ?= Yylex

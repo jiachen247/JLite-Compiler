@@ -1,5 +1,6 @@
 package main.java.parsetree.shared;
 
+import main.java.ir3.VarDecl3;
 import main.java.parsetree.Node;
 
 public class VarDecl extends Node {

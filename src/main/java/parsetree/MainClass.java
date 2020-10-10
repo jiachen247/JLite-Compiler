@@ -1,7 +1,14 @@
 package main.java.parsetree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import main.java.ir3.CData3;
+import main.java.ir3.CName3;
+import main.java.ir3.VarDecl3;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Type;
@@ -27,4 +34,7 @@ public class MainClass extends Node {
             Helper.getInstance().indent(body.toString()));
     }
 
+    public CData3 toCData3() {
+        return new CData3(new CName3(type.getName()), new ArrayList<>());
+    }
 }

@@ -1,8 +1,10 @@
 package main.java.parsetree;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import main.java.ir3.CMtd3;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Id;
@@ -33,6 +35,9 @@ public class MdDecl extends Node {
         return mdBody;
     }
 
+    // unique clas method index
+    private long uniqueMethodIndex;
+
 
     public MdDecl(int x, int y, Type type, Id id, List<Argument> args, MdBody mdBody) {
         super(x, y);
@@ -40,6 +45,7 @@ public class MdDecl extends Node {
         this.arguments = args;
         this.mdBody = mdBody;
         this.returnType = BasicType.fromType(type);
+        this.uniqueMethodIndex = -1;
     }
 
     @Override
@@ -50,4 +56,21 @@ public class MdDecl extends Node {
             mdBody.toString());
     }
 
+    public CMtd3 toCMd3(ClassDecl classDecl) {
+        Id methodId = getUniqueMethodId(classDecl.getType().getName());
+        List<Argument> newArgs = new ArrayList<>(this.getArguments());
+
+        // add class as first argument
+        newArgs.add(new Argument(classDecl.type, new Id("this")));
+
+        return new CMtd3(returnType, methodId, newArgs, mdBody.toMdBody3());
+    }
+
+    public void setUniqueClassMethodIndex(long index) {
+        this.uniqueMethodIndex = index;
+    }
+
+    public Id getUniqueMethodId(String cname) {
+        return new Id(String.format("%%%s_%d", cname, uniqueMethodIndex));
+    }
 }

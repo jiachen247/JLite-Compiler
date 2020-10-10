@@ -13,6 +13,13 @@ public class Argument extends Node {
         this.id = id;
     }
 
+    public Argument(Type type, Id id) {
+        super(0, 0);
+        this.type = type;
+        this.id = id;
+    }
+
+
     @Override
     public String toString() {
         return type.toString() + " " + id;

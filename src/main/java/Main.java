@@ -21,6 +21,7 @@
 
 import java.io.FileReader;
 
+import main.java.ir3.Program3;
 import main.java.parsetree.Program;
 import main.java.staticcheckers.Checker;
 import main.java.staticcheckers.NameChecker;
@@ -36,6 +37,9 @@ public class Main {
 
 
             System.out.println(program);
+
+            // assign unique method numbers to each class method
+            program.assignMethodNumbers();
 
             Checker nameChecker = new NameChecker(program);
 
@@ -56,6 +60,9 @@ public class Main {
             System.out.println("TypeChecked:\t\tPASSED");
 
             // proceed to gen IR
+
+            Program3 ir = program.toProgram3();
+            System.out.println(ir);
 
         } catch (Exception e) {
             /* do cleanup here -- possibly rethrow e */

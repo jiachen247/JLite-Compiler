@@ -2,6 +2,8 @@ package main.java.parsetree;
 
 import java.util.List;
 
+import main.java.ir3.CData3;
+import main.java.ir3.CName3;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Type;
 import main.java.parsetree.shared.VarDecl;
@@ -38,5 +40,9 @@ public class ClassDecl extends Node {
             type.toString(),
             Helper.getInstance().indent(Helper.getInstance().join(varDeclList)),
             Helper.getInstance().indent(Helper.getInstance().join(mdDeclList)));
+    }
+
+    public CData3 toCData3() {
+        return new CData3(new CName3(type.getName()), varDeclList);
     }
 }
