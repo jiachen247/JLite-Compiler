@@ -32,7 +32,7 @@ public class ReturnStatement extends Statement {
             return BasicType.ERROR_TYPE;
         } else if (actual.equals(expected)) {
             return actual;
-        } else if(!expected.isPrimitiveType() && actual.equals(BasicType.NULL_TYPE)) {
+        } else if (!expected.isPrimitiveType() && actual.equals(BasicType.NULL_TYPE)) {
             return actual;
         } else {
             errors.add(TypeChecker.buildTypeError(expression.x, expression.y,

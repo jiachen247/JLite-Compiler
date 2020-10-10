@@ -39,7 +39,7 @@ public class Program extends Node {
         return sb.toString();
     }
 
-    public Program3 toProgram3(){
+    public Program3 toProgram3() {
         List<CData3> cdata = new ArrayList<>();
         List<CMtd3> cmtd = new ArrayList<>();
 

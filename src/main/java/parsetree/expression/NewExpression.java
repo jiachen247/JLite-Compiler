@@ -7,7 +7,6 @@ import main.java.parsetree.shared.Type;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
 import main.java.staticcheckers.type.BasicType;
-import main.java.staticcheckers.type.ClassDescriptor;
 import main.java.staticcheckers.type.Environment;
 
 public class NewExpression extends Expression {
