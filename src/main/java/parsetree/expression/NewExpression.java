@@ -4,16 +4,9 @@ package main.java.parsetree.expression;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
-import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
-import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Exp3Result;
-import main.java.ir3.exp.Id3;
-import main.java.ir3.exp.Idc3;
 import main.java.ir3.exp.NewExpression3;
-import main.java.ir3.stmt.AssignmentStatement3;
-import main.java.ir3.stmt.InExpression3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Type;
 import main.java.staticcheckers.CheckError;
@@ -27,6 +20,7 @@ public class NewExpression extends Expression {
 
     public NewExpression(int x, int y, Type type) {
         super(x, y);
+        assert type != null;
         this.type = type;
     }
 
@@ -37,24 +31,28 @@ public class NewExpression extends Expression {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
-        BasicType basictype = BasicType.fromType(type);
+        BasicType bt = BasicType.fromType(type);
 
-        if (!env.getClassDescriptors().containsKey(basictype)) {
+        if (!env.getClassDescriptors().containsKey(bt)) {
             errors.add(TypeChecker.buildTypeError(type.x, type.y,
                 String.format("Class `%s` does not exist.", type)));
             return BasicType.ERROR_TYPE;
         }
-
-        return basictype;
+        System.out.println("NJKDASNCJDNASCJNSDNCVSDNVNSDKVN exp");
+        System.out.println(bt);
+        return bt;
     }
 
     @Override
     public Exp3Result toIR() {
         List<VarDecl3> tempVars = new ArrayList<>();
         List<Stmt3> stmt3List = new ArrayList<>();
-
+        System.out.println("NewExpreeser " + type.getName());
         return new Exp3Result(tempVars, stmt3List, new NewExpression3(new BasicType(type.getName())));
     }
 
-
+    @Override
+    public BasicType getType() {
+        return new BasicType(type.getName());
+    }
 }

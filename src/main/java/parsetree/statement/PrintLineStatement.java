@@ -3,7 +3,6 @@ package main.java.parsetree.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3Result;
@@ -30,7 +29,7 @@ public class PrintLineStatement extends Statement {
 
     @Override
     public String toString() {
-        return "println(" + expr.toString() + ");";
+        return " println(" + expr.toString() + ");";
     }
 
     @Override

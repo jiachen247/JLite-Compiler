@@ -5,7 +5,6 @@ import java.util.List;
 
 import main.java.ir3.VarDecl3;
 import main.java.ir3.stmt.Stmt3;
-import main.java.parsetree.shared.VarDecl;
 
 public class Exp3Result {
     private List<VarDecl3> tempVars;
@@ -31,10 +30,4 @@ public class Exp3Result {
         return tempVars;
     }
 
-
-    public Exp3Result() {
-        this.tempVars = new ArrayList<>();
-        this.statements = new ArrayList<>();
-        this.result = new BoolLiteral3(true);
-    }
 }

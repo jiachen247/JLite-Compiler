@@ -1,6 +1,7 @@
 package main.java.parsetree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ public class MdDecl extends Node {
     public final MdSignature signature;
     public final List<Argument> arguments;
     public final MdBody mdBody;
+    private String methodId;
 
     public BasicType getReturnType() {
         return returnType;
@@ -35,29 +37,26 @@ public class MdDecl extends Node {
         return mdBody;
     }
 
-    // unique class method index
-    private long uniqueMethodIndex;
-
-
     public MdDecl(int x, int y, Type type, Id id, List<Argument> args, MdBody mdBody) {
         super(x, y);
         this.signature = new MdSignature(type.x, type.y, id, args.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList()));
         this.arguments = args;
         this.mdBody = mdBody;
         this.returnType = BasicType.fromType(type);
-        this.uniqueMethodIndex = -1;
     }
 
     @Override
     public String toString() {
         return String.format("%s %s(%s) {\n%s}",
             returnType.toString(),
-            signature.id.toString(), Helper.getInstance().concat(arguments),
+            signature.id.toString(),
+            Helper.getInstance().concat(arguments),
             mdBody.toString());
     }
 
     public CMtd3 toCMd3(ClassDecl classDecl) {
-        Id methodId = getUniqueMethodId(classDecl.getType().getName());
+        Id methodId = new Id(getUniqueMethodId());
+
         List<Argument> newArgs = new ArrayList<>();
 
         // add class as first argument
@@ -67,11 +66,11 @@ public class MdDecl extends Node {
         return new CMtd3(returnType, methodId, newArgs, mdBody.toMdBody3());
     }
 
-    public void setUniqueClassMethodIndex(long index) {
-        this.uniqueMethodIndex = index;
+    public void setUniqueClassMethodIndex(ClassDecl context, long index) {
+        this.methodId = String.format("%%%s_%d", context.type.getName(), index);
     }
 
-    public Id getUniqueMethodId(String cname) {
-        return new Id(String.format("%%%s_%d", cname, uniqueMethodIndex));
+    public String getUniqueMethodId() {
+        return methodId;
     }
 }

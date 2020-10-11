@@ -9,6 +9,7 @@ import main.java.staticcheckers.type.BasicType;
 
 public class CMtd3 {
     private BasicType type;
+
     private Id id;
     private List<Argument> arguments;
     private MdBody3 body;

@@ -1,6 +1,5 @@
 package main.java.ir3.exp;
 
-import main.java.parsetree.operator.BinaryOperator;
 import main.java.parsetree.operator.UnaryOperator;
 import main.java.staticcheckers.type.BasicType;
 

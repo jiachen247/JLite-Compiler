@@ -38,8 +38,19 @@ class Test {
     }
 
     Void g() {
-        t.t.t.a = 1;
-        t = null;
+
+        Test x;
+        // t.t.t.a = 1;
+        // t.f(1);
+        // t = null;
+
+        x = new Test();
+        t.t = new Test();
+        // t = t.getTest();
         return ;
+    }
+
+    Test getTest() {
+        return new Test();
     }
 }

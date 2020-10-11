@@ -4,7 +4,6 @@ package main.java.parsetree.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.stmt.ReturnStatement3;
 import main.java.ir3.stmt.Stmt3;

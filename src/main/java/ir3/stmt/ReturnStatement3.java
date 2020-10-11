@@ -1,7 +1,6 @@
 package main.java.ir3.stmt;
 
 import main.java.ir3.exp.Exp3;
-import main.java.ir3.exp.Idc3;
 
 public class ReturnStatement3 implements Stmt3 {
     private Exp3 returnVal;

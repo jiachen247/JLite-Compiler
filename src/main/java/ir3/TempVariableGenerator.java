@@ -3,7 +3,6 @@ package main.java.ir3;
 import java.util.concurrent.atomic.AtomicLong;
 
 import main.java.ir3.exp.Id3;
-import main.java.parsetree.shared.Id;
 
 public class TempVariableGenerator {
     private static AtomicLong counter = new AtomicLong(0);

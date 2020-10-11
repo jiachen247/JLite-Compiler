@@ -18,6 +18,11 @@ public class Type extends Node {
         this.name = name;
     }
 
+    public Type(String name) {
+        super(0, 0);
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return name;

@@ -8,6 +8,7 @@ import main.java.ir3.Label;
 import main.java.ir3.LabelGenerator;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
+import main.java.ir3.exp.BinaryExpression3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
 import main.java.ir3.stmt.AssignmentStatement3;
@@ -85,7 +86,8 @@ public class IfStatement extends Statement {
         stmt3List.addAll(conditionIR.getStatements());
 
 
-        if (conditionIR.getResult() instanceof BinaryExpression) {
+        if (conditionIR.getResult() instanceof BinaryExpression3) {
+
             stmt3List.add(new IfStatement3(conditionIR.getResult(), ifLabel));
         } else {
             Id3 temp = TempVariableGenerator.getId();
@@ -93,7 +95,6 @@ public class IfStatement extends Statement {
             stmt3List.add(new AssignmentStatement3(temp, conditionIR.getResult()));
             stmt3List.add(new IfStatement3(temp, ifLabel));
         }
-
 
         for (Statement statement : elseBlock) {
             Stmt3Result res = statement.toIR();

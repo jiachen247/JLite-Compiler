@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import main.java.ir3.MdBody3;
-import main.java.ir3.Result;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.ir3.stmt.Stmt3Result;

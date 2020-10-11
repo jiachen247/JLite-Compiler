@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.java.ir3.VarDecl3;
-import main.java.parsetree.shared.VarDecl;
 
 public class Stmt3Result {
     private List<VarDecl3> tempVars;

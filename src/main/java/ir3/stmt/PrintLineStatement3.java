@@ -1,7 +1,6 @@
 package main.java.ir3.stmt;
 
 import main.java.ir3.exp.Exp3;
-import main.java.ir3.exp.Id3;
 
 public class PrintLineStatement3 implements Stmt3 {
     Exp3 expr;
@@ -12,6 +11,6 @@ public class PrintLineStatement3 implements Stmt3 {
 
     @Override
     public String toString() {
-        return "println(" + expr.toString() + ");";
+        return " println(" + expr.toString() + ");";
     }
 }

@@ -3,7 +3,6 @@ package main.java.parsetree.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.stmt.EmptyReturnStatement3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.ir3.stmt.Stmt3Result;

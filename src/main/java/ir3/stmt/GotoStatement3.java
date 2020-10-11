@@ -1,7 +1,6 @@
 package main.java.ir3.stmt;
 
 import main.java.ir3.Label;
-import main.java.ir3.exp.Exp3;
 
 public class GotoStatement3 implements Stmt3 {
     private Label label;

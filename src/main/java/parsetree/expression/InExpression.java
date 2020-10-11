@@ -4,17 +4,14 @@ package main.java.parsetree.expression;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
 import main.java.ir3.exp.Idc3;
-import main.java.ir3.exp.UnaryExpression3;
 import main.java.ir3.stmt.AssignmentStatement3;
 import main.java.ir3.stmt.InExpression3;
-import main.java.ir3.stmt.PropertyAssignmentStatement3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
@@ -26,7 +23,8 @@ public class InExpression extends Expression {
 
     public final Expression object;
     public final Id property;
-    public BasicType type;
+    public BasicType objType;
+    public BasicType returnType;
 
     public InExpression(int x, int y, Expression object, Id property) {
         super(x, y);
@@ -41,7 +39,8 @@ public class InExpression extends Expression {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
-        BasicType objType = object.typeCheck(env, errors);
+        objType = object.typeCheck(env, errors);
+        System.out.println("TYPE CHECK IN EXPRESSION " + objType);
         if (objType.equals(BasicType.ERROR_TYPE)) {
             return BasicType.ERROR_TYPE;
         }
@@ -52,8 +51,9 @@ public class InExpression extends Expression {
             return BasicType.ERROR_TYPE;
         }
 
-        type = env.getClassDescriptors().get(objType).getFields().get(property);
-        return type;
+        returnType = env.getClassDescriptors().get(objType).getFields().get(property);
+        return returnType;
+
     }
 
     @Override
@@ -68,12 +68,19 @@ public class InExpression extends Expression {
 
         if (!(objectResult.getResult() instanceof Idc3)) {
             Id3 temp = TempVariableGenerator.getId();
-            tempVars.add(new VarDecl3(type, temp));
+            System.out.println("OEWJKF " + temp + " return type" + returnType + " type:" + objType + " id: " + property + " -> " + this);
+            System.out.println(this);
+            tempVars.add(new VarDecl3(returnType, temp));
             stmt3List.add(new AssignmentStatement3(temp, objectResult.getResult()));
             obj = temp;
         }
 
-        return new Exp3Result(tempVars, stmt3List, new InExpression3(obj, property, type));
+        return new Exp3Result(tempVars, stmt3List, new InExpression3(obj, property, returnType));
+    }
+
+    @Override
+    public BasicType getType() {
+        return returnType;
     }
 
 

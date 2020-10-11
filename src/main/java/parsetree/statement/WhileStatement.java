@@ -6,7 +6,6 @@ import java.util.List;
 
 import main.java.ir3.Label;
 import main.java.ir3.LabelGenerator;
-import main.java.ir3.Result;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3Result;
@@ -54,6 +53,7 @@ public class WhileStatement extends Statement {
 
         return Helper.getInstance().evalBlock(env, stmts, errors);
     }
+
     /*
 
         while (PREDICATE) { S }

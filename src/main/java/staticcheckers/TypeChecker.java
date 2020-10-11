@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sun.tools.javac.Main;
 import main.java.parsetree.ClassDecl;
 import main.java.parsetree.MainClass;
 import main.java.parsetree.MdDecl;
@@ -12,6 +13,7 @@ import main.java.parsetree.MdSignature;
 import main.java.parsetree.Program;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Id;
+import main.java.parsetree.shared.Type;
 import main.java.parsetree.shared.VarDecl;
 import main.java.parsetree.statement.Statement;
 import main.java.staticcheckers.type.BasicType;
@@ -36,6 +38,18 @@ public class TypeChecker extends Checker {
 
         boolean isValid = true;
 
+        // Type check main class body
+        LocalEnvironment mainLocalEnv = buildLocalEnv(program.getMainClass());
+        ClassDescriptor mainClassContext = classDescriptors.get(new BasicType("Main"));
+        Environment mainEnv = new Environment(classDescriptors, mainClassContext, mainLocalEnv);
+        for (Statement stmt : program.getMainClass().body.stmts) {
+            System.out.println("main encjbneajkc");
+            if (stmt.typeCheck(mainEnv, errors).equals(BasicType.ERROR_TYPE)) {
+                // error("Failed to validate type for '" + stmt + "'");
+                isValid = false;
+            }
+        }
+
         for (ClassDecl classDecl : program.getClassDeclList()) {
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
                 LocalEnvironment localEnv = buildLocalEnv(mdDecl);
@@ -50,6 +64,7 @@ public class TypeChecker extends Checker {
 
 
                 for (Statement stmt : mdDecl.mdBody.stmts) {
+                    System.out.println("senvsjenvjsn");
                     if (stmt.typeCheck(enclosingEnv, errors).equals(BasicType.ERROR_TYPE)) {
                         // error("Failed to validate type for '" + stmt + "'");
                         isValid = false;
@@ -65,7 +80,7 @@ public class TypeChecker extends Checker {
     // Build class descriptor Environments
     private void initialize() {
         // build class Descriptors
-        classDescriptors.put(new BasicType("Main"), buildClassDescriptor(program.getMainClass()));
+        classDescriptors.put(new BasicType(program.getMainClass().type.getName()), buildClassDescriptor(program.getMainClass()));
         classDescriptors.put(BasicType.INT_TYPE, new ClassDescriptor(BasicType.INT_TYPE));
         classDescriptors.put(BasicType.BOOL_TYPE, new ClassDescriptor(BasicType.BOOL_TYPE));
         classDescriptors.put(BasicType.STRING_TYPE, new ClassDescriptor(BasicType.STRING_TYPE));
@@ -82,9 +97,9 @@ public class TypeChecker extends Checker {
 
         List<BasicType> parameters = mainClass.arguments.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList());
         MdSignature mainSig = new MdSignature(mainClass.x, mainClass.y, new Id(mainClass.type.x, mainClass.type.y, "main"), parameters);
-        FunctionType mainFunction = new FunctionType(parameters, BasicType.VOID_TYPE);
+        FunctionType mainFunction = new FunctionType(parameters, BasicType.VOID_TYPE, mainClass.methodId);
         methods.put(mainSig, mainFunction);
-        return new ClassDescriptor("Main", new HashMap<>(), methods);
+        return new ClassDescriptor(mainClass.type.getName(), new HashMap<>(), methods);
     }
 
     private ClassDescriptor buildClassDescriptor(ClassDecl classDecl) {
@@ -97,7 +112,7 @@ public class TypeChecker extends Checker {
 
         for (MdDecl md : classDecl.getMdDeclList()) {
             List<BasicType> parameters = md.arguments.stream().map(arg -> BasicType.fromType(arg.type)).collect(Collectors.toList());
-            FunctionType functionType = new FunctionType(parameters, md.getReturnType());
+            FunctionType functionType = new FunctionType(parameters, md.getReturnType(), md.getUniqueMethodId());
             methods.put(md.signature, functionType);
         }
 
@@ -105,9 +120,33 @@ public class TypeChecker extends Checker {
     }
 
     private LocalEnvironment buildLocalEnv(MdDecl md) {
+            HashMap<Id, BasicType> local = new HashMap<>();
+
+            for (Argument arg : md.arguments) {
+                if (local.containsKey(arg.id)) {
+                    // shouldnt hit due to distinct name checking
+                    System.out.println("Found redeclaration in method");
+                } else {
+                    local.put(arg.id, BasicType.fromType(arg.type));
+                }
+            }
+
+            for (VarDecl var : md.getMdBody().variableDeclarations) {
+                if (local.containsKey(var.id)) {
+                    // shouldnt hit due to distinct name checking
+                    System.out.println("Found redeclaration in method");
+                } else {
+                    local.put(var.id, BasicType.fromType(var.type));
+                }
+            }
+
+        return new LocalEnvironment(local, md.returnType);
+    }
+
+    private LocalEnvironment buildLocalEnv(MainClass main) {
         HashMap<Id, BasicType> local = new HashMap<>();
 
-        for (Argument arg : md.arguments) {
+        for (Argument arg : main.arguments) {
             if (local.containsKey(arg.id)) {
                 // shouldnt hit due to distinct name checking
                 System.out.println("Found redeclaration in method");
@@ -116,7 +155,7 @@ public class TypeChecker extends Checker {
             }
         }
 
-        for (VarDecl var : md.getMdBody().variableDeclarations) {
+        for (VarDecl var : main.body.variableDeclarations) {
             if (local.containsKey(var.id)) {
                 // shouldnt hit due to distinct name checking
                 System.out.println("Found redeclaration in method");
@@ -125,7 +164,7 @@ public class TypeChecker extends Checker {
             }
         }
 
-        return new LocalEnvironment(local, md.returnType);
+        return new LocalEnvironment(local,BasicType.fromType(main.type));
     }
 
     @Override

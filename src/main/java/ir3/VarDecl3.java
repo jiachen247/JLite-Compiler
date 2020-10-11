@@ -13,13 +13,17 @@ public class VarDecl3 {
         this.id = id;
     }
 
-    public VarDecl3(VarDecl v){
+    public VarDecl3(VarDecl v) {
         this.type = new BasicType(v.type.getName());
         this.id = new Id3(v.id.name);
     }
 
     @Override
     public String toString() {
-        return " " + type.toString() + " " + id + ";";
+        System.out.println("HELLLLO");
+        System.out.println(id);
+        System.out.println(type);
+
+        return " " + type + " " + id + ";";
     }
 }

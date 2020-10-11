@@ -3,7 +3,6 @@ package main.java.parsetree.expression;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3Result;
@@ -12,7 +11,6 @@ import main.java.ir3.exp.Idc3;
 import main.java.ir3.exp.UnaryExpression3;
 import main.java.ir3.stmt.AssignmentStatement3;
 import main.java.ir3.stmt.Stmt3;
-import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.operator.UnaryOperator;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
@@ -72,5 +70,10 @@ public class UnaryExpression extends Expression {
             stmt3s.add(new AssignmentStatement3(temp1, result.getResult()));
             return new Exp3Result(tempVars, stmt3s, new UnaryExpression3(operator, temp1, type));
         }
+    }
+
+    @Override
+    public BasicType getType() {
+        return type;
     }
 }

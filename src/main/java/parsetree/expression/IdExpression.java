@@ -3,10 +3,8 @@ package main.java.parsetree.expression;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
-import main.java.ir3.exp.StringLiteral3;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
@@ -16,10 +14,12 @@ import main.java.staticcheckers.type.Environment;
 public class IdExpression extends Expression {
 
     public Id id;
+    private BasicType type;
 
     public IdExpression(int x, int y, Id id) {
         super(x, y);
         this.id = id;
+        this.type = new BasicType(id.name);
     }
 
     @Override
@@ -42,6 +42,11 @@ public class IdExpression extends Expression {
     @Override
     public Exp3Result toIR() {
         return new Exp3Result(new ArrayList<>(), new ArrayList<>(), new Id3(id.name));
+    }
+
+    @Override
+    public BasicType getType() {
+        return type;
     }
 
 }

@@ -4,7 +4,6 @@ package main.java.parsetree.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
@@ -36,6 +35,7 @@ public class AssignmentStatement extends Statement {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
+        System.out.println("TYPE CHECK NEW Assignment STATEMENT");
         BasicType idType = env.lookup(id);
         if (idType.equals(BasicType.ERROR_TYPE)) {
             errors.add(TypeChecker.buildTypeError(id.x, id.y,

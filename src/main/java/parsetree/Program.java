@@ -1,12 +1,14 @@
 package main.java.parsetree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import main.java.ir3.CData3;
 import main.java.ir3.CMtd3;
 import main.java.ir3.Program3;
+import main.java.parsetree.shared.Id;
 
 public class Program extends Node {
 
@@ -21,6 +23,8 @@ public class Program extends Node {
     }
 
     private final LinkedList<ClassDecl> classDeclList;
+
+    public static HashMap<MdSignature, Id> uniqueMethodNamesMap = new HashMap<>();
 
     public Program(int x, int y, MainClass mainClass, LinkedList<ClassDecl> classDeclList) {
         super(x, y);
@@ -52,8 +56,8 @@ public class Program extends Node {
 
         for (ClassDecl classDecl : classDeclList) {
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
-                System.out.println(mdDecl.getSignature());
-                cmtd.add(mdDecl.toCMd3(classDecl));
+                CMtd3 cMtd3 = mdDecl.toCMd3(classDecl);
+                cmtd.add(cMtd3);
             }
         }
 
@@ -62,13 +66,11 @@ public class Program extends Node {
     }
 
     public void assignMethodNumbers() {
-
         for (ClassDecl classDecl : classDeclList) {
             //
             long index = 1; // main class is 0
-
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
-                mdDecl.setUniqueClassMethodIndex(index);
+                mdDecl.setUniqueClassMethodIndex(classDecl, index);
                 index += 1;
             }
         }

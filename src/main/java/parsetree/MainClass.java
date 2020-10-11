@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import main.java.ir3.CData3;
 import main.java.ir3.CMtd3;
 import main.java.ir3.CName3;
-import main.java.ir3.MdBody3;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Id;
@@ -18,12 +17,14 @@ public class MainClass extends Node {
     public Type type;
     public final LinkedList<Argument> arguments;
     public final MdBody body;
+    public String methodId;
 
     public MainClass(int x, int y, Type type, LinkedList<Argument> arguments, MdBody body) {
         super(x, y);
         this.type = type;
         this.arguments = arguments;
         this.body = body;
+        this.methodId = String.format("%%%s_0", type);
     }
 
     @Override
@@ -40,6 +41,6 @@ public class MainClass extends Node {
     }
 
     public CMtd3 toCMtd3() {
-        return new CMtd3(BasicType.VOID_TYPE, new Id(String.format("%%%s_0", type)),  arguments, body.toMdBody3());
+        return new CMtd3(BasicType.VOID_TYPE, new Id(methodId), arguments, body.toMdBody3());
     }
 }

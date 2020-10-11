@@ -1,0 +1,29 @@
+/* Pass test for IR Gen */
+
+class MainC {
+    Void main (){
+        return;
+    }
+}
+
+class Test {
+
+    Test t;
+
+    Void g() {
+        Int hehe;
+
+        hehe = 0;
+        a(1 + 20 * 2, hehe, true || false );
+        t = (new Test()).getTest();
+        return ;
+    }
+
+    Test getTest() {
+        return new Test();
+    }
+
+    Void a(Int a, Int b, Bool c) {
+        return ;
+    }
+}

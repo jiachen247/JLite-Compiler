@@ -9,7 +9,6 @@ public class Environment {
         this.classDescriptors = classDescriptors;
         this.localEnvironment = localEnvironment;
         this.classContext = classContext;
-
     }
 
     private HashMap<BasicType, ClassDescriptor> classDescriptors;

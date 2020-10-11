@@ -41,6 +41,7 @@ public class PropertyAssignmentStatement extends Statement {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
+        System.out.println("PROPERTY ASSINGMENT TYPECHECK");
         BasicType objType = object.typeCheck(env, errors);
         BasicType exprType = expression.typeCheck(env, errors);
 
@@ -72,8 +73,6 @@ public class PropertyAssignmentStatement extends Statement {
     public Stmt3Result toIR() {
         List<VarDecl3> tempVars = new ArrayList<>();
         List<Stmt3> stmt3List = new ArrayList<>();
-
-        System.out.println("obj " + object);
 
         Exp3Result objectResult = object.toIR();
         stmt3List.addAll(objectResult.getStatements());

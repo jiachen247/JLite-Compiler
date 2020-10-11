@@ -4,7 +4,6 @@ import java.util.List;
 
 import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Helper;
-import main.java.parsetree.shared.VarDecl;
 
 public class MdBody3 {
     private List<VarDecl3> variableDeclarations;
@@ -20,7 +19,8 @@ public class MdBody3 {
     @Override
     public String toString() {
         return Helper.getInstance().indent(
-            Helper.getInstance().join(variableDeclarations)) +
+            Helper.getInstance().join(variableDeclarations))
+            + "\n" +
             Helper.getInstance().indent(Helper.getInstance().join(stmts));
     }
 

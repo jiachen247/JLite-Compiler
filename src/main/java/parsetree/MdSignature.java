@@ -41,7 +41,7 @@ public class MdSignature extends Node {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", id.name, argTypes.stream().map(BasicType::toString).collect(Collectors.joining(",")));
+        return String.format("%s(%s)", id.name, argTypes.stream().map(BasicType::toString).collect(Collectors.joining(", ")));
     }
 
 

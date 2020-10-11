@@ -3,6 +3,7 @@ package main.java.staticcheckers.type;
 import java.util.List;
 
 public class FunctionType {
+    public String methodId;
     public List<BasicType> getParametersType() {
         return parametersType;
     }
@@ -14,9 +15,10 @@ public class FunctionType {
     private List<BasicType> parametersType;
     private BasicType returnType;
 
-    public FunctionType(List<BasicType> parametersType, BasicType returnType) {
+    public FunctionType(List<BasicType> parametersType, BasicType returnType, String methodId) {
         this.parametersType = parametersType;
         this.returnType = returnType;
+        this.methodId = methodId;
     }
 
     @Override

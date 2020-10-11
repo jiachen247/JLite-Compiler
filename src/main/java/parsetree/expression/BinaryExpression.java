@@ -3,8 +3,6 @@ package main.java.parsetree.expression;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.security.jgss.GSSUtil;
-import main.java.ir3.Result;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.BinaryExpression3;
@@ -14,12 +12,7 @@ import main.java.ir3.exp.Id3;
 import main.java.ir3.exp.Idc3;
 import main.java.ir3.stmt.AssignmentStatement3;
 import main.java.ir3.stmt.Stmt3;
-import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.operator.BinaryOperator;
-import main.java.parsetree.shared.Id;
-import main.java.parsetree.shared.VarDecl;
-import main.java.parsetree.statement.AssignmentStatement;
-import main.java.parsetree.statement.Statement;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
 import main.java.staticcheckers.type.BasicType;
@@ -76,11 +69,9 @@ public class BinaryExpression extends Expression {
 
     @Override
     public Exp3Result toIR() {
-        System.out.println(this);
-        List<VarDecl3>  temps = new ArrayList<>();
+        List<VarDecl3> temps = new ArrayList<>();
         List<Stmt3> stmt3s = new ArrayList<>();
         Exp3 leftOperand, rightOperand;
-
 
 
         Exp3Result leftResult = left.toIR();
@@ -91,7 +82,7 @@ public class BinaryExpression extends Expression {
         temps.addAll(leftResult.getTempVars());
         temps.addAll(rightResult.getTempVars());
 
-        if (!(leftResult.getResult() instanceof  Idc3)) {
+        if (!(leftResult.getResult() instanceof Idc3)) {
             Id3 temp1 = TempVariableGenerator.getId();
             temps.add(new VarDecl3(type, temp1));
             stmt3s.add(new AssignmentStatement3(temp1, leftResult.getResult()));
@@ -100,7 +91,7 @@ public class BinaryExpression extends Expression {
             leftOperand = leftResult.getResult();
         }
 
-        if (!(rightResult.getResult() instanceof  Idc3)) {
+        if (!(rightResult.getResult() instanceof Idc3)) {
             Id3 temp2 = TempVariableGenerator.getId();
             temps.add(new VarDecl3(type, temp2));
             stmt3s.add(new AssignmentStatement3(temp2, rightResult.getResult()));
@@ -116,6 +107,11 @@ public class BinaryExpression extends Expression {
 
         return new Exp3Result(temps, stmt3s,
             new BinaryExpression3(operator, rightOperand, leftOperand, type));
+    }
+
+    @Override
+    public BasicType getType() {
+        return type;
     }
 
     private boolean isRelOp(BinaryOperator operator) {

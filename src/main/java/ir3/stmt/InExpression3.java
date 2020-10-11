@@ -9,6 +9,19 @@ public class InExpression3 implements Exp3 {
     private Exp3 obj;
     private Id3 prop;
     private BasicType type;
+
+    public Exp3 getObj() {
+        return obj;
+    }
+
+    public Id3 getProp() {
+        return prop;
+    }
+
+    public BasicType getType() {
+        return type;
+    }
+
     public InExpression3(Exp3 obj, Id property, BasicType type) {
         this.obj = obj;
         this.prop = new Id3(property);
@@ -17,6 +30,6 @@ public class InExpression3 implements Exp3 {
 
     @Override
     public String toString() {
-        return String.format("%s.%s", obj.toString(), prop.toString());
+        return String.format(" %s.%s", obj.toString(), prop.toString());
     }
 }
