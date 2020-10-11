@@ -41,7 +41,6 @@ public class PropertyAssignmentStatement extends Statement {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
-        System.out.println("PROPERTY ASSINGMENT TYPECHECK");
         BasicType objType = object.typeCheck(env, errors);
         BasicType exprType = expression.typeCheck(env, errors);
 

@@ -1,4 +1,4 @@
-/* Pass test for IR Gen */
+/* Edge Cases*/
 
 class MainC {
     Void main (){
@@ -7,7 +7,7 @@ class MainC {
 }
 
 class Test {
-
+    Int a;
     Test t;
 
     Void g() {
@@ -16,6 +16,7 @@ class Test {
         hehe = 0;
         a(1 + 20 * 2, hehe, true || false );
         t = (new Test()).getTest();
+        t.t.t.t.t.t.t.a = 1;
         return ;
     }
 

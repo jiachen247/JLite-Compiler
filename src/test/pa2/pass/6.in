@@ -1,56 +1,66 @@
-/* Pass test for IR Gen */
+/* Pass test for IR Method Generation */
 
 class MainC {
     Void main (){
+        Test t;
+
+        t = new Test();
+        t.a();
+        t.b();
+        t.c();
+        t.e(1, 1);
+        t.f(true, true, "");
+        t.g("");
+        t.overloaded(1);
         return;
     }
 }
 
+class Dummy {
+    Void dum() {
+        return ;
+    }
+}
+
 class Test {
-    Int a;
+    Int i;
     Test t;
 
-    Int f(Int b) {
-        if ( (a < 2) || (a > 2)) {
-            return 1;
-        } else {
-            return 3;
-        }
-    }
-
-    Bool f(Bool b) {
-        a = 0;
-
-        while (!(a + 2 < 10)) {
-            a = a + 1;
-        }
-
-        return true;
-    }
-
-    Int g(Int b) {
-        return 3;
-    }
-
-    Int h(Int b) {
-        b = 1+ 1 + 1+ 1;
-        return 3;
-    }
-
-    Void g() {
-
-        Test x;
-        // t.t.t.a = 1;
-        // t.f(1);
-        // t = null;
-
-        x = new Test();
-        t.t = new Test();
-        // t = t.getTest();
+    Void a() {
         return ;
     }
 
-    Test getTest() {
-        return new Test();
+    Int b() {
+        return 1;
+    }
+
+    Bool c() {
+        return true;
+    }
+
+    String d() {
+        return "hello world";
+    }
+
+    Void e(Int a, Int b) {
+        Int z;
+        return ;
+    }
+
+    Bool f(Bool b, Bool j, String s) {
+        Bool x;
+        return x;
+    }
+
+    String g(String s) {
+        return s;
+    }
+
+    String overloaded(String s) {
+        return "!!!";
+    }
+
+    Int overloaded(Int i) {
+        return 1;
     }
 }

@@ -1,0 +1,51 @@
+/* Pass Test for IR Expressions */
+
+class Main {
+    Void main(){
+        return ;
+    }
+}
+
+class Dummy {
+    Int x;
+
+    Int getX() {
+        return x;
+    }
+}
+
+class Expressions {
+    Int i;
+    Bool b;
+    String s;
+    Dummy d;
+
+
+    Void testBOP() {
+        i = i + 1 * i / 123;
+        b = true || b && (i < 123) || (1 == i);
+    }
+
+    Void testStringConcat() {
+        s = s + "123" + "4";
+    }
+
+    Void testUOP() {
+        i = ------i;
+        b = !!!!!!b;
+    }
+
+    Void testMember() {
+        i = d.x;
+        d.x = i;
+        d.x = d.x;
+    }
+
+    Void testAssignment() {
+        i = i;
+        i = i + 1;
+        i = i + 1 + 1;
+        i = d.getX();
+
+    }
+}

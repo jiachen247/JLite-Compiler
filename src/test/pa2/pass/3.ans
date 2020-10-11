@@ -1,0 +1,47 @@
+Successfully parsed program! :-)
+
+class MainC {
+	Void %MainC_0() {
+		return ;
+	}
+}
+
+class Test {
+
+	Void test() {
+		String s;
+		s = "abc";
+		s = [s, "def"](+);
+		s = [s, s](+);
+		s = ["0", s](+);
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class MainC {
+}
+
+class Test {
+}
+
+======= CMtd3 =======
+Void %MainC_0() {
+
+	 Return ;
+}
+
+Void %Test_0(Test this) {
+	 String s;
+
+	 s = "abc";
+	 s = s + "def";
+	 s = s + s;
+	 s = "0" + s;
+}
+
+======= End of IR3 Program =======

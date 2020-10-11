@@ -20,7 +20,6 @@ public class NewExpression extends Expression {
 
     public NewExpression(int x, int y, Type type) {
         super(x, y);
-        assert type != null;
         this.type = type;
     }
 
@@ -38,8 +37,6 @@ public class NewExpression extends Expression {
                 String.format("Class `%s` does not exist.", type)));
             return BasicType.ERROR_TYPE;
         }
-        System.out.println("NJKDASNCJDNASCJNSDNCVSDNVNSDKVN exp");
-        System.out.println(bt);
         return bt;
     }
 
@@ -47,7 +44,6 @@ public class NewExpression extends Expression {
     public Exp3Result toIR() {
         List<VarDecl3> tempVars = new ArrayList<>();
         List<Stmt3> stmt3List = new ArrayList<>();
-        System.out.println("NewExpreeser " + type.getName());
         return new Exp3Result(tempVars, stmt3List, new NewExpression3(new BasicType(type.getName())));
     }
 

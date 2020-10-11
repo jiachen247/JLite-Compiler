@@ -1,0 +1,89 @@
+Successfully parsed program! :-)
+
+class MainC {
+	Void %MainC_0() {
+		return ;
+	}
+}
+
+class Test {
+	Int a;
+	Test t;
+
+	Void g() {
+		Int hehe;
+		hehe = 0;
+		[a([1, [20, 2](*)](+), hehe, [true, false](||))];
+		t = [(new Test()).getTest()];
+		t.t.t.t.t.t.t.a = 1
+		return ;
+	}
+	Test getTest() {
+		Return new Test();
+	}
+	Void a(Int a, Int b, Bool c) {
+		return ;
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class MainC {
+}
+
+class Test {
+	Int a;
+	Test t;
+}
+
+======= CMtd3 =======
+Void %MainC_0() {
+
+	 Return ;
+}
+
+Void %Test_0(Test this) {
+	 Int hehe;
+	 Int _t1;
+	 Int _t2;
+	 Bool _t3;
+	 Test _t4;
+	 Test _t5;
+	 Test _t6;
+	 Test _t7;
+	 Test _t8;
+	 Test _t9;
+	 Int _t10;
+
+	 hehe = 0;
+	 _t1 = 2 * 20;
+	 _t2 = _t1 + 1;
+	 _t3 = false || true;
+	 %Test_2(Test, _t2, hehe, _t3);
+	 _t4 = new Test();
+	 t = %Test_1(_t4);
+	 _t5 =  t.t;
+	 _t6 =  _t5.t;
+	 _t7 =  _t6.t;
+	 _t8 =  _t7.t;
+	 _t9 =  _t8.t;
+	 _t10 =  _t9.t;
+	 _t10.a = 1;
+	 Return ;
+}
+
+Test %Test_1(Test this) {
+
+	 Return new Test();
+}
+
+Void %Test_2(Test this, Int a, Int b, Bool c) {
+
+	 Return ;
+}
+
+======= End of IR3 Program =======

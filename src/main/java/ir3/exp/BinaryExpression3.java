@@ -35,6 +35,9 @@ public class BinaryExpression3 implements Exp3 {
 
     @Override
     public String toString() {
+        if (type.equals(BasicType.STRING_TYPE)) {
+            return String.format("%s %s %s", right.toString(), operator, left.toString());
+        }
         return String.format("%s %s %s", left.toString(), operator, right.toString());
     }
 }

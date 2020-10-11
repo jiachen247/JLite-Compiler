@@ -2,10 +2,9 @@
 
 class Main {
     Void main(){
-        return 1;
+        return ;
     }
 }
-
 
 class Dummy2 {
 

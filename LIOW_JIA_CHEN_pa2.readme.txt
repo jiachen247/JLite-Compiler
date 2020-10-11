@@ -1,12 +1,31 @@
+# CS4212 Programming Assignment
+Liow Jia Chen
+A0184022R
 
+## Building and running
 
+To build
+```
+$ make
+```
 
+To run with input from file
+```
+$ java -cp ./bin/java-cup-11b.jar:out Main  src/test/pa2/pass/1.in
+```
+
+To diff output with expected output
+```
+$ java -cp ./bin/java-cup-11b.jar:out Main  src/test/pa2/pass/4.in | diff src/test/pa2/pass/4.ans -
+```
 ## Overloading (Distinct Name Checker)
 
 I implemented a mechanism for allowing method overloading by introducing a method signature which includes the method name and the argument type
 We allow overloading iff method signature are different.
-Method signatures are equal iff method name are the same and arg types are the identical (order matters)
-This is derived from overloading rules from modern languages.
+
+*Method signatures are equal iff method name are the same and arg types are the identical (order matters)*
+
+This is derived and consistent from overloading rules in modern languages eg Java.
 See implementation of ClassDecl::checkUniqueMethodSignature for impl details.
 
 - Overloaded methods MUST change the argument type list
@@ -15,3 +34,39 @@ See implementation of ClassDecl::checkUniqueMethodSignature for impl details.
 - Overloaded methods CAN declare new or broader checked exceptions (not applicable to jlite)
 - A method can be overloaded in the same class or in a subclass (not applicable to jlite)
 https://stackoverflow.com/questions/2807840/is-it-possible-to-have-different-return-types-for-a-overloaded-method
+
+## Method Call Ambiguity
+While coding, i noticed an edge case (see fail test case 6.in) where a method call could potentially be ambigeous when passing nulls as arguments;
+Since it could potentially match many methods. What Java does is try to infer uniqueness by checking how many methods it could possibly be
+if its 1 -> carry on and assume that as the method signature
+else if its more than one -> throw an error!
+
+## Relaxed Grammar in PA1 for String concat
+In the last assignment, we relaxed the overloaded String concat grammar, in this assignment through the type checker not that
+we have fixed this and throw type mismatch error for ``"str" + 1`. See test case 3 for an example.
+
+## Thoughts on the PA
+Looking back I actually learnt quite abit from this PA,
+- I finally understand overloading rules, always wondered why return type was not taken into account but now i understand!
+- I also now understand why python inserts `self` as the first param like what we do! Its to convert OOP code into a procedural code!
+
+This PA was super time consuming and gave me a headache, but i acutally learnt quite abit and enjoyed the process :-)
+
+
+## Test Cases
+Test case #0: Sample input provided
+Test case #1: Tests for Distinct name Checking
+Test case #2: Tests for Type Checking
+Test case #3: Tests for String concat operation
+Test case #4: Tests for null objects
+Test case #5: Tests for Ambiguous method call
+Test case #6: Tests for IR Method Generation / Renaming
+Test case #7: Tests for IR Control Structures
+Test case #8: Tests for IR Expressions
+Test case #9: Tests for IR Statements
+Test case #10: IR Edge cases
+
+
+
+
+

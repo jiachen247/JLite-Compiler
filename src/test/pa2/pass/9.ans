@@ -1,0 +1,100 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Dummy {
+	Int x;
+
+	Int getX() {
+		Return x;
+	}
+}
+
+class Statements {
+	Int i;
+	Bool b;
+	String s;
+	Dummy d;
+
+	Void testReadLine() {
+		readln(i);
+		readln(b);
+		readln(s);
+	}
+	Void testPrintLine() {
+		println(i);
+		println(b);
+		println(s);
+		println(1);
+		println("123");
+		println(true);
+	}
+	Void testAssignment() {
+		d = new Dummy();
+		d.x = 1
+		[d.getX()];
+		i = [d.getX()];
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class Main {
+}
+
+class Dummy {
+	Int x;
+}
+
+class Statements {
+	Int i;
+	Bool b;
+	String s;
+	Dummy d;
+}
+
+======= CMtd3 =======
+Void %Main_0() {
+
+	 Return ;
+}
+
+Int %Dummy_0(Dummy this) {
+
+	 Return x;
+}
+
+Void %Statements_0(Statements this) {
+
+	 readln(i);
+	 readln(b);
+	 readln(s);
+}
+
+Void %Statements_1(Statements this) {
+
+	 println(i);
+	 println(b);
+	 println(s);
+	 println(1);
+	 println("123");
+	 println(true);
+}
+
+Void %Statements_2(Statements this) {
+
+	 d = new Dummy();
+	 d.x = 1;
+	 %Dummy_0(d);
+	 i = %Dummy_0(d);
+}
+
+======= End of IR3 Program =======

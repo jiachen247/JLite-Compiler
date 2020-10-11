@@ -1,0 +1,64 @@
+Successfully parsed program! :-)
+
+class MainC {
+	Void %MainC_0() {
+		Functional fo;
+		Int i;
+		Int j;
+		readln(i);
+		If ([i, 0](<)) {
+			fo = new Functional();
+			j = [fo.f(i)];
+			println(j);
+		} else {
+			println("Error");
+		}
+		return ;
+	}
+}
+
+class Functional {
+	Int a;
+
+	Int f(Int b) {
+		Return 3;
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class MainC {
+}
+
+class Functional {
+	Int a;
+}
+
+======= CMtd3 =======
+Void %MainC_0() {
+	 Functional fo;
+	 Int i;
+	 Int j;
+
+	 readln(i);
+	 If (0 < i) goto 1;
+	 println("Error");
+	 goto 2;
+	Label 1:
+	 fo = new Functional();
+	 j = %Functional_0(fo, i);
+	 println(j);
+	Label 2:
+	 Return ;
+}
+
+Int %Functional_0(Functional this, Int b) {
+
+	 Return 3;
+}
+
+======= End of IR3 Program =======

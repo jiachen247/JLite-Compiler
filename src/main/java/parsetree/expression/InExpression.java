@@ -40,7 +40,6 @@ public class InExpression extends Expression {
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         objType = object.typeCheck(env, errors);
-        System.out.println("TYPE CHECK IN EXPRESSION " + objType);
         if (objType.equals(BasicType.ERROR_TYPE)) {
             return BasicType.ERROR_TYPE;
         }
@@ -68,8 +67,6 @@ public class InExpression extends Expression {
 
         if (!(objectResult.getResult() instanceof Idc3)) {
             Id3 temp = TempVariableGenerator.getId();
-            System.out.println("OEWJKF " + temp + " return type" + returnType + " type:" + objType + " id: " + property + " -> " + this);
-            System.out.println(this);
             tempVars.add(new VarDecl3(returnType, temp));
             stmt3List.add(new AssignmentStatement3(temp, objectResult.getResult()));
             obj = temp;

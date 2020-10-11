@@ -1,0 +1,33 @@
+/* Pass Test for Control Structures IR */
+
+class Main {
+     Void main(){
+         return ;
+     }
+ }
+
+class WhileLoop {
+    Void testWhile() {
+        Int count;
+
+        count = 0;
+        while (count < 100) {
+            count = count + 1;
+        }
+    }
+}
+
+class IfElse {
+    Void testIfElse() {
+        Int a;
+        Int b;
+
+        a = 10;
+        b = 11;
+        if (1 + a == b) {
+            println("yes");
+        } else {
+            println("no");
+        }
+    }
+}

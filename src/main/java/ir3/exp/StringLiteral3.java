@@ -5,11 +5,11 @@ public class StringLiteral3 implements Const {
 
     @Override
     public String toString() {
-        return val;
-    }
+        if (val == null || val.equals("")) {
+            return "null";
+        }
 
-    public String isVal() {
-        return val;
+        return "\"" +val + "\"";
     }
 
     public StringLiteral3(String val) {

@@ -1,0 +1,146 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Dummy {
+	Int x;
+
+	Int getX() {
+		Return x;
+	}
+}
+
+class Expressions {
+	Int i;
+	Bool b;
+	String s;
+	Dummy d;
+
+	Void testBOP() {
+		i = [i, [[1, i](*), 123](/)](+);
+		b = [[true, [b, ([i, 123](>))](&&)](||), ([1, i](==))](||);
+	}
+	Void testStringConcat() {
+		s = [[s, "123"](+), "4"](+);
+	}
+	Void testUOP() {
+		i = (-)[(-)[(-)[(-)[(-)[(-)[i]]]]]];
+		b = (!)[(!)[(!)[(!)[(!)[(!)[b]]]]]];
+	}
+	Void testMember() {
+		i = d.x;
+		d.x = i
+		d.x = d.x
+	}
+	Void testAssignment() {
+		i = i;
+		i = [i, 1](+);
+		i = [[i, 1](+), 1](+);
+		i = [d.getX()];
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class Main {
+}
+
+class Dummy {
+	Int x;
+}
+
+class Expressions {
+	Int i;
+	Bool b;
+	String s;
+	Dummy d;
+}
+
+======= CMtd3 =======
+Void %Main_0() {
+
+	 Return ;
+}
+
+Int %Dummy_0(Dummy this) {
+
+	 Return x;
+}
+
+Void %Expressions_0(Expressions this) {
+	 Int _t1;
+	 Int _t2;
+	 Bool _t3;
+	 Bool _t4;
+	 Bool _t5;
+	 Bool _t6;
+
+	 _t1 = i * 1;
+	 _t2 = 123 / _t1;
+	 i = _t2 + i;
+	 _t3 = 123 > i;
+	 _t4 = _t3 && b;
+	 _t5 = _t4 || true;
+	 _t6 = i == 1;
+	 b = _t6 || _t5;
+}
+
+Void %Expressions_1(Expressions this) {
+	 String _t7;
+
+	 _t7 = s + "123";
+	 s = _t7 + "4";
+}
+
+Void %Expressions_2(Expressions this) {
+	 Int _t8;
+	 Int _t9;
+	 Int _t10;
+	 Int _t11;
+	 Int _t12;
+	 Bool _t13;
+	 Bool _t14;
+	 Bool _t15;
+	 Bool _t16;
+	 Bool _t17;
+
+	 _t8 = -(i);
+	 _t9 = -(_t8);
+	 _t10 = -(_t9);
+	 _t11 = -(_t10);
+	 _t12 = -(_t11);
+	 i = -(_t12);
+	 _t13 = !(b);
+	 _t14 = !(_t13);
+	 _t15 = !(_t14);
+	 _t16 = !(_t15);
+	 _t17 = !(_t16);
+	 b = !(_t17);
+}
+
+Void %Expressions_3(Expressions this) {
+
+	 i =  d.x;
+	 d.x = i;
+	 d.x =  d.x;
+}
+
+Void %Expressions_4(Expressions this) {
+	 Int _t18;
+
+	 i = i;
+	 i = 1 + i;
+	 _t18 = 1 + i;
+	 i = 1 + _t18;
+	 i = %Dummy_0(d);
+}
+
+======= End of IR3 Program =======

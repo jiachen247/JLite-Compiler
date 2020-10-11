@@ -3,7 +3,7 @@
 
 class Main {
     Void main(){
-        return 1;
+        return ;
     }
 }
 
@@ -60,7 +60,7 @@ class TestD {
 
     // different return type is allowed if arg types are different
     Void methodOverloaded(Int a, Int b, Int c) {
-        return false;
+        return ;
     }
 }
 

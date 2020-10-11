@@ -29,7 +29,7 @@ public class PrintLineStatement extends Statement {
 
     @Override
     public String toString() {
-        return " println(" + expr.toString() + ");";
+        return "println(" + expr.toString() + ");";
     }
 
     @Override

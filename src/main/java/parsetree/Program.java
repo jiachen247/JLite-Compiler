@@ -68,7 +68,7 @@ public class Program extends Node {
     public void assignMethodNumbers() {
         for (ClassDecl classDecl : classDeclList) {
             //
-            long index = 1; // main class is 0
+            long index = 0;
             for (MdDecl mdDecl : classDecl.getMdDeclList()) {
                 mdDecl.setUniqueClassMethodIndex(classDecl, index);
                 index += 1;

@@ -1,0 +1,62 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Dummy {
+	String dum;
+
+}
+
+class Test {
+
+	Void test() {
+		String s;
+		Dummy d;
+		Int i;
+		Boolean b;
+		s = null;
+		d = null;
+		d = new Dummy();
+		d.dum = null
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class Main {
+}
+
+class Dummy {
+	String dum;
+}
+
+class Test {
+}
+
+======= CMtd3 =======
+Void %Main_0() {
+
+	 Return ;
+}
+
+Void %Test_0(Test this) {
+	 String s;
+	 Dummy d;
+	 Int i;
+	 Boolean b;
+
+	 s = null;
+	 d = null;
+	 d = new Dummy();
+	 d.dum = null;
+}
+
+======= End of IR3 Program =======

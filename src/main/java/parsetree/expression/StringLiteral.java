@@ -21,9 +21,7 @@ public class StringLiteral extends Expression {
 
     @Override
     public String toString() {
-        if (value == null || value.equals("")) {
-            return "null";
-        }
+
         return "\"" + value + "\"";
     }
 

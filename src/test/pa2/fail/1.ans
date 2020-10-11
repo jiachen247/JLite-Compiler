@@ -1,8 +1,8 @@
 Successfully parsed program! :-)
 
 class Main {
-	Void main() {
-		Return 1;
+	Void %Main_0() {
+		return ;
 	}
 }
 
@@ -42,26 +42,26 @@ class TestC {
 
 class TestD {
 
-	Void method1() {
+	Int method1() {
 		Return 1;
 	}
-	Int method1() {
+	Void method1() {
 		Return 1;
 	}
 }
 
 class TestOverloaded {
 
-	Int overload(Int b) {
-		Return 1;
-	}
-	Void overload(Int a) {
+	Int overload() {
 		Return 1;
 	}
 	Int overload(Int a) {
 		Return 1;
 	}
-	Int overload() {
+	Void overload(Int a) {
+		Return 1;
+	}
+	Int overload(Int b) {
 		Return 1;
 	}
 }
@@ -79,8 +79,8 @@ class TestRedeclaration {
 [DistinctNameCheck] Error at (18, 9): Variable `a` has already been declared previously.
 [DistinctNameCheck] Error at (29, 7): Class `TestB` has already been declared previously.
 [DistinctNameCheck] Error at (37, 31): Parameter name `z` has already been declared earlier for another function parameter.
-[DistinctNameCheck] Error at (44, 9): Failed to overload `method1`, method signature `method1()` already exist. 
-[DistinctNameCheck] Error at (58, 9): Failed to overload `overload`, method signature `overload(Int)` already exist. 
-[DistinctNameCheck] Error at (63, 10): Failed to overload `overload`, method signature `overload(Int)` already exist. 
-[DistinctNameCheck] Error at (75, 13): Variable `a` has already been declared earlier for another function parameter or field.
-[1/2] DistinctNameChecker: FAIL
+[DistinctNameCheck] Error at (48, 10): Failed to overload method `method1`, method signature `method1()` already exist in class.
+[DistinctNameCheck] Error at (63, 10): Failed to overload method `overload`, method signature `overload(Int)` already exist in class.
+[DistinctNameCheck] Error at (68, 9): Failed to overload method `overload`, method signature `overload(Int)` already exist in class.
+[DistinctNameCheck] Error at (75, 13): Variable `a` has already been declared earlier in another parameter or field.
+DistinctNameCheck failed with 8 errors. Please fix before proceeding!

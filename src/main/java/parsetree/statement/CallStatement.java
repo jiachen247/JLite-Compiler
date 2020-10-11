@@ -29,7 +29,6 @@ public class CallStatement extends Statement {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
-        System.out.println("CALL STATMENT TYPECHECK");
         return callExpression.typeCheck(env, errors);
     }
 

@@ -1,0 +1,29 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Test {
+
+	Void test() {
+		String s;
+		Int x;
+		x = 1;
+		s = "";
+		s = [1, 1](+);
+		s = [1, "def"](+);
+		s = [s, x](+);
+		s = ["0", x](+);
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+[TypeCheck] Error at (17, 9): Failed to assign `Int` to variable of type `String`.
+[TypeCheck] Error at (18, 15): Type `[+](Int, String)` not supported for Binary Expressions. Expected `[+-*/](Int, Int)` or [<,<=,>,>=,==,!=](Bool, Bool) or `[+](String, String)` operations.
+[TypeCheck] Error at (19, 15): Type `[+](String, Int)` not supported for Binary Expressions. Expected `[+-*/](Int, Int)` or [<,<=,>,>=,==,!=](Bool, Bool) or `[+](String, String)` operations.
+[TypeCheck] Error at (20, 17): Type `[+](String, Int)` not supported for Binary Expressions. Expected `[+-*/](Int, Int)` or [<,<=,>,>=,==,!=](Bool, Bool) or `[+](String, String)` operations.
+TypeCheck failed with 4 errors. Please fix before proceeding!

@@ -41,7 +41,6 @@ public class TypeChecker extends Checker {
         ClassDescriptor mainClassContext = classDescriptors.get(new BasicType("Main"));
         Environment mainEnv = new Environment(classDescriptors, mainClassContext, mainLocalEnv);
         for (Statement stmt : program.getMainClass().body.stmts) {
-            System.out.println("main encjbneajkc");
             if (stmt.typeCheck(mainEnv, errors).equals(BasicType.ERROR_TYPE)) {
                 // error("Failed to validate type for '" + stmt + "'");
                 isValid = false;
@@ -62,7 +61,6 @@ public class TypeChecker extends Checker {
 
 
                 for (Statement stmt : mdDecl.mdBody.stmts) {
-                    System.out.println("senvsjenvjsn");
                     if (stmt.typeCheck(enclosingEnv, errors).equals(BasicType.ERROR_TYPE)) {
                         // error("Failed to validate type for '" + stmt + "'");
                         isValid = false;

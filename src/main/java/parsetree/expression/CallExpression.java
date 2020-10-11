@@ -55,17 +55,14 @@ public class CallExpression extends Expression {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
-        System.out.println("DO I TYPE CHECK THIS CALL EXP??!??!?");
         if (callee instanceof IdExpression) {
             cd = env.getClassContext().getCname();
             idExpression = ((IdExpression) callee);
             id = idExpression.id;
         } else if (callee instanceof InExpression) {
             inExpression = ((InExpression) callee);
-            System.out.println("ARGHHH " + inExpression.object);
             cd = inExpression.object.typeCheck(env, errors);
             id = inExpression.property;
-            System.out.println("cd " + cd + " id " + id);
         } else {
             errors.add(TypeChecker.buildTypeError(callee.x, callee.y, "Invalid call expression."));
             return BasicType.ERROR_TYPE;
@@ -144,10 +141,6 @@ public class CallExpression extends Expression {
         List<VarDecl3> temps = new ArrayList<>();
         List<Stmt3> stmt3s = new ArrayList<>();
 
-        System.out.println("[Callepression] " + this.toString());
-        System.out.println(String.format("cd: %s, returnType: %s, id: %s", cd, returnType, id));
-        System.out.println(inExpression);
-
         Exp3Result calleeResult;
         Exp3 thisContext;
 
@@ -159,7 +152,6 @@ public class CallExpression extends Expression {
             thisContext = calleeResult.getResult();
             if (!(thisContext instanceof Idc3)) {
                 Id3 temp1 = TempVariableGenerator.getId();
-                System.out.println("BLAHH " + temp1 + " " + calleeResult);
                 temps.add(new VarDecl3(cd, temp1));
                 stmt3s.add(new AssignmentStatement3(temp1, thisContext));
                 thisContext = temp1;
@@ -168,20 +160,6 @@ public class CallExpression extends Expression {
 
         temps.addAll(calleeResult.getTempVars());
         stmt3s.addAll(calleeResult.getStatements());
-
-        Exp3 calleeObj = calleeResult.getResult();
-        System.out.println("callobj " + callee);
-//        if (!(calleeObj instanceof Idc3)) {
-//            Id3 temp1 = TempVariableGenerator.getId();
-//            System.out.println("BLAHH " + temp1 + " " + calleeObj );
-//            temps.add(new VarDecl3(calleeType, temp1));
-//            stmt3s.add(new AssignmentStatement3(temp1, calleeObj));
-//            calleeObj = temp1;
-//        }
-
-        if (calleeObj instanceof InExpression3) {
-            calleeObj = ((InExpression3) calleeObj).getObj();
-        }
 
         List<Exp3> exp3args = new ArrayList<>();
 
@@ -197,7 +175,6 @@ public class CallExpression extends Expression {
 
             if (!(exp instanceof Idc3)) {
                 Id3 temp = TempVariableGenerator.getId();
-                System.out.println("BLAHH " + temp + " " + exp);
                 temps.add(new VarDecl3(arg.getType(), temp));
                 stmt3s.add(new AssignmentStatement3(temp, exp));
                 exp = temp;
@@ -205,13 +182,6 @@ public class CallExpression extends Expression {
 
             exp3args.add(exp);
         }
-
-
-        System.out.println(methodId);
-        System.out.println(methodId + "++++");
-
-        /// eval expressions for args
-        // add this to be first arg
 
         return new Exp3Result(temps, stmt3s, new CallExpression3(new Id3(methodId), exp3args));
     }

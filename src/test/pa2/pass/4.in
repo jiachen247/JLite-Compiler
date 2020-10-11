@@ -2,7 +2,7 @@
 
 class Main {
     Void main(){
-        return 1;
+        return ;
     }
 }
 
@@ -21,7 +21,5 @@ class Test {
         d = null;
         d = new Dummy();
         d.dum = null;
-
-        Int
     }
 }

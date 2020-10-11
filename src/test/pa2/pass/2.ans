@@ -1,0 +1,185 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Dummy {
+	Int x;
+	Bool y;
+	String z;
+
+	Int test(Int arg1) {
+		Return 2;
+	}
+	Int retInt() {
+		Return 1;
+	}
+	Bool returnBool() {
+		Return true;
+	}
+	String retString() {
+		Return "";
+	}
+}
+
+class TestStatements {
+	Int x;
+
+	Dummy stmts() {
+		Int x;
+		String s;
+		Bool b;
+		Dummy d;
+		d = new Dummy();
+		While ([x, 10](>)) {
+			x = [x, 1](+);
+		}
+		
+		If ([([1, 1](+)), 2](<)) {
+			[d.retInt()];
+		} else {
+			[d.retInt()];
+		}
+		println(1);
+		println(true);
+		println("Hello World");
+		readln(x);
+		readln(s);
+		readln(b);
+		x = 1;
+		b = true;
+		d.z = "1"
+		Return d;
+	}
+}
+
+class TestExpressions {
+
+	Void test() {
+		Int x;
+		String s;
+		Bool b;
+		Dummy d;
+		d = new Dummy();
+		x = (-)[1];
+		b = (!)[true];
+		b = (!)[([1, 2](<))];
+		x = [1, 2](-);
+		x = [1, 2](+);
+		x = [1, 2](*);
+		x = [1, 2](/);
+		b = [1, 2](<);
+		b = [1, 2](>);
+		b = [1, 1](==);
+		s = [s, "123"](+);
+		x = [d.test(1)];
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class Main {
+}
+
+class Dummy {
+	Int x;
+	Bool y;
+	String z;
+}
+
+class TestStatements {
+	Int x;
+}
+
+class TestExpressions {
+}
+
+======= CMtd3 =======
+Void %Main_0() {
+
+	 Return ;
+}
+
+Int %Dummy_0(Dummy this, Int arg1) {
+
+	 Return 2;
+}
+
+Int %Dummy_1(Dummy this) {
+
+	 Return 1;
+}
+
+Bool %Dummy_2(Dummy this) {
+
+	 Return true;
+}
+
+String %Dummy_3(Dummy this) {
+
+	 Return null;
+}
+
+Dummy %TestStatements_0(TestStatements this) {
+	 Int x;
+	 String s;
+	 Bool b;
+	 Dummy d;
+	 Bool _t1;
+
+	 d = new Dummy();
+	 goto 2;
+	Label 1:
+	 x = 1 + x;
+	Label 2:
+	 If (10 > x) goto 1;
+	 _t1 = 1 + 1;
+	 If (2 < _t1) goto 3;
+	 %Dummy_1(d);
+	 goto 4;
+	Label 3:
+	 %Dummy_1(d);
+	Label 4:
+	 println(1);
+	 println(true);
+	 println("Hello World");
+	 readln(x);
+	 readln(s);
+	 readln(b);
+	 x = 1;
+	 b = true;
+	 d.z = "1";
+	 Return d;
+}
+
+Void %TestExpressions_0(TestExpressions this) {
+	 Int x;
+	 String s;
+	 Bool b;
+	 Dummy d;
+	 Bool _t2;
+
+	 d = new Dummy();
+	 x = -(1);
+	 b = !(true);
+	 _t2 = 2 < 1;
+	 b = !(_t2);
+	 x = 2 - 1;
+	 x = 2 + 1;
+	 x = 2 * 1;
+	 x = 2 / 1;
+	 b = 2 < 1;
+	 b = 2 > 1;
+	 b = 1 == 1;
+	 s = s + "123";
+	 x = %Dummy_0(d, 1);
+}
+
+======= End of IR3 Program =======

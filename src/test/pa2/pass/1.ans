@@ -1,0 +1,168 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class TestA {
+	Int a;
+	Int b;
+	Int c;
+
+}
+
+class TestB {
+	Int a;
+	Int b;
+	Int c;
+
+}
+
+class TestB1 {
+	Int a;
+	Int b;
+	Int c;
+
+}
+
+class TestC {
+
+	Int method1(Int a, Int b) {
+		Return 1;
+	}
+}
+
+class TestD {
+
+	Int method1(Int a, Int b) {
+		Return 1;
+	}
+	Int method2(Int a, Int b) {
+		Return 1;
+	}
+	Int methodOverloaded() {
+		Return 0;
+	}
+	Int methodOverloaded(Int a) {
+		Return 1;
+	}
+	Bool methodOverloaded(Int a, Int b) {
+		Return true;
+	}
+	Void methodOverloaded(Int a, Int b, Int c) {
+		return ;
+	}
+}
+
+class Edge {
+	Int a;
+
+	Int a(Int a) {
+		Return 1;
+	}
+	Int method2() {
+		Int a;
+		Return 1;
+	}
+	Int b(Int b) {
+		Return 1;
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class Main {
+}
+
+class TestA {
+	Int a;
+	Int b;
+	Int c;
+}
+
+class TestB {
+	Int a;
+	Int b;
+	Int c;
+}
+
+class TestB1 {
+	Int a;
+	Int b;
+	Int c;
+}
+
+class TestC {
+}
+
+class TestD {
+}
+
+class Edge {
+	Int a;
+}
+
+======= CMtd3 =======
+Void %Main_0() {
+
+	 Return ;
+}
+
+Int %TestC_0(TestC this, Int a, Int b) {
+
+	 Return 1;
+}
+
+Int %TestD_0(TestD this, Int a, Int b) {
+
+	 Return 1;
+}
+
+Int %TestD_1(TestD this, Int a, Int b) {
+
+	 Return 1;
+}
+
+Int %TestD_2(TestD this) {
+
+	 Return 0;
+}
+
+Int %TestD_3(TestD this, Int a) {
+
+	 Return 1;
+}
+
+Bool %TestD_4(TestD this, Int a, Int b) {
+
+	 Return true;
+}
+
+Void %TestD_5(TestD this, Int a, Int b, Int c) {
+
+	 Return ;
+}
+
+Int %Edge_0(Edge this, Int a) {
+
+	 Return 1;
+}
+
+Int %Edge_1(Edge this) {
+	 Int a;
+
+	 Return 1;
+}
+
+Int %Edge_2(Edge this, Int b) {
+
+	 Return 1;
+}
+
+======= End of IR3 Program =======

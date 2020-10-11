@@ -1,0 +1,71 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Dummy2 {
+
+}
+
+class Dummy3 {
+
+}
+
+class Test {
+
+	Int method(Dummy2 d) {
+		Return 1;
+	}
+	Bool method(Dummy2 d, Dummy3 d2) {
+		Return true;
+	}
+	Void test() {
+		Int x;
+		x = [method(null)];
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class Main {
+}
+
+class Dummy2 {
+}
+
+class Dummy3 {
+}
+
+class Test {
+}
+
+======= CMtd3 =======
+Void %Main_0() {
+
+	 Return ;
+}
+
+Int %Test_0(Test this, Dummy2 d) {
+
+	 Return 1;
+}
+
+Bool %Test_1(Test this, Dummy2 d, Dummy3 d2) {
+
+	 Return true;
+}
+
+Void %Test_2(Test this) {
+	 Int x;
+
+	 x = %Test_0(Test, null);
+}
+
+======= End of IR3 Program =======

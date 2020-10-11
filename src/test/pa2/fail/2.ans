@@ -1,0 +1,106 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Dummy {
+	Int i;
+	Bool b;
+	String s;
+
+	Int test(Int a) {
+		Return 2;
+	}
+	Int retInt() {
+		Return i;
+	}
+	Bool returnBool() {
+		Return b;
+	}
+	String retString() {
+		Return s;
+	}
+}
+
+class TestStatements {
+
+	Blah stmts() {
+		Int x;
+		String s;
+		Bool b;
+		Dummy d;
+		While (1) {
+			x = [x, 1](+);
+		}
+		
+		If ([[1, 1](+), 2](<)) {
+			[d.retInt()];
+		} else {
+			[d.retBool()];
+		}
+		println(d);
+		println(1);
+		readln(d);
+		Return d;
+		d.i = true
+		x = "string";
+		d = true;
+		d.z = "1"
+	}
+}
+
+class TestExpressions {
+
+	Void test() {
+		Int x;
+		String s;
+		Bool b;
+		Dummy d;
+		d = new Dummy();
+		x = (-)[([1, 2](<))];
+		b = (!)[([1, 2](+))];
+		s = ["pwd", 1](+);
+		s = ["123456", 1](-);
+		s = [s, s](*);
+		d = new UndefinedClass();
+		x = new Dummy();
+		x = undefinedVariable;
+		x = undefinedVariable.x;
+		x = d.undefinedVariable;
+		x = [d.undefinedMethod()];
+		x = [([test()])()];
+		x = [d.test(undefined)];
+		x = [d.test(1, 2, 3)];
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+[TypeCheck] Error at (31, 5): Method return type `Blah` does not exist.
+[TypeCheck] Error at (37, 15): Expected a predicate but found `Int`.
+[TypeCheck] Error at (45, 15): Class `Dummy` does not contain a method with this signature `retBool()`.
+[TypeCheck] Error at (49, 17): The `println` function takes either a `Int`, `String` or `Boolean` as input but found type `Dummy` instead.
+[TypeCheck] Error at (53, 16): The `readln` function takes either an id of `Int`, `String` or `Boolean` as input but found variable of type `Dummy` instead.
+[TypeCheck] Error at (56, 16): Expected function return type to be `Blah` found `Dummy` instead.
+[TypeCheck] Error at (59, 15): Failed to assign `Bool` to property of type `Int`.
+[TypeCheck] Error at (60, 9): Failed to assign `String` to variable of type `Int`.
+[TypeCheck] Error at (61, 9): Failed to assign `Bool` to variable of type `Dummy`.
+[TypeCheck] Error at (62, 11): Object `Dummy` does not have field `z`.
+[TypeCheck] Error at (76, 13): Type `[-](Bool)` not supported for Unary Expressions. Expected `[-](Int)` or `[!](Boolean)`.
+[TypeCheck] Error at (77, 13): Type `[!](Int)` not supported for Unary Expressions. Expected `[-](Int)` or `[!](Boolean)`.
+[TypeCheck] Error at (80, 19): Type `[+](String, Int)` not supported for Binary Expressions. Expected `[+-*/](Int, Int)` or [<,<=,>,>=,==,!=](Bool, Bool) or `[+](String, String)` operations.
+[TypeCheck] Error at (81, 22): Type `[-](String, Int)` not supported for Binary Expressions. Expected `[+-*/](Int, Int)` or [<,<=,>,>=,==,!=](Bool, Bool) or `[+](String, String)` operations.
+[TypeCheck] Error at (82, 15): Type `[*](String, String)` not supported for Binary Expressions. Expected `[+-*/](Int, Int)` or [<,<=,>,>=,==,!=](Bool, Bool) or `[+](String, String)` operations.
+[TypeCheck] Error at (85, 17): Class `UndefinedClass` does not exist.
+[TypeCheck] Error at (86, 9): Failed to assign `Dummy` to variable of type `Int`.
+[TypeCheck] Error at (89, 13): Variable `undefinedVariable` does not exist under the current environment.
+[TypeCheck] Error at (90, 13): Variable `undefinedVariable` does not exist under the current environment.
+[TypeCheck] Error at (91, 15): Object `Dummy` does not have field `undefinedVariable`.
+[TypeCheck] Error at (92, 15): Class `Dummy` does not contain a method with this signature `undefinedMethod()`.
+[TypeCheck] Error at (93, 13): Invalid call expression.
+[TypeCheck] Error at (96, 20): Variable `undefined` does not exist under the current environment.
+[TypeCheck] Error at (97, 15): Class `Dummy` does not contain a method with this signature `test(Int, Int, Int)`.
+TypeCheck failed with 24 errors. Please fix before proceeding!

@@ -8,8 +8,10 @@ import main.java.ir3.Label;
 import main.java.ir3.LabelGenerator;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
+import main.java.ir3.exp.BinaryExpression3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
+import main.java.ir3.exp.Idc3;
 import main.java.ir3.stmt.AssignmentStatement3;
 import main.java.ir3.stmt.GotoStatement3;
 import main.java.ir3.stmt.IfStatement3;
@@ -93,7 +95,7 @@ public class WhileStatement extends Statement {
         tempVars.addAll(predicateResult.getTempVars());
         stmt3s.addAll(predicateResult.getStatements());
 
-        if (predicateResult.getResult() instanceof BinaryExpression) {
+        if (predicateResult.getResult() instanceof BinaryExpression3 || predicateResult.getResult() instanceof Idc3) {
             stmt3s.add(new IfStatement3(predicateResult.getResult(), start));
         } else {
             Id3 temp = TempVariableGenerator.getId();

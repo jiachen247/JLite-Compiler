@@ -1,8 +1,8 @@
 /* Pass test for String concat operation */
 
-class Main {
+class MainC {
     Void main(){
-        return 1;
+        return ;
     }
 }
 

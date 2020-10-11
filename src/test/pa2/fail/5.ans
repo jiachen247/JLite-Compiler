@@ -1,0 +1,37 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		Return 1;
+	}
+}
+
+class Dummy2 {
+
+}
+
+class Dummy3 {
+
+}
+
+class Test {
+
+	Int method(Dummy2 d) {
+		Return 1;
+	}
+	Boolean method(Dummy3 d) {
+		Return true;
+	}
+	Void test() {
+		Int i;
+		i = [method(null)];
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+[TypeCheck] Error at (5, 16): Expected function return type to be `Main` found `Int` instead.
+[TypeCheck] Error at (23, 5): Method return type `Boolean` does not exist.
+[TypeCheck] Error at (24, 16): Expected function return type to be `Boolean` found `Bool` instead.
+[TypeCheck] Error at (32, 13): Reference to method `method(null)` is ambiguous. Could be possibly referring to `method(Dummy3), method(Dummy2)`
+TypeCheck failed with 4 errors. Please fix before proceeding!

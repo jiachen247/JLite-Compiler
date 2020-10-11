@@ -20,10 +20,6 @@ public class VarDecl3 {
 
     @Override
     public String toString() {
-        System.out.println("HELLLLO");
-        System.out.println(id);
-        System.out.println(type);
-
         return " " + type + " " + id + ";";
     }
 }

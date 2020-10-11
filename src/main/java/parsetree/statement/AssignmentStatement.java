@@ -35,7 +35,6 @@ public class AssignmentStatement extends Statement {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
-        System.out.println("TYPE CHECK NEW Assignment STATEMENT");
         BasicType idType = env.lookup(id);
         if (idType.equals(BasicType.ERROR_TYPE)) {
             errors.add(TypeChecker.buildTypeError(id.x, id.y,

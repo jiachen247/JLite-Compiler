@@ -1,0 +1,144 @@
+Successfully parsed program! :-)
+
+class MainC {
+	Void %MainC_0() {
+		Test t;
+		t = new Test();
+		[t.a()];
+		[t.b()];
+		[t.c()];
+		[t.e(1, 1)];
+		[t.f(true, true, "")];
+		[t.g("")];
+		[t.overloaded(1)];
+		return ;
+	}
+}
+
+class Dummy {
+
+	Void dum() {
+		return ;
+	}
+}
+
+class Test {
+	Int i;
+	Test t;
+
+	Void a() {
+		return ;
+	}
+	Int b() {
+		Return 1;
+	}
+	Bool c() {
+		Return true;
+	}
+	String d() {
+		Return "hello world";
+	}
+	Void e(Int a, Int b) {
+		Int z;
+		return ;
+	}
+	Bool f(Bool b, Bool j, String s) {
+		Bool x;
+		Return x;
+	}
+	String g(String s) {
+		Return s;
+	}
+	String overloaded(String s) {
+		Return "!!!";
+	}
+	Int overloaded(Int i) {
+		Return 1;
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class MainC {
+}
+
+class Dummy {
+}
+
+class Test {
+	Int i;
+	Test t;
+}
+
+======= CMtd3 =======
+Void %MainC_0() {
+	 Test t;
+
+	 t = new Test();
+	 %Test_0(t);
+	 %Test_1(t);
+	 %Test_2(t);
+	 %Test_4(t, 1, 1);
+	 %Test_5(t, true, true, null);
+	 %Test_6(t, null);
+	 %Test_8(t, 1);
+	 Return ;
+}
+
+Void %Dummy_0(Dummy this) {
+
+	 Return ;
+}
+
+Void %Test_0(Test this) {
+
+	 Return ;
+}
+
+Int %Test_1(Test this) {
+
+	 Return 1;
+}
+
+Bool %Test_2(Test this) {
+
+	 Return true;
+}
+
+String %Test_3(Test this) {
+
+	 Return "hello world";
+}
+
+Void %Test_4(Test this, Int a, Int b) {
+	 Int z;
+
+	 Return ;
+}
+
+Bool %Test_5(Test this, Bool b, Bool j, String s) {
+	 Bool x;
+
+	 Return x;
+}
+
+String %Test_6(Test this, String s) {
+
+	 Return s;
+}
+
+String %Test_7(Test this, String s) {
+
+	 Return "!!!";
+}
+
+Int %Test_8(Test this, Int i) {
+
+	 Return 1;
+}
+
+======= End of IR3 Program =======

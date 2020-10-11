@@ -1,0 +1,53 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class Dummy2 {
+
+}
+
+class Dummy3 {
+
+}
+
+class Dummy {
+	Bool dum;
+
+	Dummy test(Dummy d) {
+		Return null;
+	}
+	Int method(Dummy2 d) {
+		Return 1;
+	}
+	Boolean method(Dummy3 d) {
+		Return true;
+	}
+}
+
+class Test {
+
+	Void test() {
+		String s;
+		Dummy d;
+		Int i;
+		i = null;
+		d = new Dummy();
+		d.dum = null
+		[d.test(null)];
+		[method(null)];
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+[TypeCheck] Error at (29, 5): Method return type `Boolean` does not exist.
+[TypeCheck] Error at (30, 16): Expected function return type to be `Boolean` found `Bool` instead.
+[TypeCheck] Error at (40, 9): Failed to assign `null` to variable of type `Int`.
+[TypeCheck] Error at (42, 17): Failed to assign `null` to property of type `Bool`.
+[TypeCheck] Error at (44, 11): Reference to method `test(null)` is ambiguous. Could be possibly referring to `test(Dummy), method(Dummy3), method(Dummy2)`
+[TypeCheck] Error at (47, 9): Class `Test` does not contain a method with this signature `method(null)`.
+TypeCheck failed with 6 errors. Please fix before proceeding!

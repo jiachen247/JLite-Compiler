@@ -1,0 +1,43 @@
+/* Pass Test for IR Statements */
+class Main {
+    Void main(){
+        return ;
+    }
+}
+
+class Dummy {
+    Int x;
+
+    Int getX() {
+        return x;
+    }
+}
+
+class Statements {
+    Int i;
+    Bool b;
+    String s;
+    Dummy d;
+
+    Void testReadLine() {
+        readln(i);
+        readln(b);
+        readln(s);
+    }
+
+    Void testPrintLine() {
+        println(i);
+        println(b);
+        println(s);
+        println(1);
+        println("123");
+        println(true);
+    }
+
+    Void testAssignment() {
+        d = new Dummy();
+        d.x = 1;
+        d.getX();
+        i = d.getX();
+    }
+}

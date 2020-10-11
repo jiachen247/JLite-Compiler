@@ -1,0 +1,84 @@
+Successfully parsed program! :-)
+
+class Main {
+	Void %Main_0() {
+		return ;
+	}
+}
+
+class WhileLoop {
+
+	Void testWhile() {
+		Int count;
+		count = 0;
+		While ([count, 100](>)) {
+			count = [count, 1](+);
+		}
+		
+	}
+}
+
+class IfElse {
+
+	Void testIfElse() {
+		Int a;
+		Int b;
+		a = 10;
+		b = 11;
+		If ([[1, a](+), b](==)) {
+			println("yes");
+		} else {
+			println("no");
+		}
+	}
+}
+
+
+DistinctNameCheck:	PASSED
+TypeChecked:		PASSED
+======= Start of IR3 Program =======
+======= CData3 =======
+
+class Main {
+}
+
+class WhileLoop {
+}
+
+class IfElse {
+}
+
+======= CMtd3 =======
+Void %Main_0() {
+
+	 Return ;
+}
+
+Void %WhileLoop_0(WhileLoop this) {
+	 Int count;
+
+	 count = 0;
+	 goto 2;
+	Label 1:
+	 count = 1 + count;
+	Label 2:
+	 If (100 > count) goto 1;
+}
+
+Void %IfElse_0(IfElse this) {
+	 Int a;
+	 Int b;
+	 Bool _t1;
+
+	 a = 10;
+	 b = 11;
+	 _t1 = a + 1;
+	 If (b == _t1) goto 3;
+	 println("no");
+	 goto 4;
+	Label 3:
+	 println("yes");
+	Label 4:
+}
+
+======= End of IR3 Program =======
