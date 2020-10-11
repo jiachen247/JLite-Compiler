@@ -4,6 +4,7 @@ import java.util.List;
 
 public class FunctionType {
     public String methodId;
+
     public List<BasicType> getParametersType() {
         return parametersType;
     }

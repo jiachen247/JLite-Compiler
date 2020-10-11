@@ -17,7 +17,6 @@ import main.java.ir3.stmt.IfStatement3;
 import main.java.ir3.stmt.LabelStatement;
 import main.java.ir3.stmt.Stmt3;
 import main.java.ir3.stmt.Stmt3Result;
-import main.java.parsetree.expression.BinaryExpression;
 import main.java.parsetree.expression.Expression;
 import main.java.parsetree.shared.Helper;
 import main.java.staticcheckers.CheckError;

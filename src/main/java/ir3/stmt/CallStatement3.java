@@ -1,9 +1,6 @@
 package main.java.ir3.stmt;
 
-import main.java.ir3.Label;
-import main.java.ir3.exp.CallExpression3;
 import main.java.ir3.exp.Exp3;
-import main.java.parsetree.expression.CallExpression;
 
 public class CallStatement3 implements Stmt3 {
     private Exp3 callExpression;

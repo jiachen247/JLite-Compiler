@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.sun.tools.javac.Main;
 import main.java.parsetree.ClassDecl;
 import main.java.parsetree.MainClass;
 import main.java.parsetree.MdDecl;
@@ -13,7 +12,6 @@ import main.java.parsetree.MdSignature;
 import main.java.parsetree.Program;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Id;
-import main.java.parsetree.shared.Type;
 import main.java.parsetree.shared.VarDecl;
 import main.java.parsetree.statement.Statement;
 import main.java.staticcheckers.type.BasicType;
@@ -120,25 +118,25 @@ public class TypeChecker extends Checker {
     }
 
     private LocalEnvironment buildLocalEnv(MdDecl md) {
-            HashMap<Id, BasicType> local = new HashMap<>();
+        HashMap<Id, BasicType> local = new HashMap<>();
 
-            for (Argument arg : md.arguments) {
-                if (local.containsKey(arg.id)) {
-                    // shouldnt hit due to distinct name checking
-                    System.out.println("Found redeclaration in method");
-                } else {
-                    local.put(arg.id, BasicType.fromType(arg.type));
-                }
+        for (Argument arg : md.arguments) {
+            if (local.containsKey(arg.id)) {
+                // shouldnt hit due to distinct name checking
+                System.out.println("Found redeclaration in method");
+            } else {
+                local.put(arg.id, BasicType.fromType(arg.type));
             }
+        }
 
-            for (VarDecl var : md.getMdBody().variableDeclarations) {
-                if (local.containsKey(var.id)) {
-                    // shouldnt hit due to distinct name checking
-                    System.out.println("Found redeclaration in method");
-                } else {
-                    local.put(var.id, BasicType.fromType(var.type));
-                }
+        for (VarDecl var : md.getMdBody().variableDeclarations) {
+            if (local.containsKey(var.id)) {
+                // shouldnt hit due to distinct name checking
+                System.out.println("Found redeclaration in method");
+            } else {
+                local.put(var.id, BasicType.fromType(var.type));
             }
+        }
 
         return new LocalEnvironment(local, md.returnType);
     }
@@ -164,7 +162,7 @@ public class TypeChecker extends Checker {
             }
         }
 
-        return new LocalEnvironment(local,BasicType.fromType(main.type));
+        return new LocalEnvironment(local, BasicType.fromType(main.type));
     }
 
     @Override

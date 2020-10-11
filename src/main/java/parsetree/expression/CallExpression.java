@@ -3,7 +3,6 @@ package main.java.parsetree.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.jar.JarOutputStream;
 import java.util.stream.Collectors;
 
 import main.java.ir3.TempVariableGenerator;
@@ -17,7 +16,6 @@ import main.java.ir3.stmt.AssignmentStatement3;
 import main.java.ir3.stmt.InExpression3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.MdSignature;
-import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
@@ -67,7 +65,7 @@ public class CallExpression extends Expression {
             System.out.println("ARGHHH " + inExpression.object);
             cd = inExpression.object.typeCheck(env, errors);
             id = inExpression.property;
-            System.out.println("cd "+ cd + " id " + id);
+            System.out.println("cd " + cd + " id " + id);
         } else {
             errors.add(TypeChecker.buildTypeError(callee.x, callee.y, "Invalid call expression."));
             return BasicType.ERROR_TYPE;
@@ -161,7 +159,7 @@ public class CallExpression extends Expression {
             thisContext = calleeResult.getResult();
             if (!(thisContext instanceof Idc3)) {
                 Id3 temp1 = TempVariableGenerator.getId();
-                System.out.println("BLAHH " + temp1 + " " + calleeResult );
+                System.out.println("BLAHH " + temp1 + " " + calleeResult);
                 temps.add(new VarDecl3(cd, temp1));
                 stmt3s.add(new AssignmentStatement3(temp1, thisContext));
                 thisContext = temp1;
@@ -172,7 +170,7 @@ public class CallExpression extends Expression {
         stmt3s.addAll(calleeResult.getStatements());
 
         Exp3 calleeObj = calleeResult.getResult();
-        System.out.println("callobj "  + callee);
+        System.out.println("callobj " + callee);
 //        if (!(calleeObj instanceof Idc3)) {
 //            Id3 temp1 = TempVariableGenerator.getId();
 //            System.out.println("BLAHH " + temp1 + " " + calleeObj );
@@ -199,7 +197,7 @@ public class CallExpression extends Expression {
 
             if (!(exp instanceof Idc3)) {
                 Id3 temp = TempVariableGenerator.getId();
-                System.out.println("BLAHH " + temp + " " + exp );
+                System.out.println("BLAHH " + temp + " " + exp);
                 temps.add(new VarDecl3(arg.getType(), temp));
                 stmt3s.add(new AssignmentStatement3(temp, exp));
                 exp = temp;

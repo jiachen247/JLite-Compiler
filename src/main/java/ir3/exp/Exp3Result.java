@@ -1,6 +1,5 @@
 package main.java.ir3.exp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import main.java.ir3.VarDecl3;

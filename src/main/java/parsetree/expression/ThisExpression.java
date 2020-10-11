@@ -11,6 +11,7 @@ import main.java.staticcheckers.type.Environment;
 
 public class ThisExpression extends Expression {
     private BasicType type;
+
     public ThisExpression(int x, int y) {
         super(x, y);
     }

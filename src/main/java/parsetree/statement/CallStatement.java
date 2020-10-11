@@ -3,13 +3,9 @@ package main.java.parsetree.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.Result;
 import main.java.ir3.VarDecl3;
-import main.java.ir3.exp.CallExpression3;
-import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.stmt.CallStatement3;
-import main.java.ir3.stmt.EmptyReturnStatement3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.expression.CallExpression;
