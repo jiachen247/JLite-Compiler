@@ -14,14 +14,6 @@ public class BinaryExpression3 implements Exp3 {
         return operator;
     }
 
-    public Exp3 getLeft() {
-        return left;
-    }
-
-    public Exp3 getRight() {
-        return right;
-    }
-
     public BasicType getType() {
         return type;
     }

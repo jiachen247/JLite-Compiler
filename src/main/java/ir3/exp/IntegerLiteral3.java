@@ -8,10 +8,6 @@ public class IntegerLiteral3 implements Const {
         return val + "";
     }
 
-    public int isVal() {
-        return val;
-    }
-
     public IntegerLiteral3(int val) {
         this.val = val;
     }

@@ -16,5 +16,6 @@ public class UnaryExpression3 implements Exp3 {
     public UnaryExpression3(UnaryOperator operator, Exp3 exp, BasicType type) {
         this.operator = operator;
         this.exp = exp;
+        this.type = type;
     }
 }

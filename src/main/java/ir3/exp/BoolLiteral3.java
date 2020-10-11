@@ -8,10 +8,6 @@ public class BoolLiteral3 implements Const {
         return val + "";
     }
 
-    public boolean isVal() {
-        return val;
-    }
-
     public BoolLiteral3(boolean val) {
         this.val = val;
     }

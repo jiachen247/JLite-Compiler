@@ -10,14 +10,6 @@ public class InExpression3 implements Exp3 {
     private Id3 prop;
     private BasicType type;
 
-    public Exp3 getObj() {
-        return obj;
-    }
-
-    public Id3 getProp() {
-        return prop;
-    }
-
     public BasicType getType() {
         return type;
     }

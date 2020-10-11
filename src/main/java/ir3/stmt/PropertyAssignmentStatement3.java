@@ -13,18 +13,6 @@ public class PropertyAssignmentStatement3 implements Stmt3 {
         return String.format(" %s.%s = %s;", obj.toString(), prop.toString(), expr.toString());
     }
 
-    public Exp3 getObj() {
-        return obj;
-    }
-
-    public Id3 getProp() {
-        return prop;
-    }
-
-    public Exp3 getExpr() {
-        return expr;
-    }
-
     public PropertyAssignmentStatement3(Exp3 obj, Id3 prop, Exp3 expr) {
         this.obj = obj;
         this.prop = prop;
