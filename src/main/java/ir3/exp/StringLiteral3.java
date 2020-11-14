@@ -9,7 +9,7 @@ public class StringLiteral3 implements Const {
             return "null";
         }
 
-        return "\"" +val + "\"";
+        return "\"" + val + "\"";
     }
 
     public StringLiteral3(String val) {
