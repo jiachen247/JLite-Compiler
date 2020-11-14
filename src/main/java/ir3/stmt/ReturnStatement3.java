@@ -13,4 +13,9 @@ public class ReturnStatement3 implements Stmt3 {
     public String toString() {
         return String.format(" Return %s;", returnVal);
     }
+
+    @Override
+    public String generateArm() {
+        return "todo return";
+    }
 }

@@ -18,4 +18,9 @@ public class PropertyAssignmentStatement3 implements Stmt3 {
         this.prop = prop;
         this.expr = expr;
     }
+
+    @Override
+    public String generateArm() {
+        return "todo impl property assign";
+    }
 }

@@ -2,6 +2,9 @@ package main.java.ir3;
 
 import java.util.List;
 
+import com.sun.nio.sctp.NotificationHandler;
+import main.java.arm.StringLabels;
+
 public class Program3 {
     private List<CData3> classes;
     private List<CMtd3> methods;
@@ -28,5 +31,25 @@ public class Program3 {
         sb.append("======= End of IR3 Program =======");
         return sb.toString();
 
+    }
+
+    public String generateArm(boolean toOptimize) {
+        // StringLabels.getInstance().getLabel("blahh");
+
+        StringBuilder body = new StringBuilder();
+
+        for (CMtd3 method : methods) {
+            body.append(method.generateArm(toOptimize, classes));
+        }
+
+        return String.format(".data\n" +
+                "%s\n" +
+                ".text\n" +
+                ".global main\n" +
+                ".type main, %%function\n\n" +
+                "%s\n\n" +
+                ".end\n",
+            StringLabels.getInstance().toString(),
+            body.toString());
     }
 }

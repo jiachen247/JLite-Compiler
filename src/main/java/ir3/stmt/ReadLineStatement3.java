@@ -13,4 +13,10 @@ public class ReadLineStatement3 implements Stmt3 {
     public String toString() {
         return " readln(" + id.toString() + ");";
     }
+
+    @Override
+    public String generateArm() {
+        // readln is not implemented as per assignment specification
+        return "readln\n";
+    }
 }

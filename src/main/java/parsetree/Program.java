@@ -47,9 +47,6 @@ public class Program extends Node {
         List<CData3> cdata = new ArrayList<>();
         List<CMtd3> cmtd = new ArrayList<>();
 
-        cdata.add(mainClass.toCData3());
-        cmtd.add(mainClass.toCMtd3());
-
         for (ClassDecl classDecl : classDeclList) {
             cdata.add(classDecl.toCData3());
         }
@@ -60,6 +57,9 @@ public class Program extends Node {
                 cmtd.add(cMtd3);
             }
         }
+
+        cdata.add(mainClass.toCData3());
+        cmtd.add(mainClass.toCMtd3());
 
 
         return new Program3(cdata, cmtd);

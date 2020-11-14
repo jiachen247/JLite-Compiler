@@ -18,4 +18,8 @@ public class AssignmentStatement3 implements Stmt3 {
         return String.format(" %s = %s;", id.toString(), exp.toString());
     }
 
+    @Override
+    public String generateArm() {
+        return "todo impl assigment";
+    }
 }

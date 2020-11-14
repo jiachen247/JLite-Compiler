@@ -29,4 +29,49 @@ public class CMtd3 {
             Helper.getInstance().concat(arguments),
             body.toString());
     }
+
+    public String generateArm(boolean toOptimize, List<CData3> classes) {
+        String entryLabel = id.toString();
+        String exitLabel = String.format("%s-exit", entryLabel);
+        if (entryLabel.equals(".Main_0")) {
+            entryLabel = "main";
+        }
+
+        Integer frameSize = 4 * (body.getVariableCount() + Integer.min(4, arguments.size()));
+
+
+        // first 4 args stored in a1-a4, rest stored on the stack
+        // todo impt handle > 4 args case
+
+        String prolog = buildProlog(entryLabel, frameSize);
+        String bodyArm = body.generateArm();
+        String epilogue = buildEpilogue(exitLabel);
+
+
+
+        return String.format("%s" +
+            "%s\n" +
+            "%s\n",
+            prolog, bodyArm, epilogue);
+    }
+
+
+
+    private String buildProlog(String entryLabel, Integer frameSize) {
+        String prolog =  String.format("%s:\n" +
+            "    stmfd sp!,{fp,lr,v1,v2,v3,v4,v5}\n" +
+            "    add fp,sp,#24\n"
+            , entryLabel);
+
+        if (frameSize > 0) {
+            prolog += String.format("    sub sp,fp,#%d\n", frameSize);
+        }
+        return prolog;
+    }
+
+    private String buildEpilogue(String exitLabel) {
+        return String.format("%s:\n" +
+            "    sub sp,fp,#24\n" +
+            "    ldmfd sp!,{fp,pc,v1,v2,v3,v4,v5}\n", exitLabel);
+    }
 }

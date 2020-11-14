@@ -16,6 +16,19 @@ public class MdBody3 {
 
     }
 
+    public Integer getVariableCount() {
+        return variableDeclarations.size();
+    }
+
+    public String generateArm() {
+        StringBuilder arm = new StringBuilder();
+
+        for (Stmt3 stmt: stmts) {
+            arm.append(stmt.generateArm());
+        }
+        return arm.toString();
+    }
+
     @Override
     public String toString() {
         return Helper.getInstance().indent(

@@ -14,4 +14,9 @@ public class LabelStatement implements Stmt3 {
         return String.format("Label %d:", label.getId());
     }
 
+    @Override
+    public String generateArm() {
+        return "todo impl label";
+    }
+
 }

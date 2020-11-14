@@ -24,12 +24,12 @@ public class MainClass extends Node {
         this.type = type;
         this.arguments = arguments;
         this.body = body;
-        this.methodId = String.format("%%%s_0", type);
+        this.methodId = String.format(".%s_0", type);
     }
 
     @Override
     public String toString() {
-        return String.format("class %s {\n\tVoid %%%s_0(%s) {\n%s\t}\n}\n",
+        return String.format("class %s {\n\tVoid .%s_0(%s) {\n%s\t}\n}\n",
             type,
             type,
             Helper.getInstance().concat(arguments),

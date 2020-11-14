@@ -1,0 +1,8 @@
+class Main {
+    Void main() {
+        println(12345);
+        println("hello there!");
+        println(true);
+        println(false);
+    }
+}

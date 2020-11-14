@@ -14,4 +14,10 @@ public class GotoStatement3 implements Stmt3 {
     public String toString() {
         return String.format(" goto %s;", label.toString());
     }
+
+    @Override
+    public String generateArm() {
+        return "todo impl goto";
+    }
+
 }

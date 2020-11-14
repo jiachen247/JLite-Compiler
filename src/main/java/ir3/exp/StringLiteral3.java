@@ -1,7 +1,10 @@
 package main.java.ir3.exp;
 
+import main.java.arm.StringLabels;
+
 public class StringLiteral3 implements Const {
     private String val;
+    private String label;
 
     @Override
     public String toString() {
@@ -14,5 +17,10 @@ public class StringLiteral3 implements Const {
 
     public StringLiteral3(String val) {
         this.val = val;
+        this.label = StringLabels.getInstance().getLabel(val);
+    }
+
+    public String getLabel() {
+        return label;
     }
 }

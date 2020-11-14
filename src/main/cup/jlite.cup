@@ -155,7 +155,6 @@ Program
     if (errorCount > 0) {
         report_error_summary();
     }
-    System.out.println("Successfully parsed program! :-)\n");
     RESULT = new Program(mainClassleft, mainClassright, mainClass, classDeclList);
   :}
   | error:e

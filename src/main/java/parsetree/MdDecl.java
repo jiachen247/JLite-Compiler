@@ -66,7 +66,7 @@ public class MdDecl extends Node {
     }
 
     public void setUniqueClassMethodIndex(ClassDecl context, long index) {
-        this.methodId = String.format("%%%s_%d", context.type.getName(), index);
+        this.methodId = String.format(".%s_%d", context.type.getName(), index);
     }
 
     public String getUniqueMethodId() {
