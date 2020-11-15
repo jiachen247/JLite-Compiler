@@ -1,8 +1,6 @@
 package main.java.arm;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class StringLabels {
     private static StringLabels _this = null;
@@ -22,7 +20,7 @@ public class StringLabels {
     public static final String falseFormat = "false";
     public static final String nullFormat = "null";
 
-    private final String format = "%s:\n    .asciz \"%s\"\n";
+    private final String format = "%s:\n    .asciz \"%s\\n\"\n";
 
     private StringLabels() {
         hm = new HashMap<>();
@@ -35,12 +33,14 @@ public class StringLabels {
         labels.append(String.format(format, falseLabel, falseFormat));
         labels.append(String.format(format, nullLabel, nullFormat));
     }
+
     public static StringLabels getInstance() {
         if (_this == null) {
             _this = new StringLabels();
         }
         return _this;
     }
+
     private String formatLabel(Integer i) {
         return String.format("S%d", i);
     }

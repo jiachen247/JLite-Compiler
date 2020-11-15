@@ -24,7 +24,7 @@ public class MainClass extends Node {
         this.type = type;
         this.arguments = arguments;
         this.body = body;
-        this.methodId = String.format(".%s_0", type);
+        this.methodId = String.format("%s_0", type);
     }
 
     @Override

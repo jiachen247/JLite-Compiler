@@ -20,7 +20,6 @@
 */
 
 import java.io.FileReader;
-import java.util.Arrays;
 
 import main.java.ir3.Program3;
 import main.java.parsetree.Program;
@@ -79,7 +78,7 @@ public class Main {
 
             Program3 ir = program.toProgram3();
 
-            if(debug) {
+            if (debug) {
                 System.out.println(ir);
             }
             if (debug) {

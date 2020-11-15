@@ -2,12 +2,17 @@ package main.java.ir3;
 
 import java.util.List;
 
-import com.sun.nio.sctp.NotificationHandler;
 import main.java.arm.StringLabels;
 
 public class Program3 {
     private List<CData3> classes;
     private List<CMtd3> methods;
+
+    private static String currentMethod = "";
+
+    public static String getCurrentMethod() {
+        return currentMethod;
+    }
 
     public Program3(List<CData3> cdata, List<CMtd3> cmtd) {
         this.classes = cdata;
@@ -39,16 +44,17 @@ public class Program3 {
         StringBuilder body = new StringBuilder();
 
         for (CMtd3 method : methods) {
+            currentMethod = method.getId().name;
             body.append(method.generateArm(toOptimize, classes));
         }
 
-        return String.format(".data\n" +
+        return String.format("    .data\n" +
                 "%s\n" +
-                ".text\n" +
-                ".global main\n" +
-                ".type main, %%function\n\n" +
-                "%s\n\n" +
-                ".end\n",
+                "    .text\n" +
+                "    .global main\n" +
+                "    .type main, %%function\n\n" +
+                "%s" +
+                "    .end\n",
             StringLabels.getInstance().toString(),
             body.toString());
     }

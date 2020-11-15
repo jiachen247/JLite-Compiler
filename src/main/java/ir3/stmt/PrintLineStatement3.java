@@ -1,13 +1,11 @@
 package main.java.ir3.stmt;
 
 import main.java.arm.StringLabels;
-import main.java.ir3.exp.BinaryExpression3;
 import main.java.ir3.exp.BoolLiteral3;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
 import main.java.ir3.exp.IntegerLiteral3;
 import main.java.ir3.exp.StringLiteral3;
-import main.java.parsetree.expression.BinaryExpression;
 import main.java.parsetree.expression.NullLiteral;
 
 public class PrintLineStatement3 implements Stmt3 {
@@ -34,13 +32,13 @@ public class PrintLineStatement3 implements Stmt3 {
             } else {
                 sb.append(String.format("    ldr a1, =%s\n", StringLabels.falseLabel));
             }
-        } else if(expr instanceof StringLiteral3) {
+        } else if (expr instanceof StringLiteral3) {
             sb.append(String.format("    ldr a1, =%s\n", StringLabels.stringLabel));
             sb.append(String.format("    ldr a2, =%s\n", ((StringLiteral3) expr).getLabel()));
-        } else if(expr instanceof IntegerLiteral3) {
+        } else if (expr instanceof IntegerLiteral3) {
             sb.append(String.format("    ldr a1, =%s\n", StringLabels.intLabel));
             sb.append(String.format("    mov a2, #%s\n", expr.toString()));
-        } else if(expr instanceof NullLiteral) {
+        } else if (expr instanceof NullLiteral) {
             sb.append(String.format("    ldr a1, =%s\n", StringLabels.nullLabel));
         } else if (expr instanceof Id3) {
 //            System.out.println("todo handle ids");

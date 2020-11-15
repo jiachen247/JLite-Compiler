@@ -1,0 +1,19 @@
+class Main {
+    Void main() {
+        return ;
+    }
+}
+
+class Test {
+    Void run() {
+        fun1(1,2,"123");
+    }
+
+    Int fun1(Int i, Int j, String k) {
+         return i;
+     }
+
+     Void fun2(Int a, Int b, Int c, Int d, Int e, Int f, Int g, Int h) {
+          return ;
+      }
+}

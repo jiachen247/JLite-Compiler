@@ -9,11 +9,9 @@ public class MdBody3 {
     private List<VarDecl3> variableDeclarations;
     private List<Stmt3> stmts;
 
-
     public MdBody3(List<VarDecl3> variableDeclarations, List<Stmt3> stmts) {
         this.variableDeclarations = variableDeclarations;
         this.stmts = stmts;
-
     }
 
     public Integer getVariableCount() {
@@ -23,7 +21,7 @@ public class MdBody3 {
     public String generateArm() {
         StringBuilder arm = new StringBuilder();
 
-        for (Stmt3 stmt: stmts) {
+        for (Stmt3 stmt : stmts) {
             arm.append(stmt.generateArm());
         }
         return arm.toString();

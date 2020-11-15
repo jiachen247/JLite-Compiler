@@ -15,8 +15,8 @@ import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
 public class ReturnStatement extends Statement {
-
     private Expression expression;
+    private BasicType type;
 
     public ReturnStatement(int x, int y, Expression expression) {
         super(x, y);
@@ -31,6 +31,7 @@ public class ReturnStatement extends Statement {
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         BasicType actual = expression.typeCheck(env, errors);
+        this.type = actual;
         BasicType expected = env.getLocalEnvironment().returnType;
 
         if (actual.equals(BasicType.ERROR_TYPE)) {
@@ -51,7 +52,7 @@ public class ReturnStatement extends Statement {
     public Stmt3Result toIR() {
         Exp3Result res = expression.toIR();
         List<Stmt3> s = new ArrayList<>(res.getStatements());
-        s.add(new ReturnStatement3(res.getResult()));
+        s.add(new ReturnStatement3(res.getResult(), type));
         return new Stmt3Result(res.getTempVars(), s);
     }
 }
