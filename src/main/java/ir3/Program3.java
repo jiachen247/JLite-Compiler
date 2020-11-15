@@ -33,15 +33,11 @@ public class Program3 {
         for (CMtd3 mtd : methods) {
             sb.append(mtd.toString()).append("\n");
         }
-
         sb.append("======= End of IR3 Program =======");
         return sb.toString();
-
     }
 
     public String generateArm(boolean toOptimize, boolean debug) {
-        // StringLabels.getInstance().getLabel("blahh");
-
         StringBuilder body = new StringBuilder();
 
         for (CMtd3 method : methods) {

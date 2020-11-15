@@ -16,6 +16,10 @@ public class NewExpression3 implements Exp3 {
 
     @Override
     public String generateArm() {
-        return "new expr!";
+        return String.format(
+            "    mov a1, #%d\n" +
+                "    bl malloc(PLT)\n" +
+                "    mov v1, a1\n", 4 // get class size
+        );
     }
 }
