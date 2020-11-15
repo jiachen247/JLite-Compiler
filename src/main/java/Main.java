@@ -84,7 +84,7 @@ public class Main {
             if (debug) {
                 System.out.println("==== Start of generated ARM code ====");
             }
-            String assembly = ir.generateArm(optimize);
+            String assembly = ir.generateArm(optimize, debug);
             System.out.println(assembly);
 
             if (debug) {

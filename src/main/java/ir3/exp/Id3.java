@@ -1,5 +1,6 @@
 package main.java.ir3.exp;
 
+import main.java.arm.GlobalOffsetTable;
 import main.java.parsetree.shared.Id;
 
 public class Id3 implements Idc3 {
@@ -24,6 +25,6 @@ public class Id3 implements Idc3 {
 
     @Override
     public String generateArm() {
-        return name;
+        return GlobalOffsetTable.getInstance().getLoadInstruction(name);
     }
 }

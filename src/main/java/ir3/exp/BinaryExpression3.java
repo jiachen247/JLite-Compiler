@@ -35,6 +35,14 @@ public class BinaryExpression3 implements Exp3 {
 
     @Override
     public String generateArm() {
-        return "bop gen arm\n";
+        String leftArm = left.generateArm();
+        String rightArm = right.generateArm();
+        String opArm = operator.generateArm();
+
+        return String.format("%s" +
+            "    mov v2, v1\n" +
+            "%s" +
+            "    mov v3, v1\n" +
+            "%s", leftArm, rightArm, opArm);
     }
 }

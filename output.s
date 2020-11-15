@@ -26,15 +26,15 @@ Test_0:
     mov a3,#2
     mov a4,=S1
     bl Test_1(PLT)
-    push #8
-    push #7
-    push #6
-    push #5
-    push #4
-    push #3
-    push #2
-    push #1
-    push this
+    str ##8, [sp, #-4]!
+    str ##7, [sp, #-4]!
+    str ##6, [sp, #-4]!
+    str ##5, [sp, #-4]!
+    str ##4, [sp, #-4]!
+    str ##3, [sp, #-4]!
+    str ##2, [sp, #-4]!
+    str ##1, [sp, #-4]!
+    str #this, [sp, #-4]!
     bl Test_2(PLT)
 
 Test_0_exit:

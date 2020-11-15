@@ -1,0 +1,19 @@
+class Main {
+    Void main() {
+        Factorial factorial;
+
+        factorial = new Factorial();
+        println(factorial.calculate(5));
+        return ;
+    }
+}
+
+class Factorial {
+    Int calculate(Int n) {
+        if (n == 1) {
+            return 1;
+        } else {
+            return 5 * calculate(n - 1);
+        }
+    }
+}

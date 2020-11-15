@@ -4,4 +4,9 @@ public class GTOperator extends BinaryOperator {
     public GTOperator(int x, int y) {
         super(x, y, ">");
     }
+
+    @Override
+    public String generateArm() {
+        return "    mov v1, #0\n    cmp v2, v3\n    movgt v1, #1\n";
+    }
 }

@@ -8,6 +8,6 @@ public class NullLiteral3 implements Const {
 
     @Override
     public String generateArm() {
-        return "=_null";
+        return "    mov v1, #0";
     }
 }

@@ -8,5 +8,4 @@ public abstract class Node {
         this.x = x;
         this.y = y;
     }
-
 }

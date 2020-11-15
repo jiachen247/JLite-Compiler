@@ -1,10 +1,7 @@
 package main.java.ir3.stmt;
 
 import main.java.ir3.Program3;
-import main.java.ir3.exp.BoolLiteral3;
 import main.java.ir3.exp.Exp3;
-import main.java.ir3.exp.IntegerLiteral3;
-import main.java.ir3.exp.StringLiteral3;
 import main.java.staticcheckers.type.BasicType;
 
 public class ReturnStatement3 implements Stmt3 {
@@ -60,7 +57,7 @@ public class ReturnStatement3 implements Stmt3 {
 //        }
 //        code += String.format("    b %s_exit\n", Program3.getCurrentMethod());
 
-        return String.format("    mov a1, %s\n    b %s_exit\n",
+        return String.format("%s    mov a1, v1\n    b %s_exit\n",
             returnVal.generateArm(),
             Program3.getCurrentMethod());
     }

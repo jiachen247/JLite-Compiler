@@ -16,7 +16,7 @@ public class LabelStatement implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return "todo impl label";
+        return label.generateArm();
     }
 
 }

@@ -19,6 +19,6 @@ public class IfStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return "todo impl if";
+        return String.format("%s    goto %s\n", exp.generateArm(), label.getName());
     }
 }

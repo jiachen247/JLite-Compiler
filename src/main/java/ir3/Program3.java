@@ -2,6 +2,7 @@ package main.java.ir3;
 
 import java.util.List;
 
+import main.java.arm.GlobalOffsetTable;
 import main.java.arm.StringLabels;
 
 public class Program3 {
@@ -38,14 +39,15 @@ public class Program3 {
 
     }
 
-    public String generateArm(boolean toOptimize) {
+    public String generateArm(boolean toOptimize, boolean debug) {
         // StringLabels.getInstance().getLabel("blahh");
 
         StringBuilder body = new StringBuilder();
 
         for (CMtd3 method : methods) {
             currentMethod = method.getId().name;
-            body.append(method.generateArm(toOptimize, classes));
+            GlobalOffsetTable.getInstance().setMethodOffsetTable(method.getOffsetTable());
+            body.append(method.generateArm(toOptimize, classes, debug));
         }
 
         return String.format("    .data\n" +

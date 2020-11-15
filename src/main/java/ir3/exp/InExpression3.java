@@ -1,7 +1,5 @@
 package main.java.ir3.exp;
 
-import main.java.ir3.exp.Exp3;
-import main.java.ir3.exp.Id3;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.type.BasicType;
 

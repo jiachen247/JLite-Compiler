@@ -1,5 +1,6 @@
 package main.java.ir3.stmt;
 
+import main.java.arm.GlobalOffsetTable;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
 
@@ -20,6 +21,6 @@ public class AssignmentStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return "todo impl assigment";
+        return String.format("%s%s", exp.generateArm(), GlobalOffsetTable.getInstance().getStoreInstruction(id.getName()));
     }
 }

@@ -19,6 +19,10 @@ public class CMtd3 {
     private List<Argument> arguments;
     private MdBody3 body;
 
+    public HashMap<String, Integer> getOffsetTable() {
+        return offsetTable;
+    }
+
     public HashMap<String, Integer> offsetTable;
 
     public CMtd3(BasicType type, Id id, List<Argument> arguments, MdBody3 body) {
@@ -38,7 +42,7 @@ public class CMtd3 {
             body.toString());
     }
 
-    public String generateArm(boolean toOptimize, List<CData3> classes) {
+    public String generateArm(boolean toOptimize, List<CData3> classes, boolean debug) {
         String entryLabel = id.toString();
         String exitLabel = String.format("%s_exit", entryLabel);
         if (entryLabel.equals("Main_0")) {
@@ -52,10 +56,13 @@ public class CMtd3 {
         if (arguments.size() <= 4) {
             frameSize += 4 * arguments.size();
         }
-
         String prolog = buildProlog(entryLabel, frameSize);
         String bodyArm = body.generateArm();
         String epilogue = buildEpilogue(exitLabel);
+
+        if (debug) {
+            printOffsetTable();
+        }
 
 
         return String.format("%s" +
@@ -64,13 +71,21 @@ public class CMtd3 {
             prolog, bodyArm, epilogue);
     }
 
+    private void printOffsetTable() {
+        System.out.println(String.format("--- Offset Table (%s) ---", this.id.name));
+        offsetTable.entrySet().forEach(entry -> {
+            System.out.println(String.format("[%s: %s]", entry.getKey(), entry.getValue()));
+        });
+        System.out.println("-----\n");
+    }
+
     private String buildStack(Integer frameSize) {
         // stack grows toward lower address
 
         StringBuilder sb = new StringBuilder();
 
         // MIGHT BE 28 instead
-        int offset  = 24; // for fp, lr and v0-5
+        int offset = 24; // for fp, lr and v0-5
         /*
             If len(args) <= 4
                fp -> | fp, lr, v0-v5 | arg n to 1 | local variables | temps | <- sp
@@ -90,7 +105,7 @@ public class CMtd3 {
             }
         } else {
             // args already on the stack below bp
-            int argPtr = 0;
+            int argPtr = -4;
             for (int i = arguments.size() - 1; i >= 0; i--) {
                 offsetTable.put(arguments.get(i).id.name, argPtr);
                 argPtr -= 4;
@@ -108,21 +123,23 @@ public class CMtd3 {
 
     private String buildProlog(String entryLabel, Integer frameSize) {
         String prolog = String.format("%s:\n" +
-                "    stmfd sp!,{fp,lr,v1,v2,v3,v4,v5}\n" +
-                "    add fp,sp,#24\n"
+                "    stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}\n" +
+                "    add fp, sp, #24\n"
             , entryLabel);
 
         if (frameSize > 0) {
-            prolog += String.format("    sub sp,fp,#%d\n", frameSize);
-            prolog += buildStack(frameSize);
+            prolog += String.format("    sub sp, fp, #%d\n", frameSize);
+
         }
+
+        prolog += buildStack(frameSize);
 
         return prolog;
     }
 
     private String buildEpilogue(String exitLabel) {
         return String.format("%s:\n" +
-            "    sub sp,fp,#24\n" +
-            "    ldmfd sp!,{fp,pc,v1,v2,v3,v4,v5}\n", exitLabel);
+            "    sub sp, fp, #24\n" +
+            "    ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}\n", exitLabel);
     }
 }

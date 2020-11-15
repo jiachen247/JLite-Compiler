@@ -17,7 +17,7 @@ public class GotoStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return "todo impl goto";
+        return String.format("    goto %s\n", label.getName());
     }
 
 }

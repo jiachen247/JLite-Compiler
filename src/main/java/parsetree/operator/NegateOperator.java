@@ -4,4 +4,9 @@ public class NegateOperator extends UnaryOperator {
     public NegateOperator(int x, int y) {
         super(x, y, "-");
     }
+
+    @Override
+    public String generateArm() {
+        return "    mul v1, v2, #-1\n";
+    }
 }

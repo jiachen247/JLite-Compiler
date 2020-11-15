@@ -15,4 +15,12 @@ public class Label {
     public String toString() {
         return String.format("%d", id);
     }
+
+    public String generateArm() {
+        return String.format("%s:\n", getName());
+    }
+
+    public String getName() {
+        return String.format("l%d", id);
+    }
 }

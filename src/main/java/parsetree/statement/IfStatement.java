@@ -8,7 +8,6 @@ import main.java.ir3.Label;
 import main.java.ir3.LabelGenerator;
 import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
-import main.java.ir3.exp.BinaryExpression3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
 import main.java.ir3.exp.Idc3;
@@ -86,7 +85,9 @@ public class IfStatement extends Statement {
         stmt3List.addAll(conditionIR.getStatements());
 
 
-        if (conditionIR.getResult() instanceof BinaryExpression3 || conditionIR.getResult() instanceof Idc3) {
+        // if (conditionIR.getResult() instanceof BinaryExpression3 || conditionIR.getResult() instanceof Idc3) {
+        // for PA3 lets not have bops in ifgoto statements
+        if (conditionIR.getResult() instanceof Idc3) {
 
             stmt3List.add(new IfStatement3(conditionIR.getResult(), ifLabel));
         } else {
