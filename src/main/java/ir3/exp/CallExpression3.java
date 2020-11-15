@@ -35,6 +35,7 @@ public class CallExpression3 implements Exp3 {
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
+        sb.append("    mov v1, a1\n");
 
         return sb.toString();
     }
@@ -50,13 +51,12 @@ public class CallExpression3 implements Exp3 {
         // push in reversed order
         for (Exp3 arg : copy) {
             sb.append(arg.generateArm());
-            sb.append("    str v1, [sp, #-4]!\n");
+            sb.append("    push {v1}\n");
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
-        sb.append(String.format("    add sp, sp, #%d", size));
+        sb.append(String.format("    add sp, sp, #%d\n", size));
+        sb.append("    mov v1, a1\n");
         return sb.toString();
     }
-
-
 }

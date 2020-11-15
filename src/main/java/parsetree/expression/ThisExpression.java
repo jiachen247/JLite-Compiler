@@ -30,7 +30,7 @@ public class ThisExpression extends Expression {
 
     @Override
     public Exp3Result toIR() {
-        return new Exp3Result(new ArrayList<>(), new ArrayList<>(), new Id3("this"));
+        return new Exp3Result(new ArrayList<>(), new ArrayList<>(), new Id3("this", type));
     }
 
     @Override

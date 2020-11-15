@@ -18,6 +18,7 @@ public class CMtd3 {
     private Id id;
     private List<Argument> arguments;
     private MdBody3 body;
+    private Boolean isMain = false;
 
     public HashMap<String, Integer> getOffsetTable() {
         return offsetTable;
@@ -31,6 +32,10 @@ public class CMtd3 {
         this.arguments = arguments;
         this.body = body;
         this.offsetTable = new HashMap<>();
+
+        if (this.id.toString().equals("Main_0")) {
+            isMain = true;
+        }
     }
 
     @Override
@@ -45,9 +50,8 @@ public class CMtd3 {
     public String generateArm(boolean toOptimize, List<CData3> classes, boolean debug) {
         String entryLabel = id.toString();
         String exitLabel = String.format("%s_exit", entryLabel);
-        if (entryLabel.equals("Main_0")) {
+        if (isMain) {
             entryLabel = "main";
-            exitLabel = "main_exit";
         }
 
         int frameSize = 4 * body.getVariableCount();
@@ -105,10 +109,10 @@ public class CMtd3 {
             }
         } else {
             // args already on the stack below bp
-            int argPtr = -4;
-            for (int i = arguments.size() - 1; i >= 0; i--) {
-                offsetTable.put(arguments.get(i).id.name, argPtr);
-                argPtr -= 4;
+            int argPtr = 4;
+            for (Argument arg : arguments) {
+                offsetTable.put(arg.id.name, argPtr);
+                argPtr += 4;
             }
         }
 
@@ -128,7 +132,7 @@ public class CMtd3 {
             , entryLabel);
 
         if (frameSize > 0) {
-            prolog += String.format("    sub sp, fp, #%d\n", frameSize);
+            prolog += String.format("    sub sp, fp, #%d\n", frameSize + 1000);
 
         }
 
@@ -140,6 +144,7 @@ public class CMtd3 {
     private String buildEpilogue(String exitLabel) {
         return String.format("%s:\n" +
             "    sub sp, fp, #24\n" +
-            "    ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}\n", exitLabel);
+            "    ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}\n",
+            exitLabel); // i get some page fault error if i dont do this
     }
 }

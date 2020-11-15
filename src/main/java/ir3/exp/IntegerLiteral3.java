@@ -14,6 +14,6 @@ public class IntegerLiteral3 implements Const {
 
     @Override
     public String generateArm() {
-        return String.format("    mov v1, #%d\n", val);
+        return String.format("    ldr v1, =#%d\n", val);
     }
 }

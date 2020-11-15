@@ -60,7 +60,7 @@ public class PrintLineStatement extends Statement {
             stmt3s.add(new PrintLineStatement3(res.getResult()));
             return new Stmt3Result(tempVars, stmt3s);
         } else {
-            Id3 temp1 = TempVariableGenerator.getId();
+            Id3 temp1 = TempVariableGenerator.getId(type);
             tempVars.add(new VarDecl3(type, temp1));
             stmt3s.add(new AssignmentStatement3(temp1, res.getResult()));
             stmt3s.add(new PrintLineStatement3(temp1));

@@ -91,7 +91,7 @@ public class IfStatement extends Statement {
 
             stmt3List.add(new IfStatement3(conditionIR.getResult(), ifLabel));
         } else {
-            Id3 temp = TempVariableGenerator.getId();
+            Id3 temp = TempVariableGenerator.getId(BasicType.BOOL_TYPE);
             tempVars.add(new VarDecl3(BasicType.BOOL_TYPE, temp));
             stmt3List.add(new AssignmentStatement3(temp, conditionIR.getResult()));
             stmt3List.add(new IfStatement3(temp, ifLabel));

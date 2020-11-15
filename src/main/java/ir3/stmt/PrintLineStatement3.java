@@ -3,8 +3,11 @@ package main.java.ir3.stmt;
 import main.java.arm.StringLabels;
 import main.java.ir3.exp.BoolLiteral3;
 import main.java.ir3.exp.Exp3;
+import main.java.ir3.exp.Id3;
+import main.java.ir3.exp.Idc3;
 import main.java.ir3.exp.IntegerLiteral3;
 import main.java.ir3.exp.StringLiteral3;
+import main.java.staticcheckers.type.BasicType;
 
 public class PrintLineStatement3 implements Stmt3 {
     Exp3 expr;
@@ -21,10 +24,29 @@ public class PrintLineStatement3 implements Stmt3 {
     @Override
     public String generateArm() {
         StringBuilder sb = new StringBuilder(expr.generateArm());
-        if (expr instanceof BoolLiteral3) {
+        if (expr instanceof Id3) {
+            Id3 id = (Id3) expr;
+            if (id.getType().equals(BasicType.BOOL_TYPE)) {
+                sb.append(String.format("    cmp v1, #1\n" +
+                        "    ldreq a1, =%s\n" +
+                        "    ldrne a1, =%s\n",
+                    StringLabels.trueLabel, StringLabels.falseLabel));
+            } else if (id.getType().equals(BasicType.STRING_TYPE)) {
+                sb.append("    mov a2, v1\n");
+                sb.append(String.format("    ldr a1, =%s\n", StringLabels.stringLabel));
+
+            } else if (id.getType().equals(BasicType.INT_TYPE)) {
+                sb.append("    mov a2, v1\n");
+                sb.append(String.format("    ldr a1, =%s\n", StringLabels.intLabel));
+            } else {
+                // else null
+                sb.append(String.format("    ldr a1, =%s\n", StringLabels.nullLabel));
+            }
+
+        } else if (expr instanceof BoolLiteral3) {
             sb.append(String.format("    cmp v1, #1\n" +
-                    "    moveq a2, =%s\n" +
-                    "    movne a2, =%s\n",
+                    "    ldreq a1, =%s\n" +
+                    "    ldrne a1, =%s\n",
                 StringLabels.trueLabel, StringLabels.falseLabel));
         } else if (expr instanceof StringLiteral3) {
             sb.append("    mov a2, v1\n");

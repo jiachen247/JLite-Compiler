@@ -14,7 +14,7 @@ public class InExpression3 implements Exp3 {
 
     public InExpression3(Exp3 obj, Id property, BasicType type) {
         this.obj = obj;
-        this.prop = new Id3(property);
+        this.prop = new Id3(property.name, type);
         this.type = type;
     }
 

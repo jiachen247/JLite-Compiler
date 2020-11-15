@@ -97,7 +97,7 @@ public class WhileStatement extends Statement {
         if (predicateResult.getResult() instanceof BinaryExpression3 || predicateResult.getResult() instanceof Idc3) {
             stmt3s.add(new IfStatement3(predicateResult.getResult(), start));
         } else {
-            Id3 temp = TempVariableGenerator.getId();
+            Id3 temp = TempVariableGenerator.getId(BasicType.BOOL_TYPE);
             tempVars.add(new VarDecl3(BasicType.BOOL_TYPE, temp));
             stmt3s.add(new AssignmentStatement3(temp, predicateResult.getResult()));
             stmt3s.add(new IfStatement3(temp, start));

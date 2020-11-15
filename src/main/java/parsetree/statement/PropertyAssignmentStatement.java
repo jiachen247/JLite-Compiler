@@ -79,7 +79,7 @@ public class PropertyAssignmentStatement extends Statement {
         Exp3 obj = objectResult.getResult();
 
         if (!(objectResult.getResult() instanceof Idc3)) {
-            Id3 temp = TempVariableGenerator.getId();
+            Id3 temp = TempVariableGenerator.getId(object.getType());
             tempVars.add(new VarDecl3(type, temp));
             stmt3List.add(new AssignmentStatement3(temp, objectResult.getResult()));
             obj = temp;
@@ -89,7 +89,7 @@ public class PropertyAssignmentStatement extends Statement {
         stmt3List.addAll(expResult.getStatements());
         tempVars.addAll(expResult.getTempVars());
 
-        stmt3List.add(new PropertyAssignmentStatement3(obj, new Id3(property.name), expResult.getResult()));
+        stmt3List.add(new PropertyAssignmentStatement3(obj, new Id3(property.name, type), expResult.getResult()));
         return new Stmt3Result(tempVars, stmt3List);
     }
 }

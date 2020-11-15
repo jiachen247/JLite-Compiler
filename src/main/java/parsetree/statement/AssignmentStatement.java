@@ -67,7 +67,7 @@ public class AssignmentStatement extends Statement {
         stmt3s.addAll(result.getStatements());
         tempVars.addAll(result.getTempVars());
 
-        stmt3s.add(new AssignmentStatement3(new Id3(id), result.getResult()));
+        stmt3s.add(new AssignmentStatement3(new Id3(id.name, expression.getType()), result.getResult()));
 
         return new Stmt3Result(tempVars, stmt3s);
     }

@@ -83,7 +83,7 @@ public class BinaryExpression extends Expression {
         temps.addAll(rightResult.getTempVars());
 
         if (!(leftResult.getResult() instanceof Idc3)) {
-            Id3 temp1 = TempVariableGenerator.getId();
+            Id3 temp1 = TempVariableGenerator.getId(type);
             temps.add(new VarDecl3(type, temp1));
             stmt3s.add(new AssignmentStatement3(temp1, leftResult.getResult()));
             leftOperand = temp1;
@@ -92,7 +92,7 @@ public class BinaryExpression extends Expression {
         }
 
         if (!(rightResult.getResult() instanceof Idc3)) {
-            Id3 temp2 = TempVariableGenerator.getId();
+            Id3 temp2 = TempVariableGenerator.getId(type);
             temps.add(new VarDecl3(type, temp2));
             stmt3s.add(new AssignmentStatement3(temp2, rightResult.getResult()));
             rightOperand = temp2;

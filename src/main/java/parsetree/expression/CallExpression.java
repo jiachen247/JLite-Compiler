@@ -145,12 +145,12 @@ public class CallExpression extends Expression {
 
         if (idExpression != null) {
             calleeResult = idExpression.toIR();
-            thisContext = new Id3("this");
+            thisContext = new Id3("this", new BasicType(cd.getName()));
         } else {
             calleeResult = inExpression.object.toIR();
             thisContext = calleeResult.getResult();
             if (!(thisContext instanceof Idc3)) {
-                Id3 temp1 = TempVariableGenerator.getId();
+                Id3 temp1 = TempVariableGenerator.getId(new BasicType(cd.getName()));
                 temps.add(new VarDecl3(cd, temp1));
                 stmt3s.add(new AssignmentStatement3(temp1, thisContext));
                 thisContext = temp1;
@@ -173,7 +173,7 @@ public class CallExpression extends Expression {
             Exp3 exp = argResult.getResult();
 
             if (!(exp instanceof Idc3)) {
-                Id3 temp = TempVariableGenerator.getId();
+                Id3 temp = TempVariableGenerator.getId(arg.getType());
                 temps.add(new VarDecl3(arg.getType(), temp));
                 stmt3s.add(new AssignmentStatement3(temp, exp));
                 exp = temp;
@@ -182,7 +182,7 @@ public class CallExpression extends Expression {
             exp3args.add(exp);
         }
 
-        return new Exp3Result(temps, stmt3s, new CallExpression3(new Id3(methodId), exp3args));
+        return new Exp3Result(temps, stmt3s, new CallExpression3(new Id3(methodId, returnType), exp3args));
     }
 
     @Override

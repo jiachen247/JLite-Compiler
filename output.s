@@ -14,72 +14,57 @@ _null:
     .global main
     .type main, %function
 
-Factorial_0:
+Test_0:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #20
-    str a1, [fp, #24]
-    str a2, [fp, #28]
-    mov v1, #1
-    mov v2, v1
-    ldr v1, [fp, #28]
-    mov v3, v1
-    mov v1, #0
-    cmp v2, v3
-    moveq v1, #1
-    str v1, [fp, #32]
-    ldr v1, [fp, #32]
-    goto l1
-    mov v1, #1
-    mov v2, v1
-    ldr v1, [fp, #28]
-    mov v3, v1
-    sub v1, v2, v3
-    str v1, [fp, #36]
-    ldr v1, [fp, #24]
-    mov a1, v1
-    ldr v1, [fp, #36]
-    mov a2, v1
-    bl Factorial_0(PLT)
-    str v1, [fp, #40]
-    ldr v1, [fp, #40]
-    mov v2, v1
-    mov v1, #5
-    mov v3, v1
-    mul v1, v2, v3
-    mov a1, v1
-    b Factorial_0_exit
-    goto l2
-l1:
-    mov v1, #1
-    mov a1, v1
-    b Factorial_0_exit
-l2:
+    ldr v1, [fp, #8]
+    cmp v1, #1
+    ldreq a1, =_true
+    ldrne a1, =_false
+    bl printf(PLT)
+    b Test_0_exit
 
-Factorial_0_exit:
+Test_0_exit:
     sub sp, fp, #24
     ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
 
 main:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #8
+    sub sp, fp, #4
     mov a1, #4
     bl malloc(PLT)
     mov v1, a1
     str v1, [fp, #24]
-    ldr v1, [fp, #24]
-    mov a1, v1
+    mov v1, #8
+    push {v1}
+    mov v1, #7
+    push {v1}
+    mov v1, #6
+    push {v1}
     mov v1, #5
-    mov a2, v1
-    bl Factorial_0(PLT)
-    str v1, [fp, #28]
-    ldr v1, [fp, #28]
-    ldr a1, =_null
-    bl printf(PLT)
+    push {v1}
+    mov v1, #4
+    push {v1}
+    mov v1, #3
+    push {v1}
+    mov v1, #2
+    push {v1}
+    mov v1, #1
+    push {v1}
+    mov v1, #0
+    push {v1}
+    mov v1, #1
+    push {v1}
+    ldr v1, [fp, #24]
+    push {v1}
+    bl Test_0(PLT)
+    add sp, sp, #44
+    mov v1, a1
+
     b Main_0_exit
 
-main_exit:
+Main_0_exit:
     sub sp, fp, #24
     ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
 

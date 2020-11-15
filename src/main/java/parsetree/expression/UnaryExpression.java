@@ -65,7 +65,7 @@ public class UnaryExpression extends Expression {
         if (result.getResult() instanceof Idc3) {
             return new Exp3Result(tempVars, stmt3s, new UnaryExpression3(operator, result.getResult(), type));
         } else {
-            Id3 temp1 = TempVariableGenerator.getId();
+            Id3 temp1 = TempVariableGenerator.getId(type);
             tempVars.add(new VarDecl3(type, temp1));
             stmt3s.add(new AssignmentStatement3(temp1, result.getResult()));
             return new Exp3Result(tempVars, stmt3s, new UnaryExpression3(operator, temp1, type));

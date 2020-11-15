@@ -20,7 +20,7 @@ public class VarDecl3 {
 
     public VarDecl3(VarDecl v) {
         this.type = new BasicType(v.type.getName());
-        this.id = new Id3(v.id.name);
+        this.id = new Id3(v.id.name, type);
     }
 
     @Override

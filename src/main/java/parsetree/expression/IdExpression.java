@@ -12,7 +12,6 @@ import main.java.staticcheckers.type.BasicType;
 import main.java.staticcheckers.type.Environment;
 
 public class IdExpression extends Expression {
-
     public Id id;
     private BasicType type;
 
@@ -29,19 +28,18 @@ public class IdExpression extends Expression {
 
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
-        BasicType basicType = env.lookup(id);
-        if (basicType.equals(BasicType.ERROR_TYPE)) {
+        type = env.lookup(id);
+        if (type.equals(BasicType.ERROR_TYPE)) {
             errors.add(TypeChecker.buildTypeError(id.x, id.y,
                 String.format("Variable `%s` does not exist under the current environment.", id)));
             return BasicType.ERROR_TYPE;
         }
-
-        return basicType;
+        return type;
     }
 
     @Override
     public Exp3Result toIR() {
-        return new Exp3Result(new ArrayList<>(), new ArrayList<>(), new Id3(id.name));
+        return new Exp3Result(new ArrayList<>(), new ArrayList<>(), new Id3(id.name, type));
     }
 
     @Override

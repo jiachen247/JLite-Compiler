@@ -1,21 +1,16 @@
 class Main {
     Void main() {
+        Test t;
+
+        t = new Test();
+        t.fun2(true, false, 1, 2, 3, 4, 5, 6, 7, 8);
         return ;
     }
 }
 
 class Test {
-    Void run() {
-        fun1(1,2,"123");
-        fun2(1,2,3,4,5,6,7,8);
-    }
-
-    Int fun1(Int i, Int j, String k) {
-         return 10;
-    }
-
-
-     Void fun2(Int a, Int b, Int c, Int d, Int e, Int f, Int g, Int h) {
+     Void fun2(Bool t, Bool ff, Int a, Int b, Int c, Int d, Int e, Int f, Int g, Int h) {
+          println(t);
           return ;
-      }
+     }
 }
