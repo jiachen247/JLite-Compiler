@@ -17,4 +17,8 @@ public class BoolLiteral3 implements Const {
     }
 
 
+    @Override
+    public String generateArm() {
+        return val ? "#1" : "#0";
+    }
 }

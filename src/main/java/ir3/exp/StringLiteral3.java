@@ -23,4 +23,9 @@ public class StringLiteral3 implements Const {
     public String getLabel() {
         return label;
     }
+
+    @Override
+    public String generateArm() {
+        return String.format("=%s", label);
+    }
 }

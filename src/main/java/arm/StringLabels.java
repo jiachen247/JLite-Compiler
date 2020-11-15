@@ -31,7 +31,7 @@ public class StringLabels {
         labels.append(String.format(format, stringLabel, stringFormat));
         labels.append(String.format(format, trueLabel, trueFormat));
         labels.append(String.format(format, falseLabel, falseFormat));
-        labels.append(String.format(format, nullLabel, nullFormat));
+        labels.append(String.format("%s:\n    .asciz \"%s\"\n", nullLabel, nullFormat));
     }
 
     public static StringLabels getInstance() {

@@ -6,6 +6,14 @@ import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Helper;
 
 public class MdBody3 {
+    public List<VarDecl3> getVariableDeclarations() {
+        return variableDeclarations;
+    }
+
+    public List<Stmt3> getStmts() {
+        return stmts;
+    }
+
     private List<VarDecl3> variableDeclarations;
     private List<Stmt3> stmts;
 

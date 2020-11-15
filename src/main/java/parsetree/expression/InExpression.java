@@ -11,7 +11,7 @@ import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
 import main.java.ir3.exp.Idc3;
 import main.java.ir3.stmt.AssignmentStatement3;
-import main.java.ir3.stmt.InExpression3;
+import main.java.ir3.exp.InExpression3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;

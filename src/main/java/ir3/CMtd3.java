@@ -26,6 +26,7 @@ public class CMtd3 {
         this.id = id;
         this.arguments = arguments;
         this.body = body;
+        this.offsetTable = new HashMap<>();
     }
 
     @Override
@@ -56,10 +57,52 @@ public class CMtd3 {
         String bodyArm = body.generateArm();
         String epilogue = buildEpilogue(exitLabel);
 
+
         return String.format("%s" +
                 "%s\n" +
                 "%s\n",
             prolog, bodyArm, epilogue);
+    }
+
+    private String buildStack(Integer frameSize) {
+        // stack grows toward lower address
+
+        StringBuilder sb = new StringBuilder();
+
+        // MIGHT BE 28 instead
+        int offset  = 24; // for fp, lr and v0-5
+        /*
+            If len(args) <= 4
+               fp -> | fp, lr, v0-v5 | arg n to 1 | local variables | temps | <- sp
+
+           If len(args) > 4
+                args n to 1 | fp -> fp, lr, v0-v5 | local variables | temps | <- sp
+
+         */
+
+        if (arguments.size() <= 4) {
+            int regInd = 1; // a1 to a4
+            for (Argument arg : arguments) {
+                sb.append(String.format("    str a%d, [fp, #%d]\n", regInd, offset));
+                offsetTable.put(arg.id.name, offset);
+                regInd += 1;
+                offset += 4;
+            }
+        } else {
+            // args already on the stack below bp
+            int argPtr = 0;
+            for (int i = arguments.size() - 1; i >= 0; i--) {
+                offsetTable.put(arguments.get(i).id.name, argPtr);
+                argPtr -= 4;
+            }
+        }
+
+        for (VarDecl3 decl : body.getVariableDeclarations()) {
+            offsetTable.put(decl.getId().getName(), offset);
+            offset += 4;
+        }
+
+        return sb.toString();
     }
 
 
@@ -71,7 +114,9 @@ public class CMtd3 {
 
         if (frameSize > 0) {
             prolog += String.format("    sub sp,fp,#%d\n", frameSize);
+            prolog += buildStack(frameSize);
         }
+
         return prolog;
     }
 

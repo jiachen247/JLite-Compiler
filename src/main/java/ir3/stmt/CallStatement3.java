@@ -1,5 +1,6 @@
 package main.java.ir3.stmt;
 
+import main.java.ir3.exp.CallExpression3;
 import main.java.ir3.exp.Exp3;
 
 public class CallStatement3 implements Stmt3 {
@@ -16,6 +17,6 @@ public class CallStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return "todo impl call";
+        return String.format("%s\n", ((CallExpression3) callExpression).generateArm());
     }
 }

@@ -32,4 +32,9 @@ public class BinaryExpression3 implements Exp3 {
         }
         return String.format("%s %s %s", left.toString(), operator, right.toString());
     }
+
+    @Override
+    public String generateArm() {
+        return "bop gen arm\n";
+    }
 }

@@ -145,7 +145,7 @@ public class CallExpression extends Expression {
 
         if (idExpression != null) {
             calleeResult = idExpression.toIR();
-            thisContext = new Id3(cd.getName());
+            thisContext = new Id3("this");
         } else {
             calleeResult = inExpression.object.toIR();
             thisContext = calleeResult.getResult();

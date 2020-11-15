@@ -13,4 +13,9 @@ public class NewExpression3 implements Exp3 {
     public NewExpression3(BasicType basicType) {
         type = basicType;
     }
+
+    @Override
+    public String generateArm() {
+        return "new expr!";
+    }
 }

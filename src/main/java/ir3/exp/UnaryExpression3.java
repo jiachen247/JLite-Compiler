@@ -18,4 +18,9 @@ public class UnaryExpression3 implements Exp3 {
         this.exp = exp;
         this.type = type;
     }
+
+    @Override
+    public String generateArm() {
+        return "unary op!";
+    }
 }

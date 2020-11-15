@@ -6,4 +6,8 @@ public class NullLiteral3 implements Const {
         return "null";
     }
 
+    @Override
+    public String generateArm() {
+        return "=_null";
+    }
 }

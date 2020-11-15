@@ -1,4 +1,4 @@
-package main.java.ir3.stmt;
+package main.java.ir3.exp;
 
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
@@ -23,5 +23,10 @@ public class InExpression3 implements Exp3 {
     @Override
     public String toString() {
         return String.format(" %s.%s", obj.toString(), prop.toString());
+    }
+
+    @Override
+    public String generateArm() {
+        return "in expression";
     }
 }

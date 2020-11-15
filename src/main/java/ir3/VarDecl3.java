@@ -6,6 +6,11 @@ import main.java.staticcheckers.type.BasicType;
 
 public class VarDecl3 {
     private final BasicType type;
+
+    public Id3 getId() {
+        return id;
+    }
+
     private final Id3 id;
 
     public VarDecl3(BasicType type, Id3 id) {

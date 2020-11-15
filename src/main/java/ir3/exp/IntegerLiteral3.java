@@ -11,4 +11,9 @@ public class IntegerLiteral3 implements Const {
     public IntegerLiteral3(int val) {
         this.val = val;
     }
+
+    @Override
+    public String generateArm() {
+        return String.format("#%d", val);
+    }
 }

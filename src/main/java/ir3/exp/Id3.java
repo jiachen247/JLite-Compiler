@@ -21,4 +21,9 @@ public class Id3 implements Idc3 {
     public Id3(String name) {
         this.name = name;
     }
+
+    @Override
+    public String generateArm() {
+        return name;
+    }
 }
