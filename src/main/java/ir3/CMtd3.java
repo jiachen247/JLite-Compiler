@@ -54,12 +54,13 @@ public class CMtd3 {
             entryLabel = "main";
         }
 
-        int frameSize = 4 * body.getVariableCount();
+        int frameSize = 28 + 4 * body.getVariableCount(); // 28 for {fp, lr, v0-v1}
 
         // Store arguments in a1 to a4 if arg length < 5 else push them onto the stack in reverse order
         if (arguments.size() <= 4) {
             frameSize += 4 * arguments.size();
         }
+
         String prolog = buildProlog(entryLabel, frameSize);
         String bodyArm = body.generateArm();
         String epilogue = buildEpilogue(exitLabel);
@@ -89,7 +90,7 @@ public class CMtd3 {
         StringBuilder sb = new StringBuilder();
 
         // MIGHT BE 28 instead
-        int offset = 24; // for fp, lr and v0-5
+        int offset = -28; // for fp, lr and v0-5
         /*
             If len(args) <= 4
                fp -> | fp, lr, v0-v5 | arg n to 1 | local variables | temps | <- sp
@@ -105,7 +106,7 @@ public class CMtd3 {
                 sb.append(String.format("    str a%d, [fp, #%d]\n", regInd, offset));
                 offsetTable.put(arg.id.name, offset);
                 regInd += 1;
-                offset += 4;
+                offset -= 4;
             }
         } else {
             // args already on the stack below bp
@@ -118,7 +119,7 @@ public class CMtd3 {
 
         for (VarDecl3 decl : body.getVariableDeclarations()) {
             offsetTable.put(decl.getId().getName(), offset);
-            offset += 4;
+            offset -= 4;
         }
 
         return sb.toString();
@@ -132,7 +133,7 @@ public class CMtd3 {
             , entryLabel);
 
         if (frameSize > 0) {
-            prolog += String.format("    sub sp, fp, #%d\n", frameSize + 1000);
+            prolog += String.format("    sub sp, fp, #%d\n", frameSize);
 
         }
 

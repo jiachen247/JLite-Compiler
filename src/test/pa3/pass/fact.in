@@ -3,16 +3,16 @@ class Main {
         Factorial factorial;
 
         factorial = new Factorial();
-        println(factorial.fact(5));
+        println(factorial.fact(10, 10,10,10,10));
     }
 }
 
 class Factorial {
-    Int fact(Int n) {
+    Int fact(Int k, Int j, Int n, Int a, Int b) {
         if (n == 1) {
             return 1;
         } else {
-            return n * fact(n - 1);
+            return n * fact(10, 10,n - 1,10,10);
         }
     }
 }
