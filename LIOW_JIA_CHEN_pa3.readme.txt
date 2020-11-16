@@ -1,2 +1,8 @@
 Test cases to add
 - String reuse! StringLabels
+
+todo
+- string concat
+- test nulls
+- register allocation
+- optimizations
