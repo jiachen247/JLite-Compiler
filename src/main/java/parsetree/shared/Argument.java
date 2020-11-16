@@ -5,6 +5,15 @@ import main.java.parsetree.Node;
 public class Argument extends Node {
 
     public final Type type;
+
+    public Type getType() {
+        return type;
+    }
+
+    public Id getId() {
+        return id;
+    }
+
     public final Id id;
 
     public Argument(int x, int y, Type type, Id id) {

@@ -21,6 +21,13 @@ public class UnaryExpression3 implements Exp3 {
 
     @Override
     public String generateArm() {
-        return "unary op!";
+        String exprArm = exp.generateArm();
+        String opArm = operator.generateArm();
+        return String.format("%s%s", exprArm, opArm);
+    }
+
+    @Override
+    public BasicType getType() {
+        return BasicType.INT_TYPE;
     }
 }

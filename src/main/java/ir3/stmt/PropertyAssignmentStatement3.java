@@ -1,5 +1,6 @@
 package main.java.ir3.stmt;
 
+import main.java.arm.ClassOffsetTable;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
 
@@ -21,6 +22,9 @@ public class PropertyAssignmentStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return "todo impl property assign";
+        return String.format("%s    mov v4, v1\n%s%s",
+            obj.generateArm(),
+            expr.generateArm(),
+            ClassOffsetTable.getInstance().getStoreInstruction(obj.getType().getName(), prop.getName()));
     }
 }

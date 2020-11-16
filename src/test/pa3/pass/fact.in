@@ -8,6 +8,9 @@ class Main {
 }
 
 class Factorial {
+    Factorial f;
+    Int a;
+
     Int fact(Int k, Int j, Int n, Int a, Int b) {
         if (n == 1) {
             return 1;

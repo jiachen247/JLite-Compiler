@@ -86,7 +86,7 @@ public class PrintLineStatement3 implements Stmt3 {
 //        } else if (expr instanceof NullLiteral) {
 //            sb.append(String.format("    ldr a1, =%s\n", StringLabels.nullLabel));
 //        } else if (expr instanceof Id3) {
-////            System.out.println("todo handle ids");
+////            System.out.println(" handle ids");
 ////            sb.append("please impl");
 //        } else {
 //            //System.out.println("error : unsupported println statmeent!");

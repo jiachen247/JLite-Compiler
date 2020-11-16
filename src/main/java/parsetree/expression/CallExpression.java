@@ -182,7 +182,7 @@ public class CallExpression extends Expression {
             exp3args.add(exp);
         }
 
-        return new Exp3Result(temps, stmt3s, new CallExpression3(new Id3(methodId, returnType), exp3args));
+        return new Exp3Result(temps, stmt3s, new CallExpression3(new Id3(methodId, returnType), exp3args, returnType));
     }
 
     @Override

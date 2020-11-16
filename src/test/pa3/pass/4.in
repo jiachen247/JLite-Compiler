@@ -1,0 +1,16 @@
+class Main {
+    Void main() {
+        Test t;
+
+        t = new Test();
+        t.init(1 + 1, 2 + 2,  3 + 3 + 3);
+    }
+}
+
+class Test {
+
+    Void init(Int a, Int b, Int c) {
+        return ;
+    }
+
+}

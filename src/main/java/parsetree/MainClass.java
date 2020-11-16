@@ -41,6 +41,6 @@ public class MainClass extends Node {
     }
 
     public CMtd3 toCMtd3() {
-        return new CMtd3(BasicType.VOID_TYPE, new Id(methodId), arguments, body.toMdBody3());
+        return new CMtd3(BasicType.VOID_TYPE, new Id(methodId), arguments, body.toMdBody3(), true);
     }
 }

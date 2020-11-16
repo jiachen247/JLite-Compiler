@@ -7,6 +7,15 @@ import main.java.parsetree.shared.VarDecl;
 
 public class CData3 {
     private CName3 cname;
+
+    public CName3 getCname() {
+        return cname;
+    }
+
+    public List<VarDecl> getVariables() {
+        return variables;
+    }
+
     private List<VarDecl> variables;
 
     public CData3(CName3 cname, List<VarDecl> variables) {

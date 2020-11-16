@@ -1,5 +1,6 @@
 package main.java.ir3.exp;
 
+import main.java.arm.ClassOffsetTable;
 import main.java.staticcheckers.type.BasicType;
 
 public class NewExpression3 implements Exp3 {
@@ -19,7 +20,13 @@ public class NewExpression3 implements Exp3 {
         return String.format(
             "    mov a1, #%d\n" +
                 "    bl malloc(PLT)\n" +
-                "    mov v1, a1\n", 4 // get class size
+                "    mov v1, a1\n",
+            ClassOffsetTable.getInstance().getClassSize(type.getName())
         );
+    }
+
+    @Override
+    public BasicType getType() {
+        return type;
     }
 }

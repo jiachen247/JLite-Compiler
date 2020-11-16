@@ -105,6 +105,7 @@ public class BinaryExpression extends Expression {
 //        stmt3s.add(new AssignmentStatement3(temp,
 //            new BinaryExpression3(operator, leftResult.getResult(), rightResult.getResult(), type)));
 
+
         return new Exp3Result(temps, stmt3s,
             new BinaryExpression3(operator, rightOperand, leftOperand, type));
     }

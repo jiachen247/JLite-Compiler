@@ -1,6 +1,7 @@
 package main.java.ir3.exp;
 
 import main.java.arm.StringLabels;
+import main.java.staticcheckers.type.BasicType;
 
 public class StringLiteral3 implements Const {
     private String val;
@@ -27,5 +28,10 @@ public class StringLiteral3 implements Const {
     @Override
     public String generateArm() {
         return String.format("    ldr v1, =%s\n", label);
+    }
+
+    @Override
+    public BasicType getType() {
+        return BasicType.STRING_TYPE;
     }
 }

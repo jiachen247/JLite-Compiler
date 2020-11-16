@@ -1,5 +1,7 @@
 package main.java.ir3.exp;
 
+import main.java.staticcheckers.type.BasicType;
+
 public class IntegerLiteral3 implements Const {
     private int val;
 
@@ -15,5 +17,10 @@ public class IntegerLiteral3 implements Const {
     @Override
     public String generateArm() {
         return String.format("    ldr v1, =#%d\n", val);
+    }
+
+    @Override
+    public BasicType getType() {
+        return BasicType.INT_TYPE;
     }
 }

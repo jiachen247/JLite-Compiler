@@ -1,5 +1,6 @@
 package main.java.ir3.exp;
 
+import main.java.arm.ClassOffsetTable;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.type.BasicType;
 
@@ -25,6 +26,8 @@ public class InExpression3 implements Exp3 {
 
     @Override
     public String generateArm() {
-        return "in expression";
+        return String.format("%s    mov v4, v1\n%s",
+            obj.generateArm(),
+            ClassOffsetTable.getInstance().getLoadInstruction(obj.getType().getName(), prop.getName()));
     }
 }

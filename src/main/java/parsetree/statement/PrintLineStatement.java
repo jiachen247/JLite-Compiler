@@ -51,10 +51,10 @@ public class PrintLineStatement extends Statement {
 
     @Override
     public Stmt3Result toIR() {
-        List<Stmt3> stmt3s = new ArrayList<>();
-        List<VarDecl3> tempVars = new ArrayList<>();
 
         Exp3Result res = expr.toIR();
+        List<VarDecl3> tempVars = new ArrayList<>(res.getTempVars());
+        List<Stmt3> stmt3s = new ArrayList<>(res.getStatements());
 
         if (res.getResult() instanceof Idc3) {
             stmt3s.add(new PrintLineStatement3(res.getResult()));

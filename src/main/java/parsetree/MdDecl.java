@@ -62,7 +62,7 @@ public class MdDecl extends Node {
         newArgs.add(new Argument(classDecl.type, new Id("this")));
         newArgs.addAll(arguments);
 
-        return new CMtd3(returnType, methodId, newArgs, mdBody.toMdBody3());
+        return new CMtd3(returnType, methodId, newArgs, mdBody.toMdBody3(), false);
     }
 
     public void setUniqueClassMethodIndex(ClassDecl context, long index) {

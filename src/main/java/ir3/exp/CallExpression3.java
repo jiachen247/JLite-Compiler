@@ -5,13 +5,23 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import main.java.staticcheckers.type.BasicType;
+
 public class CallExpression3 implements Exp3 {
     private Id3 methodId; // globally unique
     private List<Exp3> args;
 
-    public CallExpression3(Id3 methodId, List<Exp3> exp3args) {
+    @Override
+    public BasicType getType() {
+        return type;
+    }
+
+    private BasicType type;
+
+    public CallExpression3(Id3 methodId, List<Exp3> exp3args, BasicType type) {
         this.methodId = methodId;
         this.args = exp3args;
+        this.type = type;
     }
 
     @Override

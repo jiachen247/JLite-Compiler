@@ -1,0 +1,26 @@
+class Main {
+    Void main() {
+        A a;
+
+        a = new A();
+        a.init();
+        println(a.get());
+    }
+}
+
+class A {
+    Int i;
+    Int j;
+    Int k;
+
+    Void init() {
+        i = 1;
+        this.j = 20;
+        this.k = this.j + 100;
+
+    }
+
+    Int get() {
+        return i + j + k;
+    }
+}

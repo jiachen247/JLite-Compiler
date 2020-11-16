@@ -16,9 +16,19 @@ public class CMtd3 {
     }
 
     private Id id;
+
+    public List<Argument> getArguments() {
+        return arguments;
+    }
+
     private List<Argument> arguments;
     private MdBody3 body;
-    private Boolean isMain = false;
+
+    public Boolean getIsMain() {
+        return isMain;
+    }
+
+    private Boolean isMain;
 
     public HashMap<String, Integer> getOffsetTable() {
         return offsetTable;
@@ -26,16 +36,13 @@ public class CMtd3 {
 
     public HashMap<String, Integer> offsetTable;
 
-    public CMtd3(BasicType type, Id id, List<Argument> arguments, MdBody3 body) {
+    public CMtd3(BasicType type, Id id, List<Argument> arguments, MdBody3 body, Boolean isMain) {
         this.type = type;
         this.id = id;
         this.arguments = arguments;
         this.body = body;
         this.offsetTable = new HashMap<>();
-
-        if (this.id.toString().equals("Main_0")) {
-            isMain = true;
-        }
+        this.isMain = isMain;
     }
 
     @Override
