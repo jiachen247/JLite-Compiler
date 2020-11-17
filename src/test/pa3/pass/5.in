@@ -2,7 +2,23 @@
 
 class MainC {
     Void main(){
+        Dummy d;
         println("abc" + "def" + "jiachen weas here?!");
+
+        println(d.a);
+
+        d = new Dummy();
+
+        println(d.a);
+
+        d = null;
+
+        println(d.a);
+
         return ;
     }
+}
+
+class Dummy {
+    Int a;
 }

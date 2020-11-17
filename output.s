@@ -27,7 +27,7 @@ S3:
 main:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #36
+    sub sp, fp, #52
     ldr v1, =S2
     mov v2, v1
     ldr v1, =S1
@@ -46,10 +46,10 @@ main:
     mov a2, v2
     bl strcat(PLT)
     mov v3, a1
-    str v1, [fp, #-28]
+    str v1, [fp, #-32]
     ldr v1, =S3
     mov v2, v1
-    ldr v1, [fp, #-28]
+    ldr v1, [fp, #-32]
     mov v3, v1
     mov a1, v2
     bl strlen(PLT)
@@ -65,10 +65,40 @@ main:
     mov a2, v2
     bl strcat(PLT)
     mov v3, a1
-    str v1, [fp, #-32]
-    ldr v1, [fp, #-32]
+    str v1, [fp, #-36]
+    ldr v1, [fp, #-36]
     mov a2, v1
     ldr a1, =_string
+    bl printf(PLT)
+    ldr v1, [fp, #-28]
+    mov v4, v1
+    ldr v1, [v4, #4]
+    str v1, [fp, #-40]
+    ldr v1, [fp, #-40]
+    mov a2, v1
+    ldr a1, =_int
+    bl printf(PLT)
+    mov a1, #8
+    bl malloc(PLT)
+    mov v1, a1
+    str v1, [fp, #-28]
+    ldr v1, [fp, #-28]
+    mov v4, v1
+    ldr v1, [v4, #4]
+    str v1, [fp, #-44]
+    ldr v1, [fp, #-44]
+    mov a2, v1
+    ldr a1, =_int
+    bl printf(PLT)
+    ldr v1, =_null
+    str v1, [fp, #-28]
+    ldr v1, [fp, #-28]
+    mov v4, v1
+    ldr v1, [v4, #4]
+    str v1, [fp, #-48]
+    ldr v1, [fp, #-48]
+    mov a2, v1
+    ldr a1, =_int
     bl printf(PLT)
     b MainC_0_exit
 
