@@ -13,14 +13,19 @@ public class StringLabels {
     public static final String trueLabel = "_true";
     public static final String falseLabel = "_false";
     public static final String nullLabel = "_null";
+    public static final String emptyLabel = "_empty";
+    public static final String newlineLabel = "_newline";
 
     public static final String intFormat = "%d";
     public static final String stringFormat = "%s";
     public static final String trueFormat = "true";
     public static final String falseFormat = "false";
     public static final String nullFormat = "null";
+    public static final String empty = "";
+    public static final String newline = "\\n";
 
-    private final String format = "%s:\n    .asciz \"%s\\n\"\n";
+
+    private final String format = "%s:\n    .asciz \"%s\"\n";
 
     private StringLabels() {
         hm = new HashMap<>();
@@ -31,7 +36,9 @@ public class StringLabels {
         labels.append(String.format(format, stringLabel, stringFormat));
         labels.append(String.format(format, trueLabel, trueFormat));
         labels.append(String.format(format, falseLabel, falseFormat));
-        labels.append(String.format("%s:\n    .asciz \"%s\"\n", nullLabel, nullFormat));
+        labels.append(String.format(format, nullLabel, nullFormat));
+        labels.append(String.format(format, emptyLabel, empty));
+        labels.append(String.format(format, newlineLabel, newline));
     }
 
     public static StringLabels getInstance() {
