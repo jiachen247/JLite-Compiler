@@ -1,26 +1,22 @@
-class Main {
-    Void main() {
-        A a;
+/* Test function call */
 
-        a = new A();
-        a.init();
-        println(a.get());
+class Mainnnn {
+    Void main() {
+        Dummy d;
+
+        d = new Dummy();
+        println(d.fun1(1, 2, 3));
+        println("\n");
+        println(d.fun2(1, 2, 3, 4, 5, 6, 7, 8));
     }
 }
 
-class A {
-    Int i;
-    Int j;
-    Int k;
-
-    Void init() {
-        i = 1;
-        this.j = 20;
-        this.k = this.j + 100;
-
+class Dummy {
+    Int fun1(Int a, Int b, Int c) {
+        return a + b + c;
     }
 
-    Int get() {
-        return i + j + k;
+    Int fun2(Int a, Int b, Int c, Int d, Int e, Int f, Int g, Int h) {
+        return  a + b + c + d + e + f + g + h;
     }
 }

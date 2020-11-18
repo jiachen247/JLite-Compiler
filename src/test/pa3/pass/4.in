@@ -1,16 +1,81 @@
+/* OOP Test */
+
 class Main {
     Void main() {
-        Test t;
+        Cat cat;
+        Dog dog;
 
-        t = new Test();
-        t.init(1 + 1, 2 + 2,  3 + 3 + 3);
+        cat = new Cat();
+        cat.build(1);
+        cat.setName("kitty cat");
+
+        dog = new Dog();
+        dog.build(2);
+        dog.setName("doggy");
+
+        cat.print();
+        dog.print();
     }
 }
 
-class Test {
+class Animal {
+    String type;
+    String name;
+    String sound;
+    Int age;
 
-    Void init(Int a, Int b, Int c) {
-        return ;
+    Void build(String type, String sound, Int age) {
+        this.type = type;
+        this.sound = sound;
+        this.age = age;
     }
 
+    Void setName(String name) {
+        this.name = name;
+    }
+
+    Void print() {
+        println("I am a " + type + " and my name is " + name + ". I am ");
+        println(age);
+        println(" years old. I go ");
+        println(sound + " ");
+        println(sound + " ");
+        println(sound + "!!!\n");
+    }
+
+}
+
+
+class Dog {
+    Animal animal;
+
+    Void build(Int age) {
+        this.animal = new Animal();
+        animal.build("Dog", "bark", age);
+    }
+
+    Void setName(String name) {
+        this.animal.name = name;
+    }
+
+    Void print() {
+        this.animal.print();
+    }
+}
+
+class Cat {
+    Animal animal;
+
+    Void build(Int age) {
+        this.animal = new Animal();
+        animal.build("Cat", "meow", age);
+    }
+
+    Void setName(String name) {
+        this.animal.name = name;
+    }
+
+    Void print() {
+        this.animal.print();
+    }
 }
