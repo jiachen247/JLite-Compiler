@@ -19,6 +19,6 @@ public class IfStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return String.format("%s    cmp v1, #1\n    beq %s\n", exp.generateArm(), label.getName());
+        return String.format("%s    cmp a1, #1\n    beq %s\n", exp.generateArm(), label.getName());
     }
 }

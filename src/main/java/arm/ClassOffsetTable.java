@@ -42,7 +42,7 @@ public class ClassOffsetTable {
             return "";
         }
 
-        return String.format("    str v1, [v4, #%d]\n", classOffsetTable.getOrDefault(key, 9999));
+        return String.format("    str a1, [a4, #%d]\n", classOffsetTable.getOrDefault(key, 9999));
     }
 
     public String getLoadInstruction(String cname, String varname) {
@@ -53,7 +53,7 @@ public class ClassOffsetTable {
             return "";
         }
 
-        return String.format("    ldr v1, [v4, #%d]\n", classOffsetTable.getOrDefault(key, 9999));
+        return String.format("    ldr a1, [a4, #%d]\n", classOffsetTable.getOrDefault(key, 9999));
     }
 
     public void print() {
@@ -72,7 +72,7 @@ public class ClassOffsetTable {
     }
 
     public Integer getClassSize(String cname) {
-        return classSizeTable.getOrDefault(cname, 1000);
+        return classSizeTable.getOrDefault(cname, 9999);
     }
 
     public void init(List<CData3> classes) {

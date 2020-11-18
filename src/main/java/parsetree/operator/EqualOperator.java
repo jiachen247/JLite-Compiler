@@ -7,6 +7,6 @@ public class EqualOperator extends BinaryOperator {
 
     @Override
     public String generateArm() {
-        return "    mov v1, #0\n    cmp v2, v3\n    moveq v1, #1\n";
+        return "    mov a1, #0\n    cmp a2, a3\n    moveq a1, #1\n";
     }
 }

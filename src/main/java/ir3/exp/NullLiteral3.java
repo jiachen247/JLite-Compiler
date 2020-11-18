@@ -10,7 +10,7 @@ public class NullLiteral3 implements Const {
 
     @Override
     public String generateArm() {
-        return "    ldr v1, =_null\n";
+        return "    ldr a1, =_null\n";
     }
 
     @Override

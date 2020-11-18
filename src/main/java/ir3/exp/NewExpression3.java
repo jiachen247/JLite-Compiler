@@ -19,8 +19,7 @@ public class NewExpression3 implements Exp3 {
     public String generateArm() {
         return String.format(
             "    mov a1, #%d\n" +
-                "    bl malloc(PLT)\n" +
-                "    mov v1, a1\n",
+                "    bl malloc(PLT)\n",
             ClassOffsetTable.getInstance().getClassSize(type.getName())
         );
     }

@@ -7,6 +7,6 @@ public class OrOperator extends BinaryOperator {
 
     @Override
     public String generateArm() {
-        return "    or v1, v2, v3\n";
+        return "    or a1, a2, a3\n";
     }
 }

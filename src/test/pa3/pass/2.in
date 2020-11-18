@@ -1,20 +1,35 @@
 class Main {
     Void main() {
         Factorial factorial;
-        Int answer;
 
         factorial = new Factorial();
-        answer = factorial.calculate(5);
-        println(answer);
+
+        println(factorial.recursive(5));
+        println("\n");
+        println(factorial.iterative(5));
+
+
     }
 }
 
 class Factorial {
-    Int calculate(Int n) {
+    Int recursive(Int n) {
         if (n == 1) {
             return 1;
         } else {
-            return n * calculate(n - 1);
+            return n * recursive(n - 1);
         }
+    }
+
+    Int iterative(Int n) {
+        Int acc;
+
+        acc = 1;
+        while (n > 0) {
+            acc = acc * n;
+            n = n - 1;
+        }
+
+        return acc;
     }
 }

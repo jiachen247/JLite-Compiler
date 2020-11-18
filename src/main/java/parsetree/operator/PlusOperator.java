@@ -7,6 +7,6 @@ public class PlusOperator extends BinaryOperator {
 
     @Override
     public String generateArm() {
-        return "    add v1, v2, v3\n";
+        return "    add a1, a2, a3\n";
     }
 }

@@ -7,7 +7,7 @@ public class NotEqualOperator extends BinaryOperator {
 
     @Override
     public String generateArm() {
-        return "    cmp v2, v3\n    mov v1, #1\n    movne v1, #1\n";
+        return "    cmp a2, a3\n    mov a1, #1\n    movne a1, #1\n";
     }
 
 

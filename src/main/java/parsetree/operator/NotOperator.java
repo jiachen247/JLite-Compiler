@@ -8,6 +8,6 @@ public class NotOperator extends UnaryOperator {
     @Override
     public String generateArm() {
         // xor is called eor in arm
-        return "    eor v1, v1, #1\n";
+        return "    eor a1, a1, #1\n";
     }
 }

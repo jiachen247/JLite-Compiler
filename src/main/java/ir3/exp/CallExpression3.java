@@ -37,16 +37,19 @@ public class CallExpression3 implements Exp3 {
 
     private String callWithArgumentsInRegisters() {
         StringBuilder sb = new StringBuilder();
-        int ind = 1;
+        int ind = args.size();
 
-        for (Exp3 arg : args) {
+        List<Exp3> reversedArgs = new ArrayList<>(args);
+        Collections.reverse(reversedArgs);
+
+        for (Exp3 arg : reversedArgs) {
             sb.append(arg.generateArm());
-            sb.append(String.format("    mov a%d, v1\n", ind++));
+            if (ind != 1) {
+                sb.append(String.format("    mov a%d, a1\n", ind--));
+            }
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
-        sb.append("    mov v1, a1\n");
-
         return sb.toString();
     }
 
@@ -61,12 +64,11 @@ public class CallExpression3 implements Exp3 {
         // push in reversed order
         for (Exp3 arg : copy) {
             sb.append(arg.generateArm());
-            sb.append("    push {v1}\n");
+            sb.append("    push {a1}\n");
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
         sb.append(String.format("    add sp, sp, #%d\n", size));
-        sb.append("    mov v1, a1\n");
         return sb.toString();
     }
 }

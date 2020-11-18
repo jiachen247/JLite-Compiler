@@ -46,9 +46,9 @@ public class BinaryExpression3 implements Exp3 {
 
         // int
         return String.format("%s" +
-            "    mov v2, v1\n" +
+            "    mov a2, a1\n" +
             "%s" +
-            "    mov v3, v1\n" +
+            "    mov a3, a1\n" +
             "%s", leftArm, rightArm, opArm);
     }
 
@@ -56,34 +56,38 @@ public class BinaryExpression3 implements Exp3 {
         /*
             String a, b;
 
+            push {b, a}
             t1 = strlen(a);
+            push {t1}
             t2 = strlen(b)
-            t3 = malloc(t1 + t2)
-            strcpy(t3, a)
-            strcat(t3, b)
+            pop a2
+            t1 += a2
+            t3 = malloc(t1)
+            pop a2
+            strcpy(t3, a2)
+            pop a2
+            strcat(t3, a2)
             return t3
          */
 
         String leftArm = left.generateArm();
         String rightArm = right.generateArm();
-
         return String.format(
-            "%s    mov v2, v1\n" +
-                "%s    mov v3, v1\n" +
-                "    mov a1, v2\n" +
+            "%s    mov a2, a1\n%s    push {a1, a2}\n" +
+                "    push {a2}\n" +
                 "    bl strlen(PLT)\n" +
-                "    mov v1, a1\n" +
-                "    mov a1, v3\n" +
+                "    pop {a2}\n" +
+                "    push { a1 }\n" +
+                "    mov a1, a2\n" +
                 "    bl strlen(PLT)\n" +
-                "    add a1, a1, v1\n" +
+                "    pop {a2}\n" +
+                "    add a1, a1, a2\n" +
                 "    bl malloc(PLT)\n" +
-                "    mov v1, a1\n" +
-                "    mov a2, v3\n" +
+                "    pop {a2}\n" +
+                "    push {a1}\n" +
                 "    bl strcpy(PLT)\n" +
-                "    mov a1, v1\n" +
-                "    mov a2, v2\n" +
-                "    bl strcat(PLT)\n" +
-                "    mov v3, a1\n",
+                "    pop {a2, a1}\n" +
+                "    bl strcat(PLT)\n",
             leftArm, rightArm
         );
     }

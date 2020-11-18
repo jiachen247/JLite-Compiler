@@ -7,6 +7,6 @@ public class AndOperator extends BinaryOperator {
 
     @Override
     public String generateArm() {
-        return "    and v1, v2, v3\n";
+        return "    and a1, a2, a3\n";
     }
 }

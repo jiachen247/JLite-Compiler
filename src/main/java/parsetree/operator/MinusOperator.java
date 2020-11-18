@@ -7,6 +7,6 @@ public class MinusOperator extends BinaryOperator {
 
     @Override
     public String generateArm() {
-        return "    sub v1, v3, v2\n";
+        return "    sub a1, a3, a2\n";
     }
 }

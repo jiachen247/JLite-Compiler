@@ -22,7 +22,7 @@ public class PropertyAssignmentStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return String.format("%s    mov v4, v1\n%s%s",
+        return String.format("%s    mov a4, a1\n%s%s",
             obj.generateArm(),
             expr.generateArm(),
             ClassOffsetTable.getInstance().getStoreInstruction(obj.getType().getName(), prop.getName()));

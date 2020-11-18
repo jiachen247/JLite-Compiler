@@ -7,6 +7,6 @@ public class GTOperator extends BinaryOperator {
 
     @Override
     public String generateArm() {
-        return "    mov v1, #0\n    cmp v2, v3\n    movgt v1, #1\n";
+        return "    mov a1, #0\n    cmp a2, a3\n    movgt a1, #1\n";
     }
 }

@@ -26,7 +26,7 @@ public class InExpression3 implements Exp3 {
 
     @Override
     public String generateArm() {
-        return String.format("%s    mov v4, v1\n%s",
+        return String.format("%s    mov a4, a1\n%s",
             obj.generateArm(),
             ClassOffsetTable.getInstance().getLoadInstruction(obj.getType().getName(), prop.getName()));
     }

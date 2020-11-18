@@ -14,168 +14,128 @@ _empty:
 _newline:
     .asciz "\n"
 S1:
-    .asciz "Square of d smaller than sum of squares"
-S2:
-    .asciz "Square of d larger than sum of squares"
+    .asciz "
+"
 
     .text
     .global main
     .type main, %function
 
-Compute_0:
-    stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
-    add fp, sp, #24
-    sub sp, fp, #36
-    str a1, [fp, #-28]
-    str a2, [fp, #-32]
-    ldr v1, [fp, #-32]
-    mov v2, v1
-    ldr v1, [fp, #-32]
-    mov v3, v1
-    mul v1, v2, v3
-    mov a1, v1
-    b Compute_0_exit
-
-Compute_0_exit:
-    sub sp, fp, #24
-    ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
-
-Compute_1:
-    stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
-    add fp, sp, #24
-    sub sp, fp, #40
-    str a1, [fp, #-28]
-    str a2, [fp, #-32]
-    str a3, [fp, #-36]
-    ldr v1, [fp, #-36]
-    mov v2, v1
-    ldr v1, [fp, #-32]
-    mov v3, v1
-    add v1, v2, v3
-    mov a1, v1
-    b Compute_1_exit
-
-Compute_1_exit:
-    sub sp, fp, #24
-    ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
-
-Compute_2:
+Factorial_0:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
     sub sp, fp, #48
     str a1, [fp, #-28]
     str a2, [fp, #-32]
-    str a3, [fp, #-36]
-    ldr v4, [fp, #-28]
-    ldr v1, [v4, #4]
-    cmp v1, #1
+    ldr a1, =#1
+    mov a2, a1
+    ldr a1, [fp, #-32]
+    mov a3, a1
+    mov a1, #0
+    cmp a2, a3
+    moveq a1, #1
+    str a1, [fp, #-36]
+    ldr a1, [fp, #-36]
+    cmp a1, #1
     beq l1
-    mov v1, #1
-    ldr v4, [fp, #-28]
-    str v1, [v4, #4]
-    ldr v1, [fp, #-28]
-    mov a1, v1
-    ldr v1, [fp, #-32]
-    mov a2, v1
-    bl Compute_0(PLT)
-    mov v1, a1
-    str v1, [fp, #-40]
-    ldr v1, [fp, #-28]
-    mov a1, v1
-    ldr v1, [fp, #-36]
-    mov a2, v1
-    bl Compute_0(PLT)
-    mov v1, a1
-    str v1, [fp, #-44]
-    ldr v1, [fp, #-28]
-    mov a1, v1
-    ldr v1, [fp, #-40]
-    mov a2, v1
-    ldr v1, [fp, #-44]
-    mov a3, v1
-    bl Compute_1(PLT)
-    mov v1, a1
-    mov a1, v1
-    b Compute_2_exit
+    ldr a1, =#1
+    mov a2, a1
+    ldr a1, [fp, #-32]
+    mov a3, a1
+    sub a1, a3, a2
+    str a1, [fp, #-40]
+    ldr a1, [fp, #-40]
+    mov a2, a1
+    ldr a1, [fp, #-28]
+    bl Factorial_0(PLT)
+    str a1, [fp, #-44]
+    ldr a1, [fp, #-44]
+    mov a2, a1
+    ldr a1, [fp, #-32]
+    mov a3, a1
+    mul a1, a2, a3
+   
+    b Factorial_0_exit
     b l2
 l1:
-    ldr v4, [fp, #-28]
-    ldr v1, [v4, #8]
-    mov a1, v1
-    b Compute_2_exit
+    ldr a1, =#1
+   
+    b Factorial_0_exit
 l2:
 
-Compute_2_exit:
+Factorial_0_exit:
+    sub sp, fp, #24
+    ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
+
+Factorial_1:
+    stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
+    add fp, sp, #24
+    sub sp, fp, #40
+    str a1, [fp, #-28]
+    str a2, [fp, #-32]
+    ldr a1, =#1
+    str a1, [fp, #-36]
+    b l4
+l3:
+    ldr a1, [fp, #-32]
+    mov a2, a1
+    ldr a1, [fp, #-36]
+    mov a3, a1
+    mul a1, a2, a3
+    str a1, [fp, #-36]
+    ldr a1, =#1
+    mov a2, a1
+    ldr a1, [fp, #-32]
+    mov a3, a1
+    sub a1, a3, a2
+    str a1, [fp, #-32]
+l4:
+    ldr a1, =#0
+    mov a2, a1
+    ldr a1, [fp, #-32]
+    mov a3, a1
+    mov a1, #0
+    cmp a2, a3
+    movlt a1, #1
+    cmp a1, #1
+    beq l3
+    ldr a1, [fp, #-36]
+   
+    b Factorial_1_exit
+
+Factorial_1_exit:
     sub sp, fp, #24
     ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
 
 main:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #68
-    ldr v1, =#1
-    str v1, [fp, #-28]
-    ldr v1, =#2
-    str v1, [fp, #-32]
-    ldr v1, =#3
-    str v1, [fp, #-36]
-    ldr v1, =#4
-    str v1, [fp, #-40]
-    mov a1, #12
+    sub sp, fp, #40
+    mov a1, #4
     bl malloc(PLT)
-    mov v1, a1
-    str v1, [fp, #-52]
-    ldr v1, [fp, #-52]
-    mov a1, v1
-    ldr v1, [fp, #-28]
-    mov a2, v1
-    ldr v1, [fp, #-32]
-    mov a3, v1
-    bl Compute_2(PLT)
-    mov v1, a1
-    str v1, [fp, #-56]
-    ldr v1, [fp, #-52]
-    mov a1, v1
-    ldr v1, [fp, #-36]
-    mov a2, v1
-    bl Compute_0(PLT)
-    mov v1, a1
-    str v1, [fp, #-60]
-    ldr v1, [fp, #-60]
-    mov v2, v1
-    ldr v1, [fp, #-56]
-    mov v3, v1
-    add v1, v2, v3
-    str v1, [fp, #-44]
-    ldr v1, [fp, #-52]
-    mov a1, v1
-    ldr v1, [fp, #-40]
-    mov a2, v1
-    bl Compute_0(PLT)
-    mov v1, a1
-    str v1, [fp, #-48]
-    ldr v1, [fp, #-44]
-    mov v2, v1
-    ldr v1, [fp, #-48]
-    mov v3, v1
-    mov v1, #0
-    cmp v2, v3
-    movlt v1, #1
-    str v1, [fp, #-64]
-    ldr v1, [fp, #-64]
-    cmp v1, #1
-    beq l3
-    ldr v1, =S1
-    mov a2, v1
+    str a1, [fp, #-28]
+    ldr a1, =#5
+    mov a2, a1
+    ldr a1, [fp, #-28]
+    bl Factorial_0(PLT)
+    str a1, [fp, #-32]
+    ldr a1, [fp, #-32]
+    mov a2, a1
+    ldr a1, =_int
+    bl printf(PLT)
+    ldr a1, =S1
+    mov a2, a1
     ldr a1, =_string
     bl printf(PLT)
-    b l4
-l3:
-    ldr v1, =S2
-    mov a2, v1
-    ldr a1, =_string
+    ldr a1, =#5
+    mov a2, a1
+    ldr a1, [fp, #-28]
+    bl Factorial_1(PLT)
+    str a1, [fp, #-36]
+    ldr a1, [fp, #-36]
+    mov a2, a1
+    ldr a1, =_int
     bl printf(PLT)
-l4:
 
 Main_0_exit:
     sub sp, fp, #24
