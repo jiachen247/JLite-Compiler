@@ -1,5 +1,8 @@
 package main.java.ir3.exp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.parsetree.operator.UnaryOperator;
 import main.java.staticcheckers.type.BasicType;
 
@@ -7,6 +10,7 @@ public class UnaryExpression3 implements Exp3 {
     private UnaryOperator operator;
     private Exp3 exp;
     private BasicType type;
+    private List<Id3> uses;
 
     @Override
     public String toString() {
@@ -17,6 +21,8 @@ public class UnaryExpression3 implements Exp3 {
         this.operator = operator;
         this.exp = exp;
         this.type = type;
+        this.uses = exp.getUses();
+
     }
 
     @Override
@@ -29,5 +35,10 @@ public class UnaryExpression3 implements Exp3 {
     @Override
     public BasicType getType() {
         return BasicType.INT_TYPE;
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return uses;
     }
 }

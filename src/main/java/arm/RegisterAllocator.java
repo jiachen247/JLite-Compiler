@@ -3,7 +3,7 @@ package main.java.arm;
 import java.util.LinkedList;
 
 public class RegisterAllocator {
-    private LinkedList<Allocation> queue;
+    private LinkedList<AllocationOld> queue;
     private int MAX_SIZE = 5;
 
     public RegisterAllocator() {
@@ -11,22 +11,22 @@ public class RegisterAllocator {
     }
 
     public boolean contains(String varname) {
-        for (Allocation allocation: queue) {
-            if (allocation.getId().equals(varname)) {
+        for (AllocationOld allocationOld : queue) {
+            if (allocationOld.getId().equals(varname)) {
                 return true;
             }
         }
         return false;
     }
 
-    public Allocation getAllocation(String varname) {
+    public AllocationOld getAllocation(String varname) {
 
-        for (Allocation allocation: queue) {
-            if (allocation.getId().equals(varname)) {
+        for (AllocationOld allocationOld : queue) {
+            if (allocationOld.getId().equals(varname)) {
                 // push allocation to the back of the queue
-                queue.remove(allocation);
-                queue.addLast(allocation);
-                return allocation;
+                queue.remove(allocationOld);
+                queue.addLast(allocationOld);
+                return allocationOld;
             }
         }
         return null;
@@ -39,14 +39,14 @@ public class RegisterAllocator {
             id, 9999);
 
         if (queue.size() < MAX_SIZE) {
-            queue.addLast(new Allocation(
+            queue.addLast(new AllocationOld(
                 register,
                 id
             ));
         } else {
             // cache full have to evict
-            Allocation toEvict = queue.pop();
-            queue.addLast(new Allocation(toEvict.getRegister(), id));
+            AllocationOld toEvict = queue.pop();
+            queue.addLast(new AllocationOld(toEvict.getRegister(), id));
             register = toEvict.getRegister();
             sb.append(String.format(
                 "    str %s, [fp, #%d]\n",

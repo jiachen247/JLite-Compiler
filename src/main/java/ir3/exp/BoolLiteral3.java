@@ -1,5 +1,8 @@
 package main.java.ir3.exp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.staticcheckers.type.BasicType;
 
 public class BoolLiteral3 implements Const {
@@ -27,5 +30,10 @@ public class BoolLiteral3 implements Const {
     @Override
     public BasicType getType() {
         return BasicType.BOOL_TYPE;
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return new ArrayList<>();
     }
 }

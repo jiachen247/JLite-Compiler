@@ -1,7 +1,10 @@
 package main.java.ir3.stmt;
 
+import java.util.List;
+
 import main.java.ir3.Program3;
 import main.java.ir3.exp.Exp3;
+import main.java.ir3.exp.Id3;
 import main.java.staticcheckers.type.BasicType;
 
 public class ReturnStatement3 implements Stmt3 {
@@ -60,5 +63,15 @@ public class ReturnStatement3 implements Stmt3 {
         return String.format("%s   \n    b %s_exit\n",
             returnVal.generateArm(),
             Program3.getCurrentMethod());
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return returnVal.getUses();
+    }
+
+    @Override
+    public Id3 getDef() {
+        return null;
     }
 }

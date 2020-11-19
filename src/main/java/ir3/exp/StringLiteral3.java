@@ -1,5 +1,8 @@
 package main.java.ir3.exp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.arm.StringLabels;
 import main.java.staticcheckers.type.BasicType;
 
@@ -33,5 +36,10 @@ public class StringLiteral3 implements Const {
     @Override
     public BasicType getType() {
         return BasicType.STRING_TYPE;
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return new ArrayList<>();
     }
 }

@@ -1,5 +1,8 @@
 package main.java.ir3.exp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.arm.ClassOffsetTable;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.type.BasicType;
@@ -11,6 +14,11 @@ public class InExpression3 implements Exp3 {
 
     public BasicType getType() {
         return type;
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return obj.getUses();
     }
 
     public InExpression3(Exp3 obj, Id property, BasicType type) {

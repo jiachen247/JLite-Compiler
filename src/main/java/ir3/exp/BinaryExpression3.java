@@ -1,6 +1,9 @@
 package main.java.ir3.exp;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.parsetree.operator.BinaryOperator;
 import main.java.staticcheckers.type.BasicType;
 
@@ -9,6 +12,7 @@ public class BinaryExpression3 implements Exp3 {
     private Exp3 left;
     private Exp3 right;
     private BasicType type;
+    private List<Id3> uses;
 
     public BinaryOperator getOperator() {
         return operator;
@@ -18,19 +22,25 @@ public class BinaryExpression3 implements Exp3 {
         return type;
     }
 
+    @Override
+    public List<Id3> getUses() {
+        return uses;
+    }
+
     public BinaryExpression3(BinaryOperator operator, Exp3 left, Exp3 right, BasicType type) {
         this.operator = operator;
         this.left = left;
         this.right = right;
         this.type = type;
+
+        this.uses = new ArrayList<>();
+        this.uses.addAll(left.getUses());
+        this.uses.addAll(right.getUses());
     }
 
     @Override
     public String toString() {
-        if (type.equals(BasicType.STRING_TYPE)) {
-            return String.format("%s %s %s", right.toString(), operator, left.toString());
-        }
-        return String.format("%s %s %s", left.toString(), operator, right.toString());
+        return String.format("%s %s %s", right.toString(), operator, left.toString());
     }
 
     @Override

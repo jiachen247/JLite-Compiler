@@ -1,0 +1,43 @@
+/* Force Spilling */
+
+class Main {
+    Void main() {
+        Int a;
+        Int b;
+        Int c;
+        Int d;
+        Int e;
+        Int f;
+        Int g;
+        Int h;
+        Int i;
+        Int j;
+        Int k;
+        Int l;
+        Int n;
+        Int m;
+        Int o;
+        Int p;
+
+        a = 1;
+        b = 2;
+        c = 3;
+        d = 4;
+        e = 5;
+        f = 6;
+        g = 7;
+        h = 8;
+        i = h;
+        j = g;
+        k = f;
+        l = e;
+        n = d;
+        m = c;
+        o = b;
+        p = a;
+
+        println(p + o + m + n + l + k +j + i + h + g + f + e + d + c + b + a);
+    }
+}
+
+

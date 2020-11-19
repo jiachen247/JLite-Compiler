@@ -3,6 +3,7 @@ package main.java.ir3;
 import java.util.HashMap;
 import java.util.List;
 
+import main.java.arm.ControlFlowGraph;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Id;
@@ -36,6 +37,8 @@ public class CMtd3 {
 
     public HashMap<String, Integer> offsetTable;
 
+    private ControlFlowGraph graph;
+
     public CMtd3(BasicType type, Id id, List<Argument> arguments, MdBody3 body, Boolean isMain) {
         this.type = type;
         this.id = id;
@@ -43,6 +46,8 @@ public class CMtd3 {
         this.body = body;
         this.offsetTable = new HashMap<>();
         this.isMain = isMain;
+
+        graph = new ControlFlowGraph();
     }
 
     @Override
@@ -72,15 +77,28 @@ public class CMtd3 {
         String bodyArm = body.generateArm();
         String epilogue = buildEpilogue(exitLabel);
 
+
+        buildInterferenceGraph();
+
         if (debug) {
             printOffsetTable();
+            printInterferenceGraph();
         }
-
 
         return String.format("%s" +
                 "%s\n" +
                 "%s\n",
             prolog, bodyArm, epilogue);
+    }
+
+    private void buildInterferenceGraph() {
+        graph.build(arguments, body);
+    }
+
+    private void printInterferenceGraph() {
+        System.out.println(String.format("--- Inteference Graphh (%s) ---", this.id.name));
+        graph.print();
+        System.out.println("-----\n");
     }
 
     private void printOffsetTable() {

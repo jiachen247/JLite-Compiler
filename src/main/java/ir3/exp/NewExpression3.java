@@ -1,5 +1,8 @@
 package main.java.ir3.exp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.arm.ClassOffsetTable;
 import main.java.staticcheckers.type.BasicType;
 
@@ -27,5 +30,10 @@ public class NewExpression3 implements Exp3 {
     @Override
     public BasicType getType() {
         return type;
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return new ArrayList<>();
     }
 }

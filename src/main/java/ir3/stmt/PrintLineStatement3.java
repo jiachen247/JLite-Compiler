@@ -1,5 +1,7 @@
 package main.java.ir3.stmt;
 
+import java.util.List;
+
 import main.java.arm.StringLabels;
 import main.java.ir3.exp.BoolLiteral3;
 import main.java.ir3.exp.Exp3;
@@ -44,5 +46,15 @@ public class PrintLineStatement3 implements Stmt3 {
         sb.append("    bl printf(PLT)\n");
         return sb.toString();
 
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return expr.getUses();
+    }
+
+    @Override
+    public Id3 getDef() {
+        return null;
     }
 }

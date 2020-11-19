@@ -1,5 +1,9 @@
 package main.java.ir3.exp;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import main.java.arm.GlobalOffsetTable;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.type.BasicType;
@@ -7,8 +11,14 @@ import main.java.staticcheckers.type.BasicType;
 public class Id3 implements Idc3 {
     private String name;
 
+
     public BasicType getType() {
         return type;
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return List.of(this);
     }
 
     private BasicType type;
@@ -34,5 +44,18 @@ public class Id3 implements Idc3 {
     @Override
     public String generateArm() {
         return GlobalOffsetTable.getInstance().getLoadInstruction(name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Id3 id3 = (Id3) o;
+        return Objects.equals(name, id3.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

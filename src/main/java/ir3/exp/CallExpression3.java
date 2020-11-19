@@ -10,10 +10,16 @@ import main.java.staticcheckers.type.BasicType;
 public class CallExpression3 implements Exp3 {
     private Id3 methodId; // globally unique
     private List<Exp3> args;
+    private List<Id3> uses;
 
     @Override
     public BasicType getType() {
         return type;
+    }
+
+    @Override
+    public List<Id3> getUses() {
+        return uses;
     }
 
     private BasicType type;
@@ -22,6 +28,11 @@ public class CallExpression3 implements Exp3 {
         this.methodId = methodId;
         this.args = exp3args;
         this.type = type;
+
+        this.uses = new ArrayList<>();
+        for (Exp3 arg: exp3args) {
+            this.uses.addAll(arg.getUses());
+        }
     }
 
     @Override

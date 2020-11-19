@@ -1,6 +1,9 @@
 package main.java.parsetree.shared;
 
+import main.java.ir3.VarDecl3;
+import main.java.ir3.exp.Id3;
 import main.java.parsetree.Node;
+import main.java.staticcheckers.type.BasicType;
 
 public class Argument extends Node {
 
@@ -26,6 +29,10 @@ public class Argument extends Node {
         super(0, 0);
         this.type = type;
         this.id = id;
+    }
+
+    public VarDecl3 toVarDecl3() {
+        return new VarDecl3(new BasicType(type.getName()), new Id3(id));
     }
 
 
