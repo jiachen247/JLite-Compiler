@@ -72,7 +72,12 @@ public class InExpression extends Expression {
             obj = temp;
         }
 
-        return new Exp3Result(tempVars, stmt3List, new InExpression3(obj, property, returnType));
+        //
+        Id3 ret = TempVariableGenerator.getId(returnType);
+        tempVars.add(new VarDecl3(returnType, ret));
+        stmt3List.add(new AssignmentStatement3(ret, new InExpression3(obj, property, returnType)));
+
+        return new Exp3Result(tempVars, stmt3List, ret);
     }
 
     @Override

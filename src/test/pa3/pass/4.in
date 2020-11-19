@@ -68,6 +68,7 @@ class Cat {
 
     Void build(Int age) {
         this.animal = new Animal();
+        println("whyutt");
         animal.build("Cat", "meow", age);
     }
 

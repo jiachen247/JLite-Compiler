@@ -66,6 +66,7 @@ public class Program3 {
             }
 
             GlobalOffsetTable.getInstance().setMethodOffsetTable(method.getOffsetTable());
+            GlobalOffsetTable.getInstance().flushRegisterAllocator();
             body.append(method.generateArm(toOptimize, classes, debug));
         }
 

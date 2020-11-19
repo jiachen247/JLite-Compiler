@@ -7,7 +7,7 @@ class Main {
         println(factorial.recursive(5));
         println("\n");
         println(factorial.iterative(5));
-
+        return ;
 
     }
 }
@@ -26,8 +26,10 @@ class Factorial {
 
         acc = 1;
         while (n > 0) {
+        println(n);
             acc = acc * n;
             n = n - 1;
+            println(n);
         }
 
         return acc;

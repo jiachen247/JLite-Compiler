@@ -81,15 +81,25 @@ public class PropertyAssignmentStatement extends Statement {
         if (!(objectResult.getResult() instanceof Idc3)) {
             Id3 temp = TempVariableGenerator.getId(object.getType());
             tempVars.add(new VarDecl3(type, temp));
-            stmt3List.add(new AssignmentStatement3(temp, objectResult.getResult()));
+            stmt3List.add(new AssignmentStatement3(temp, obj));
             obj = temp;
         }
+
+
 
         Exp3Result expResult = expression.toIR();
         stmt3List.addAll(expResult.getStatements());
         tempVars.addAll(expResult.getTempVars());
+        Exp3 expr = expResult.getResult();
 
-        stmt3List.add(new PropertyAssignmentStatement3(obj, new Id3(property.name, type), expResult.getResult()));
+        if (!(expResult.getResult() instanceof Idc3)) {
+            Id3 temp = TempVariableGenerator.getId(expression.getType());
+            tempVars.add(new VarDecl3(type, temp));
+            stmt3List.add(new AssignmentStatement3(temp, expr));
+            expr = temp;
+        }
+
+        stmt3List.add(new PropertyAssignmentStatement3(obj, new Id3(property.name, type), expr));
         return new Stmt3Result(tempVars, stmt3List);
     }
 }

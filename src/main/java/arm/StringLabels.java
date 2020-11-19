@@ -22,7 +22,7 @@ public class StringLabels {
     public static final String falseFormat = "false";
     public static final String nullFormat = "null";
     public static final String empty = "";
-    public static final String newline = "\\n";
+    public static final String newline = "\\\\n";
 
 
     private final String format = "%s:\n    .asciz \"%s\"\n";
