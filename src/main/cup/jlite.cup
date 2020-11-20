@@ -148,6 +148,8 @@ non terminal BinaryOperator BOp;
   precedence left TIMES, DIVIDE; 
 */
 
+  precedence left PLUS, MINUS;
+  precedence left TIMES, DIVIDE;
 /* ----------------------------Grammar Section-------------------- */
 Program
 ::= MainClass:mainClass ClassDeclList:classDeclList

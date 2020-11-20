@@ -76,13 +76,15 @@ public class CMtd3 {
 
         int frameSize = 28 + 4 * spilled.size(); // 28 for {fp, lr, v0-v1}
 
-//        // Store arguments in a1 to a4 if arg length < 5 else push them onto the stack in reverse order
-//        if (arguments.size() <= 4) {
-//            for () {
-//                frameSize += 4 * arguments.size();
-//            }
-//
-//        }
+        // Store arguments in a1 to a4 if arg length < 5 else push them onto the stack in reverse order
+        if (arguments.size() > 4) {
+            // arguments spilled but still on stack (prevent double count)
+            for (Argument a: arguments) {
+               if (!allocation.isOnRegister(a.getId().name)) {
+                   frameSize -= 4;
+               }
+            }
+        }
 
         String prolog = buildProlog(entryLabel, frameSize);
         String bodyArm = body.generateArm();
