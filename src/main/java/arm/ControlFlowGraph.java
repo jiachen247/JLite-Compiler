@@ -71,7 +71,7 @@ public class ControlFlowGraph {
 // Todo deadcode elimination here!
 
 
-    public void build(List<Argument> arguments, MdBody3 body) {
+    public Allocation build(List<Argument> arguments, MdBody3 body) {
         variableDeclarations = body.getVariableDeclarations();
         stmts = body.getStmts();
         arguments.forEach(arg -> variableDeclarations.add(arg.toVarDecl3()));
@@ -87,6 +87,7 @@ public class ControlFlowGraph {
 
         buildInterferenceGraph();
         allocation = findAllocationValidAllocation(new ArrayList<>());
+        return allocation;
     }
 
     private void buildTopoOrdering() {
@@ -161,7 +162,7 @@ public class ControlFlowGraph {
                 String id = findElemWithMaxDegree(G);
                 ArrayList<String> nspilled = new ArrayList<>(spilled);
                 nspilled.add(id);
-                System.out.println("spilling " + id);
+                // System.out.println("spilling " + id);
                 return findAllocationValidAllocation(nspilled);
 
             } else {
@@ -209,7 +210,7 @@ public class ControlFlowGraph {
         }
 
 
-        System.out.println(allocation);
+        // System.out.println(allocation);
 
         return allocation;
     }

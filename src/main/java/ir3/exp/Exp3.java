@@ -5,7 +5,7 @@ import java.util.List;
 import main.java.staticcheckers.type.BasicType;
 
 public interface Exp3 {
-    String generateArm();
+    String generateArm(String target);
 
     BasicType getType();
 

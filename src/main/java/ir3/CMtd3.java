@@ -3,7 +3,9 @@ package main.java.ir3;
 import java.util.HashMap;
 import java.util.List;
 
+import main.java.arm.Allocation;
 import main.java.arm.ControlFlowGraph;
+import main.java.arm.GlobalOffsetTable;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.shared.Helper;
 import main.java.parsetree.shared.Id;
@@ -39,6 +41,8 @@ public class CMtd3 {
 
     private ControlFlowGraph graph;
 
+    private Allocation allocation;
+
     public CMtd3(BasicType type, Id id, List<Argument> arguments, MdBody3 body, Boolean isMain) {
         this.type = type;
         this.id = id;
@@ -73,17 +77,18 @@ public class CMtd3 {
             frameSize += 4 * arguments.size();
         }
 
-        String prolog = buildProlog(entryLabel, frameSize);
-        String bodyArm = body.generateArm();
-        String epilogue = buildEpilogue(exitLabel);
-
-
-        buildInterferenceGraph();
+        buildAllocation();
+        GlobalOffsetTable.getInstance().setAllocation(allocation);
 
         if (debug) {
             printOffsetTable();
             printInterferenceGraph();
+            System.out.println(allocation);
         }
+
+        String prolog = buildProlog(entryLabel, frameSize);
+        String bodyArm = body.generateArm();
+        String epilogue = buildEpilogue(exitLabel);
 
         return String.format("%s" +
                 "%s\n" +
@@ -91,8 +96,8 @@ public class CMtd3 {
             prolog, bodyArm, epilogue);
     }
 
-    private void buildInterferenceGraph() {
-        graph.build(arguments, body);
+    private void buildAllocation() {
+        allocation = graph.build(arguments, body);
     }
 
     private void printInterferenceGraph() {
@@ -124,7 +129,7 @@ public class CMtd3 {
                 args n to 1 | fp -> fp, lr, v0-v5 | local variables | temps | <- sp
 
          */
-
+        // NEED TO REWRITE THIS WHOLE PART TO SUPPIORT SPILLING
         if (arguments.size() <= 4) {
             int regInd = 1; // a1 to a4
             for (Argument arg : arguments) {
@@ -132,6 +137,15 @@ public class CMtd3 {
                 offsetTable.put(arg.id.name, offset);
                 regInd += 1;
                 offset -= 4;
+            }
+
+            // store args into destined registers***
+            regInd = 1; // a1 to a4
+            for (Argument arg : arguments) {
+                if (!allocation.isSpilled(arg.getId().name)) {
+                    sb.append(String.format("    mov %s, a%d\n", allocation.lookup(arg.getId().name), regInd));
+                    regInd += 1;
+                }
             }
         } else {
             // args already on the stack below bp
@@ -158,8 +172,8 @@ public class CMtd3 {
             , entryLabel);
 
         if (frameSize > 0) {
+            // todo change this for spilled vars only need to recompute offsets
             prolog += String.format("    sub sp, fp, #%d\n", frameSize);
-
         }
 
         prolog += buildStack(frameSize);

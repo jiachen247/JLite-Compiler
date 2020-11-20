@@ -32,6 +32,18 @@ public class Allocation {
         registerMap.put(id, register);
     }
 
+    public boolean contains(String id) {
+        return registerMap.containsKey(id);
+    }
+
+    public boolean isSpilled(String id) {
+        return registerMap.get(id).equals(SPILL);
+    }
+
+    public String lookup(String id) {
+        return contains(id) ? registerMap.get(id) : null;
+    }
+
     @Override
     public String toString() {
         return "Allocation{" +

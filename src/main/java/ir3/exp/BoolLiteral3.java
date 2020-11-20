@@ -23,7 +23,7 @@ public class BoolLiteral3 implements Const {
 
 
     @Override
-    public String generateArm() {
+    public String generateArm(String target) {
         return val ? "    mov a1, #1\n" : "    mov a1, #0\n";
     }
 

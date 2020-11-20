@@ -11,7 +11,7 @@ public class GlobalOffsetTable {
     private RegisterAllocator registerAllocator;
 
     private GlobalOffsetTable() {
-        registerAllocator = new RegisterAllocator();
+
     }
 
     public static GlobalOffsetTable getInstance() {
@@ -35,7 +35,7 @@ public class GlobalOffsetTable {
         if (registerAllocator.contains(varname)) {
             // str to register instead of mem
             return String.format("    mov %s, a1\n",
-                registerAllocator.getAllocation(varname).getRegister());
+                registerAllocator.getReg(varname));
         } else {
             return String.format("    str a1, [fp, #%d]\n",
                 methodOffsetTable.getOrDefault(varname, 9999));
@@ -57,7 +57,7 @@ public class GlobalOffsetTable {
         }
 
         sb.append(String.format("    mov a1, %s\n",
-            registerAllocator.getAllocation(varname).getRegister()));
+            registerAllocator.getReg(varname)));
 
         return sb.toString();
     }
@@ -66,7 +66,8 @@ public class GlobalOffsetTable {
         GlobalOffsetTable.methodOffsetTable = methodOffsetTable;
     }
 
-    public void flushRegisterAllocator() {
-        registerAllocator.flush();
+
+    public void setAllocation(Allocation allocation) {
+        this.registerAllocator = new RegisterAllocator(allocation);
     }
 }

@@ -28,7 +28,6 @@ class Factorial {
         while (n > 0) {
             acc = acc * n;
             n = n - 1;
-            println(n);
         }
 
         return acc;
