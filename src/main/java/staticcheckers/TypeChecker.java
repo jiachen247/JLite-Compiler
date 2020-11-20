@@ -38,7 +38,7 @@ public class TypeChecker extends Checker {
 
         // Type check main class body
         LocalEnvironment mainLocalEnv = buildLocalEnv(program.getMainClass());
-        ClassDescriptor mainClassContext = classDescriptors.get(new BasicType("Main"));
+        ClassDescriptor mainClassContext = classDescriptors.get(new BasicType(program.getMainClass().type.getName()));
         Environment mainEnv = new Environment(classDescriptors, mainClassContext, mainLocalEnv);
         for (Statement stmt : program.getMainClass().body.stmts) {
             if (stmt.typeCheck(mainEnv, errors).equals(BasicType.ERROR_TYPE)) {

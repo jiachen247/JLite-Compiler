@@ -53,11 +53,10 @@ public class IdExpression extends Expression {
             return new Exp3Result(new ArrayList<>(), new ArrayList<>(), new Id3(id.name, type));
         } else {
             // in class context
-            List<VarDecl3> tempVars = new ArrayList<>();
-            List<Stmt3> stmt3List = new ArrayList<>();
-            Id3 temp = TempVariableGenerator.getId(type);
-            tempVars.add(new VarDecl3(type, temp));
-            return new Exp3Result(tempVars, stmt3List, new InExpression3(new Id3("this", classType), id, type));
+            return new Exp3Result(
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new InExpression3(new Id3("this", classType), id, type));
         }
     }
 

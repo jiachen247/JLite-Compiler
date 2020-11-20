@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
+import main.java.arm.GlobalOffsetTable;
 import main.java.staticcheckers.type.BasicType;
 
 public class CallExpression3 implements Exp3 {
@@ -79,8 +80,13 @@ public class CallExpression3 implements Exp3 {
 
         // push in reversed order
         for (Exp3 arg : copy) {
-            sb.append(arg.generateArm("a1"));
-            sb.append("    push {a1}\n");
+            if (arg instanceof Id3 && GlobalOffsetTable.getInstance().getAllocator().isOnRegister(((Id3) arg).getName())) {
+                sb.append(String.format("    push {%s}\n",
+                    GlobalOffsetTable.getInstance().getAllocation(((Id3) arg).getName())));
+            } else {
+                sb.append(arg.generateArm("a1"));
+                sb.append("    push {a1}\n");
+            }
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));

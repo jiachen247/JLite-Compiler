@@ -3,11 +3,13 @@
 class Mainnnn {
     Void main() {
         Dummy d;
+        Int c;
 
         d = new Dummy();
         println(d.fun1(1, 2, 3));
         println("\n");
-        println(d.fun2(1000, 2, 3, 4, 5, 6, 0, 0));
+        c = 1;
+        println(d.fun2(1000, c, 3, 4, 5, 6, 0, 0));
     }
 }
 

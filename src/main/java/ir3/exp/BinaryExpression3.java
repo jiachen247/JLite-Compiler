@@ -51,8 +51,8 @@ public class BinaryExpression3 implements Exp3 {
         }
 
         // use a2 and a3 and scratch register
-        String leftTarget = "a2";
-        String rightTarget = "a3";
+        String leftTarget = "a1";
+        String rightTarget = "a2";
         String leftArm = "";
         String rightArm = "";
 
@@ -92,11 +92,10 @@ public class BinaryExpression3 implements Exp3 {
             return t3
          */
 
-        // todo update string concat
-        String leftArm = left.generateArm(target);
-        String rightArm = right.generateArm(target);
+        String leftArm = left.generateArm("a2");
+        String rightArm = right.generateArm("a1");
         return String.format(
-            "%s    mov a2, a1\n%s    push {a1, a2}\n" +
+            "%s%s    push {a1, a2}\n" +
                 "    push {a2}\n" +
                 "    bl strlen(PLT)\n" +
                 "    pop {a2}\n" +
@@ -110,10 +109,10 @@ public class BinaryExpression3 implements Exp3 {
                 "    push {a1}\n" +
                 "    bl strcpy(PLT)\n" +
                 "    pop {a2, a1}\n" +
-                "    bl strcat(PLT)\n",
-            leftArm, rightArm
+                "    bl strcat(PLT)\n%s",
+            leftArm, rightArm, target.equals("a1") ? "" : String.format("    mov %s, a1\n", target)
         );
-    }
 
+    }
 
 }
