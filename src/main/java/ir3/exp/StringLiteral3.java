@@ -29,8 +29,8 @@ public class StringLiteral3 implements Const {
     }
 
     @Override
-    public String generateArm() {
-        return String.format("    ldr a1, =%s\n", label);
+    public String generateArm(String target) {
+        return String.format("    ldr %s, =%s\n", target, label);
     }
 
     @Override

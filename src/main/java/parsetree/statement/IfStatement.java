@@ -88,7 +88,6 @@ public class IfStatement extends Statement {
         // if (conditionIR.getResult() instanceof BinaryExpression3 || conditionIR.getResult() instanceof Idc3) {
         // for PA3 lets not have bops in ifgoto statements
         if (conditionIR.getResult() instanceof Idc3) {
-
             stmt3List.add(new IfStatement3(conditionIR.getResult(), ifLabel));
         } else {
             Id3 temp = TempVariableGenerator.getId(BasicType.BOOL_TYPE);

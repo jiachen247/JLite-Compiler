@@ -2,7 +2,9 @@ package main.java.ir3.exp;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 import main.java.staticcheckers.type.BasicType;
@@ -42,11 +44,11 @@ public class CallExpression3 implements Exp3 {
     }
 
 
-    public String generateArm() {
-        return args.size() <= 4 ? callWithArgumentsInRegisters() : callWithArgumentsOnStack();
+    public String generateArm(String target) {
+        return args.size() <= 4 ? callWithArgumentsInRegisters(target) : callWithArgumentsOnStack(target);
     }
 
-    private String callWithArgumentsInRegisters() {
+    private String callWithArgumentsInRegisters(String target) {
         StringBuilder sb = new StringBuilder();
         int ind = args.size();
 
@@ -54,17 +56,20 @@ public class CallExpression3 implements Exp3 {
         Collections.reverse(reversedArgs);
 
         for (Exp3 arg : reversedArgs) {
-            sb.append(arg.generateArm());
-            if (ind != 1) {
-                sb.append(String.format("    mov a%d, a1\n", ind--));
-            }
+            sb.append(arg.generateArm("a" + ind--));
+//            if (ind != 1) {
+//                sb.append(String.format("    mov a%d, a1\n", ind--));
+//            }
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
+        if (target != null) {
+            sb.append(String.format("    mov %s, a1\n", target));
+        }
         return sb.toString();
     }
 
-    private String callWithArgumentsOnStack() {
+    private String callWithArgumentsOnStack(String target) {
         StringBuilder sb = new StringBuilder();
         List<Exp3> copy = new ArrayList<>(args);
         Collections.reverse(copy);
@@ -74,12 +79,15 @@ public class CallExpression3 implements Exp3 {
 
         // push in reversed order
         for (Exp3 arg : copy) {
-            sb.append(arg.generateArm());
+            sb.append(arg.generateArm("a1"));
             sb.append("    push {a1}\n");
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
         sb.append(String.format("    add sp, sp, #%d\n", size));
+        if (target != null) {
+            sb.append(String.format("    mov %s, a1\n", target));
+        }
         return sb.toString();
     }
 }

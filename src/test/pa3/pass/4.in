@@ -9,12 +9,12 @@ class Main {
         cat.build(1);
         cat.setName("kitty cat");
 
-        dog = new Dog();
-        dog.build(2);
-        dog.setName("doggy");
+        //dog = new Dog();
+        //dog.build(2);
+        //dog.setName("doggy");
 
         cat.print();
-        dog.print();
+        //dog.print();
     }
 }
 

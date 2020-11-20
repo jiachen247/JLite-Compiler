@@ -6,7 +6,9 @@ public class LTOperator extends BinaryOperator {
     }
 
     @Override
-    public String generateArm() {
-        return "    mov a1, #0\n    cmp a2, a3\n    movlt a1, #1\n";
+    public String generateArm(String target, String operand1, String operand2) {
+        return String.format("    mov %s, #0\n" +
+            "    cmp %s, %s\n" +
+            "    movlt %s, #1\n", target, operand1, operand2, target);
     }
 }

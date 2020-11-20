@@ -12,8 +12,8 @@ public class NullLiteral3 implements Const {
     }
 
     @Override
-    public String generateArm() {
-        return "    ldr a1, =_null\n";
+    public String generateArm(String target) {
+        return String.format("    mov %s, #0\n", target);
     }
 
     @Override

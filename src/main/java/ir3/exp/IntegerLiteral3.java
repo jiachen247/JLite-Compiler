@@ -18,8 +18,8 @@ public class IntegerLiteral3 implements Const {
     }
 
     @Override
-    public String generateArm() {
-        return String.format("    ldr a1, =#%d\n", val);
+    public String generateArm(String target) {
+        return String.format("    ldr %s, =#%d\n", target, val);
     }
 
     @Override

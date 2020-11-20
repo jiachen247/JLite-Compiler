@@ -3,5 +3,12 @@
 class Main {
     Void main() {
         println("Hello World!");
+
+        if (1 > 10) {
+            println("boo");
+        } else {
+println("boo2");
+        }
+
     }
 }

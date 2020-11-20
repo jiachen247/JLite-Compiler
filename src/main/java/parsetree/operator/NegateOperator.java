@@ -6,7 +6,7 @@ public class NegateOperator extends UnaryOperator {
     }
 
     @Override
-    public String generateArm() {
-        return "    mul a1, a2, #-1\n";
+    public String generateArm(String target) {
+        return String.format("    mul %s, %s, #-1\n", target, target);
     }
 }

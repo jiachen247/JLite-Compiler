@@ -60,8 +60,8 @@ public class ReturnStatement3 implements Stmt3 {
 //        }
 //        code += String.format("    b %s_exit\n", Program3.getCurrentMethod());
 
-        return String.format("%s   \n    b %s_exit\n",
-            returnVal.generateArm(),
+        return String.format("%s    b %s_exit\n",
+            returnVal.generateArm("a1"),
             Program3.getCurrentMethod());
     }
 

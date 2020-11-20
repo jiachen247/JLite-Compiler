@@ -12,8 +12,6 @@ public abstract class Operator extends Node {
 
     private String operation;
 
-    public abstract String generateArm();
-
     public Operator(int x, int y, String operation) {
         super(x, y);
         this.operation = operation;

@@ -6,7 +6,7 @@ public class OrOperator extends BinaryOperator {
     }
 
     @Override
-    public String generateArm() {
-        return "    or a1, a2, a3\n";
+    public String generateArm(String target, String operand1, String operand2) {
+        return String.format("    or %s, %s, %s\n", target, operand1, operand2);
     }
 }

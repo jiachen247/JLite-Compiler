@@ -6,7 +6,7 @@ public class TimesOperator extends BinaryOperator {
     }
 
     @Override
-    public String generateArm() {
-        return "    mul a1, a2, a3\n";
+    public String generateArm(String target, String operand1, String operand2) {
+        return String.format("    mul %s, %s, %s\n", target, operand1, operand2);
     }
 }

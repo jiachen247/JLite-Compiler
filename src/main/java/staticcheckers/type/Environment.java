@@ -37,4 +37,8 @@ public class Environment {
             return BasicType.ERROR_TYPE;
         }
     }
+
+    public boolean isLocal(Id id) {
+        return localEnvironment.local.containsKey(id);
+    }
 }

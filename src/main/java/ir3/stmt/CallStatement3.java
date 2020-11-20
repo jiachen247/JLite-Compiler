@@ -19,7 +19,7 @@ public class CallStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return String.format("%s\n", callExpression.generateArm());
+        return String.format("%s\n", callExpression.generateArm(null));
     }
 
     @Override

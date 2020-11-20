@@ -6,7 +6,7 @@ public class DivideOperator extends BinaryOperator {
     }
 
     @Override
-    public String generateArm() {
+    public String generateArm(String target, String operand1, String operand2) {
         return "undefined";
     }
 }

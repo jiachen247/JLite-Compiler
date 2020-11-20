@@ -11,7 +11,7 @@ public class RegisterAllocator {
         return allocation.contains(id);
     }
 
-    public Allocation getAllocation(String id) {
+    public Allocation getAllocation() {
         return allocation;
     }
 

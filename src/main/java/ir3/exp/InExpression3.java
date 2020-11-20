@@ -32,9 +32,9 @@ public class InExpression3 implements Exp3 {
     }
 
     @Override
-    public String generateArm() {
-        return String.format("%s    mov a4, a1\n%s",
-            obj.generateArm(),
-            ClassOffsetTable.getInstance().getLoadInstruction(obj.getType().getName(), prop.getName()));
+    public String generateArm(String target) {
+        return String.format("%s%s",
+            obj.generateArm(target),
+            ClassOffsetTable.getInstance().getLoadInstruction(obj.getType().getName(), prop.getName(), target));
     }
 }

@@ -11,6 +11,11 @@ public class Id3 implements Idc3 {
     private String name;
 
 
+    @Override
+    public String generateArm(String target) {
+        return GlobalOffsetTable.getInstance().getLoadInstruction(name, target);
+    }
+
     public BasicType getType() {
         return type;
     }
@@ -40,10 +45,6 @@ public class Id3 implements Idc3 {
         this.type = type;
     }
 
-    @Override
-    public String generateArm() {
-        return GlobalOffsetTable.getInstance().getLoadInstruction(name);
-    }
 
     @Override
     public boolean equals(Object o) {

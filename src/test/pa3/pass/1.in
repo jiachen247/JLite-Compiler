@@ -15,7 +15,7 @@ class Main {
         d = 4;
 
         help = new Compute();
-        t1 = help.addSquares(a,b) + help.square(i);
+        t1 = help.addSquares(a,b);
         t2 = help.square(d); // Should be equal to 16
         println(t2);
         println("\n");
@@ -47,6 +47,7 @@ class Compute {
     if(computedSquares){
         return cachedValue;
     }
+
     else{
       computedSquares = true;
       cachedValue = add(square(a),square(b));

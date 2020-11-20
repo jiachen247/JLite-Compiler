@@ -46,8 +46,25 @@ public class Allocation {
 
     @Override
     public String toString() {
-        return "Allocation{" +
-            "registerMap=" + registerMap +
-            '}';
+        return String.format("=== Allocation ===\n" +
+            "%s\n" +
+            "==== End Allocation ===", registerMap);
+    }
+
+    public boolean isClassVariable(String name) {
+        return !contains(name);
+    }
+    public List<String> getSpilled() {
+        ArrayList<String> spilled = new ArrayList<>();
+        for (String k: registerMap.keySet()) {
+            if (isSpilled(k)) {
+                spilled.add(k);
+            }
+        }
+        return spilled;
+    }
+
+    public boolean isOnRegister(String id) {
+        return !isClassVariable(id) && !isSpilled(id);
     }
 }

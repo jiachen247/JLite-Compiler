@@ -23,9 +23,18 @@ public class AssignmentStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return String.format("%s%s",
-            exp.generateArm(),
-            GlobalOffsetTable.getInstance().getStoreInstruction(id.getName()));
+
+        if (!GlobalOffsetTable.getInstance().getAllocator().isOnRegister(id.getName())){
+            // check if spilled
+            return String.format("%s%s",
+                exp.generateArm("a1"),
+                GlobalOffsetTable.getInstance().getStoreInstruction(id.getName(), "a1"));
+        } else {
+            String target = GlobalOffsetTable.getInstance().getAllocation(id.getName());
+            // check if spilled
+            return exp.generateArm(target);
+        }
+
     }
 
     @Override

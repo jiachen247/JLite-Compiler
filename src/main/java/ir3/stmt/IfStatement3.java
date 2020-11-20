@@ -2,6 +2,7 @@ package main.java.ir3.stmt;
 
 import java.util.List;
 
+import main.java.arm.GlobalOffsetTable;
 import main.java.ir3.Label;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
@@ -27,7 +28,16 @@ public class IfStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return String.format("%s    cmp a1, #1\n    beq %s\n", exp.generateArm(), label.getName());
+        if (exp instanceof Id3) {
+            if (GlobalOffsetTable.getInstance().getAllocator().isOnRegister(((Id3) exp).getName())) {
+                String target = GlobalOffsetTable.getInstance().getAllocation(((Id3) exp).getName());
+                return String.format("    cmp %s, #1\n    beq %s\n", target, label.getName());
+            }
+
+        }
+        return String.format("%s    cmp a1, #1\n    beq %s\n", exp.generateArm("a1"), label.getName());
+
+
     }
 
     @Override

@@ -52,7 +52,7 @@ public class RegisterAllocatorOld {
                 "    str %s, [fp, #%d]\n",
                 register,
                 GlobalOffsetTable.methodOffsetTable.getOrDefault(
-                    toEvict.getId(), 9999)));
+                    toEvict.getId(), 9991)));
         }
 
 

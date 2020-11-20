@@ -6,7 +6,7 @@ public class MinusOperator extends BinaryOperator {
     }
 
     @Override
-    public String generateArm() {
-        return "    sub a1, a3, a2\n";
+    public String generateArm(String target, String operand1, String operand2) {
+        return String.format("    sub %s, %s, %s\n", target, operand2, operand1);
     }
 }

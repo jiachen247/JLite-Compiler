@@ -6,8 +6,10 @@ public class NotEqualOperator extends BinaryOperator {
     }
 
     @Override
-    public String generateArm() {
-        return "    cmp a2, a3\n    mov a1, #1\n    movne a1, #1\n";
+    public String generateArm(String target, String operand1, String operand2) {
+        return String.format("    mov %s, #0\n" +
+            "    cmp %s, %s\n" +
+            "    movne %s, #1\n", target, operand1, operand2, target);
     }
 
 

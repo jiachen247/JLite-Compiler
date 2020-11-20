@@ -5,4 +5,6 @@ public abstract class BinaryOperator extends Operator {
         super(x, y, operation);
     }
 
+    public abstract String generateArm(String target, String operand1, String operand2);
+
 }

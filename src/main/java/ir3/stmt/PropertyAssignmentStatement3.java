@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.java.arm.ClassOffsetTable;
+import main.java.arm.GlobalOffsetTable;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
 
@@ -30,9 +31,11 @@ public class PropertyAssignmentStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        return String.format("%s    mov a4, a1\n%s%s",
-            obj.generateArm(),
-            expr.generateArm(),
+        String target = "a4";
+
+        return String.format("%s%s%s",
+            GlobalOffsetTable.getInstance().getLoadInstruction(((Id3) obj).getName(), target),
+            expr.generateArm("a1"),
             ClassOffsetTable.getInstance().getStoreInstruction(obj.getType().getName(), prop.getName()));
     }
 
@@ -43,8 +46,7 @@ public class PropertyAssignmentStatement3 implements Stmt3 {
 
     @Override
     public Id3 getDef() {
-        // dont consider class objects first todo ???
-        // should we store class objects in registers?
+        // dont consider class objects
         return null;
     }
 }

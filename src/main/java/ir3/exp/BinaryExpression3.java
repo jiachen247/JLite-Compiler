@@ -4,6 +4,7 @@ package main.java.ir3.exp;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.arm.GlobalOffsetTable;
 import main.java.parsetree.operator.BinaryOperator;
 import main.java.staticcheckers.type.BasicType;
 
@@ -44,25 +45,36 @@ public class BinaryExpression3 implements Exp3 {
     }
 
     @Override
-    public String generateArm() {
+    public String generateArm(String target) {
         if (type.equals(BasicType.STRING_TYPE)) {
-            return generateStringConcatenationArm();
+            return generateStringConcatenationArm(target);
         }
 
-        String leftArm = left.generateArm();
-        String rightArm = right.generateArm();
-        String opArm = operator.generateArm();
+        // use a2 and a3 and scratch register
+        String leftTarget = "a2";
+        String rightTarget = "a3";
+        String leftArm = "";
+        String rightArm = "";
 
+        if (left instanceof Id3 && GlobalOffsetTable.getInstance().getAllocator().isOnRegister(((Id3) left).getName())) {
+            leftTarget = GlobalOffsetTable.getInstance().getAllocation(((Id3) left).getName());
+        } else {
+            leftArm = left.generateArm(leftTarget);
+        }
+
+        if (right instanceof Id3 && GlobalOffsetTable.getInstance().getAllocator().isOnRegister(((Id3) right).getName())) {
+            rightTarget = GlobalOffsetTable.getInstance().getAllocation(((Id3) right).getName());
+        } else {
+            rightArm = right.generateArm(rightTarget);
+        }
+
+        String opArm = operator.generateArm(target, leftTarget, rightTarget);
 
         // int
-        return String.format("%s" +
-            "    mov a2, a1\n" +
-            "%s" +
-            "    mov a3, a1\n" +
-            "%s", leftArm, rightArm, opArm);
+        return String.format("%s%s%s", leftArm, rightArm, opArm);
     }
 
-    private String generateStringConcatenationArm() {
+    private String generateStringConcatenationArm(String target) {
         /*
             String a, b;
 
@@ -80,8 +92,9 @@ public class BinaryExpression3 implements Exp3 {
             return t3
          */
 
-        String leftArm = left.generateArm();
-        String rightArm = right.generateArm();
+        // todo update string concat
+        String leftArm = left.generateArm(target);
+        String rightArm = right.generateArm(target);
         return String.format(
             "%s    mov a2, a1\n%s    push {a1, a2}\n" +
                 "    push {a2}\n" +

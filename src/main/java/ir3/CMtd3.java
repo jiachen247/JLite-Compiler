@@ -70,25 +70,29 @@ public class CMtd3 {
             entryLabel = "main";
         }
 
-        int frameSize = 28 + 4 * body.getVariableCount(); // 28 for {fp, lr, v0-v1}
-
-        // Store arguments in a1 to a4 if arg length < 5 else push them onto the stack in reverse order
-        if (arguments.size() <= 4) {
-            frameSize += 4 * arguments.size();
-        }
-
         buildAllocation();
         GlobalOffsetTable.getInstance().setAllocation(allocation);
+        List<String> spilled = allocation.getSpilled();
+
+        int frameSize = 28 + 4 * spilled.size(); // 28 for {fp, lr, v0-v1}
+
+//        // Store arguments in a1 to a4 if arg length < 5 else push them onto the stack in reverse order
+//        if (arguments.size() <= 4) {
+//            for () {
+//                frameSize += 4 * arguments.size();
+//            }
+//
+//        }
+
+        String prolog = buildProlog(entryLabel, frameSize);
+        String bodyArm = body.generateArm();
+        String epilogue = buildEpilogue(exitLabel);
 
         if (debug) {
             printOffsetTable();
             printInterferenceGraph();
             System.out.println(allocation);
         }
-
-        String prolog = buildProlog(entryLabel, frameSize);
-        String bodyArm = body.generateArm();
-        String epilogue = buildEpilogue(exitLabel);
 
         return String.format("%s" +
                 "%s\n" +
@@ -129,36 +133,50 @@ public class CMtd3 {
                 args n to 1 | fp -> fp, lr, v0-v5 | local variables | temps | <- sp
 
          */
-        // NEED TO REWRITE THIS WHOLE PART TO SUPPIORT SPILLING
+
         if (arguments.size() <= 4) {
+            // Called with args in registers
             int regInd = 1; // a1 to a4
             for (Argument arg : arguments) {
-                sb.append(String.format("    str a%d, [fp, #%d]\n", regInd, offset));
-                offsetTable.put(arg.id.name, offset);
+                if (allocation.isSpilled(arg.getId().name)) {
+                    sb.append(String.format("    str a%d, [fp, #%d]\n", regInd, offset));
+                    offsetTable.put(arg.id.name, offset);
+                    offset -= 4;
+                } else {
+                    sb.append(String.format("    mov %s, a%d\n",
+                        allocation.lookup(arg.getId().name), regInd));
+
+                }
                 regInd += 1;
-                offset -= 4;
+
             }
 
-            // store args into destined registers***
-            regInd = 1; // a1 to a4
-            for (Argument arg : arguments) {
-                if (!allocation.isSpilled(arg.getId().name)) {
-                    sb.append(String.format("    mov %s, a%d\n", allocation.lookup(arg.getId().name), regInd));
-                    regInd += 1;
-                }
-            }
         } else {
             // args already on the stack below bp
             int argPtr = 4;
             for (Argument arg : arguments) {
-                offsetTable.put(arg.id.name, argPtr);
+                if (allocation.isSpilled(arg.getId().name)) {
+                    offsetTable.put(arg.id.name, argPtr);
+
+                } else {
+                    sb.append(String.format("    ldr %s, [fp, #%d]\n",
+                        allocation.lookup(arg.getId().name),
+                        argPtr));
+                }
                 argPtr += 4;
             }
         }
 
         for (VarDecl3 decl : body.getVariableDeclarations()) {
-            offsetTable.put(decl.getId().getName(), offset);
-            offset -= 4;
+            if (allocation.isSpilled(decl.getId().getName())) {
+                // body decl contains args as well
+                if (!offsetTable.containsKey(decl.getId().getName())) {
+                    offsetTable.put(decl.getId().getName(), offset);
+                    offset -= 4;
+                }
+
+            }
+            // dont need to init the rest to null
         }
 
         return sb.toString();
@@ -172,7 +190,6 @@ public class CMtd3 {
             , entryLabel);
 
         if (frameSize > 0) {
-            // todo change this for spilled vars only need to recompute offsets
             prolog += String.format("    sub sp, fp, #%d\n", frameSize);
         }
 

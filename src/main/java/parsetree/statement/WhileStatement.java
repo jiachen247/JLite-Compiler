@@ -94,7 +94,9 @@ public class WhileStatement extends Statement {
         tempVars.addAll(predicateResult.getTempVars());
         stmt3s.addAll(predicateResult.getStatements());
 
-        if (predicateResult.getResult() instanceof BinaryExpression3 || predicateResult.getResult() instanceof Idc3) {
+        // if (conditionIR.getResult() instanceof BinaryExpression3 || conditionIR.getResult() instanceof Idc3) {
+        // for PA3 lets not have bops in ifgoto statements
+        if (predicateResult.getResult() instanceof Idc3) {
             stmt3s.add(new IfStatement3(predicateResult.getResult(), start));
         } else {
             Id3 temp = TempVariableGenerator.getId(BasicType.BOOL_TYPE);

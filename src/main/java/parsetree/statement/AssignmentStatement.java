@@ -7,7 +7,9 @@ import java.util.List;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
+import main.java.ir3.exp.InExpression3;
 import main.java.ir3.stmt.AssignmentStatement3;
+import main.java.ir3.stmt.PropertyAssignmentStatement3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.expression.Expression;
@@ -21,6 +23,8 @@ public class AssignmentStatement extends Statement {
 
     private final Id id;
     private final Expression expression;
+    private boolean isLocal;
+    private BasicType classType;
 
     public AssignmentStatement(int x, int y, Id id, Expression expression) {
         super(x, y);
@@ -36,6 +40,9 @@ public class AssignmentStatement extends Statement {
     @Override
     public BasicType typeCheck(Environment env, List<CheckError> errors) {
         BasicType idType = env.lookup(id);
+        isLocal = env.isLocal(id);
+        classType = env.getClassContext().getCname();
+
         if (idType.equals(BasicType.ERROR_TYPE)) {
             errors.add(TypeChecker.buildTypeError(id.x, id.y,
                 String.format("Variable `%s` does not exist under the current environment.", id)));
@@ -62,13 +69,19 @@ public class AssignmentStatement extends Statement {
     public Stmt3Result toIR() {
         List<Stmt3> stmt3s = new ArrayList<>();
         List<VarDecl3> tempVars = new ArrayList<>();
-
         Exp3Result result = expression.toIR();
         stmt3s.addAll(result.getStatements());
         tempVars.addAll(result.getTempVars());
 
-        stmt3s.add(new AssignmentStatement3(new Id3(id.name, expression.getType()), result.getResult()));
+        if (!isLocal) {
+            stmt3s.add(new PropertyAssignmentStatement3(new Id3("this", classType),
+                new Id3(id.name, expression.getType()), result.getResult()));
+        } else {
+            stmt3s.add(new AssignmentStatement3(new Id3(id.name, expression.getType()), result.getResult()));
+        }
 
         return new Stmt3Result(tempVars, stmt3s);
+
+
     }
 }

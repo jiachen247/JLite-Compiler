@@ -25,9 +25,9 @@ public class UnaryExpression3 implements Exp3 {
     }
 
     @Override
-    public String generateArm() {
-        String exprArm = exp.generateArm();
-        String opArm = operator.generateArm();
+    public String generateArm(String target) {
+        String exprArm = exp.generateArm(target);
+        String opArm = operator.generateArm(target);
         return String.format("%s%s", exprArm, opArm);
     }
 

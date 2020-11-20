@@ -30,7 +30,7 @@ S3:
 Compute_0:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #28
+    sub sp, fp, #36
     mov v1, a1
     mov v2, a2
     mul a1, v2, v2
@@ -43,7 +43,7 @@ Compute_0_exit:
 Compute_1:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #28
+    sub sp, fp, #40
     mov v1, a1
     mov v3, a2
     mov v2, a3
@@ -57,38 +57,24 @@ Compute_1_exit:
 Compute_2:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #44
-    mov v4, a1
-    str a2, [fp, #-28]
-    str a3, [fp, #-32]
-    mov v3, v4
-    ldr v3, [v3, #4]
-    cmp v3, #1
+    sub sp, fp, #40
+    mov v3, a1
+    mov v5, a2
+    mov v4, a3
+    cmp null, #1
     beq l1
-    mov a4, v4
-    mov a1, #1
-    str a1, [a4, #4]
-    ldr a2, [fp, #-28]
-    mov a1, v4
-    bl Compute_0(PLT)
-    mov v2, a1
-    ldr a2, [fp, #-32]
-    mov a1, v4
+    mov null, #1
     bl Compute_0(PLT)
     mov v1, a1
-    mov a4, v4
-    mov a3, v1
-    mov a2, v2
-    mov a1, v4
+    bl Compute_0(PLT)
+    mov v2, a1
     bl Compute_1(PLT)
-    mov a1, a1
-    str a1, [a4, #8]
-    mov a1, v4
+    ldr a1, [fp, #9999]
     ldr a1, [a1, #8]
     b Compute_2_exit
     b l2
 l1:
-    mov a1, v4
+    ldr a1, [fp, #9999]
     ldr a1, [a1, #8]
     b Compute_2_exit
 l2:
@@ -100,39 +86,39 @@ Compute_2_exit:
 main:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #28
-    ldr v5, =#1
-    ldr v1, =#2
-    ldr v2, =#3
-    ldr v3, =#4
+    sub sp, fp, #32
+    ldr v4, =#1
+    ldr v2, =#2
+    ldr v3, =#3
+    ldr v5, =#4
     mov a1, #12
     bl malloc(PLT)
-    mov v4, a1
-    mov a3, v1
-    mov a2, v5
-    mov a1, v4
+    mov a1, a1
+    str a1, [fp, #-28]
+    ldr a1, [fp, #-28]
     bl Compute_2(PLT)
-    mov v2, a1
-    mov a2, v3
-    mov a1, v4
-    bl Compute_0(PLT)
     mov v1, a1
-    mov a2, v1
+    ldr a1, [fp, #-28]
+    bl Compute_0(PLT)
+    mov v2, a1
+    add v4, v2, v1
+    ldr a1, [fp, #-28]
+    bl Compute_0(PLT)
+    mov v3, a1
     ldr a1, =_int
     bl printf(PLT)
     ldr a2, =S1
     ldr a1, =_string
     bl printf(PLT)
-    mov a2, v2
     ldr a1, =_int
     bl printf(PLT)
     ldr a2, =S1
     ldr a1, =_string
     bl printf(PLT)
-    mov v3, #0
-    cmp v2, v1
-    movlt v3, #1
-    cmp v3, #1
+    mov v1, #0
+    cmp v4, v3
+    movlt v1, #1
+    cmp v1, #1
     beq l3
     ldr a2, =S2
     ldr a1, =_string

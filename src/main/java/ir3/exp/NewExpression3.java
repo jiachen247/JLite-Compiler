@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.java.arm.ClassOffsetTable;
+import main.java.arm.GlobalOffsetTable;
 import main.java.staticcheckers.type.BasicType;
 
 public class NewExpression3 implements Exp3 {
@@ -19,11 +20,13 @@ public class NewExpression3 implements Exp3 {
     }
 
     @Override
-    public String generateArm() {
+    public String generateArm(String target) {
         return String.format(
             "    mov a1, #%d\n" +
-                "    bl malloc(PLT)\n",
-            ClassOffsetTable.getInstance().getClassSize(type.getName())
+                "    bl malloc(PLT)\n" +
+                "    mov %s, a1\n",
+            ClassOffsetTable.getInstance().getClassSize(type.getName()),
+            target
         );
     }
 

@@ -21,18 +21,18 @@ public class PrintLineStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        StringBuilder sb = new StringBuilder(expr.generateArm());
+        StringBuilder sb = new StringBuilder(expr.generateArm("a2"));
         if (expr.getType().equals(BasicType.BOOL_TYPE)) {
-            sb.append(String.format("    cmp a1, #1\n" +
+            sb.append(String.format("    cmp a2, #1\n" +
                     "    ldreq a1, =%s\n" +
                     "    ldrne a1, =%s\n",
                 StringLabels.trueLabel, StringLabels.falseLabel));
         } else if (expr.getType().equals(BasicType.STRING_TYPE)) {
-            sb.append("    mov a2, a1\n");
+//            sb.append("    mov a2, a1\n");
             sb.append(String.format("    ldr a1, =%s\n", StringLabels.stringLabel));
 
         } else if (expr.getType().equals(BasicType.INT_TYPE)) {
-            sb.append("    mov a2, a1\n");
+            // sb.append("    mov a2, a1\n");
             sb.append(String.format("    ldr a1, =%s\n", StringLabels.intLabel));
         } else {
             // else null
