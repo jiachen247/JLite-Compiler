@@ -3,12 +3,8 @@ package main.java.ir3.stmt;
 import java.util.List;
 
 import main.java.arm.StringLabels;
-import main.java.ir3.exp.BoolLiteral3;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
-import main.java.ir3.exp.Idc3;
-import main.java.ir3.exp.IntegerLiteral3;
-import main.java.ir3.exp.StringLiteral3;
 import main.java.staticcheckers.type.BasicType;
 
 public class PrintLineStatement3 implements Stmt3 {

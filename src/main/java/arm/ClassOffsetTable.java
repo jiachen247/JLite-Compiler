@@ -61,11 +61,11 @@ public class ClassOffsetTable {
 
         System.out.println("Class Size Table:");
         System.out.println(classSizeTable);
-        System.out.println("");
+        System.out.println();
 
         System.out.println("Class Variable Offsets:");
         System.out.println(classOffsetTable);
-        System.out.println("");
+        System.out.println();
 
         System.out.println("=== End of Class Offset Table ===");
 
@@ -87,7 +87,7 @@ public class ClassOffsetTable {
             classSizeTable.put(cname, size);
 
             int offset = 4;
-            for (VarDecl decl: clazz.getVariables()) {
+            for (VarDecl decl : clazz.getVariables()) {
                 String key = formatKey(cname, decl.id.name);
                 classOffsetTable.put(key, offset);
                 offset += 4;

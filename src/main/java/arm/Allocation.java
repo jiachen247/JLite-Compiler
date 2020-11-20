@@ -2,7 +2,6 @@ package main.java.arm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -14,13 +13,13 @@ public class Allocation {
     public final static String REG_V5 = "v5";
     public final static String SPILL = "spill";
     public final static Integer NUM_REGISTER = 5;
-    public final static List<String> registers =  List.of(REG_V1, REG_V2, REG_V3, REG_V4, REG_V5);
+    public final static List<String> registers = List.of(REG_V1, REG_V2, REG_V3, REG_V4, REG_V5);
     private HashMap<String, String> registerMap;
 
     public Allocation(ArrayList<String> spilled) {
         registerMap = new HashMap<>();
 
-        for (String s: spilled) {
+        for (String s : spilled) {
             spill(s);
         }
     }

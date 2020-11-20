@@ -6,6 +6,8 @@ import main.java.staticcheckers.type.BasicType;
 
 public interface Exp3 {
     String generateArm();
+
     BasicType getType();
+
     List<Id3> getUses();
 }

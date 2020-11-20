@@ -31,19 +31,19 @@ public class CFGNode {
 
     @Override
     public String toString() {
-       StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append(String.format("  %d -> ", index));
-        for (CFGNode neig: next) {
+        for (CFGNode neig : next) {
             sb.append(neig.index + ",");
         }
         sb.append("\n");
 
-        for (CFGNode neig: next) {
+        for (CFGNode neig : next) {
             sb.append(neig.toString());
             sb.append("\n");
         }
 
-       return sb.toString();
+        return sb.toString();
     }
 
     public void addNext(CFGNode node) {

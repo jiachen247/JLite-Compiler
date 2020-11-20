@@ -86,7 +86,6 @@ public class PropertyAssignmentStatement extends Statement {
         }
 
 
-
         Exp3Result expResult = expression.toIR();
         stmt3List.addAll(expResult.getStatements());
         tempVars.addAll(expResult.getTempVars());

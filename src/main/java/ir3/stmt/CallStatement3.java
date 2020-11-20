@@ -1,9 +1,7 @@
 package main.java.ir3.stmt;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import main.java.ir3.exp.CallExpression3;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
 

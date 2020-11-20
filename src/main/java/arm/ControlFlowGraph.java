@@ -57,7 +57,7 @@ public class ControlFlowGraph {
     private HashSet<Integer> topoSeen;
 
     private Allocation allocation;
-    
+
     private HashMap<String, ArrayList<String>> interferenceAdjList;
 
 
@@ -69,7 +69,6 @@ public class ControlFlowGraph {
         topoSeen = new HashSet<>();
     }
 // Todo deadcode elimination here!
-
 
 
     public void build(List<Argument> arguments, MdBody3 body) {
@@ -85,7 +84,7 @@ public class ControlFlowGraph {
 
         head = explore(0);
         buildTopoOrdering();
-        
+
         buildInterferenceGraph();
         allocation = findAllocationValidAllocation(new ArrayList<>());
     }
@@ -106,7 +105,7 @@ public class ControlFlowGraph {
                 firstDefTable.put(def.getName(), i);
             }
 
-            for (Id3 use: curr.getStmt().getUses()) {
+            for (Id3 use : curr.getStmt().getUses()) {
                 // get use
                 lastUseTable.put(use.getName(), i);
             }
@@ -167,7 +166,7 @@ public class ControlFlowGraph {
 
             } else {
                 G.remove(toRemove);
-                for (ArrayList<String> neigh: G.values()) {
+                for (ArrayList<String> neigh : G.values()) {
                     neigh.remove(toRemove);
                 }
 
@@ -187,14 +186,13 @@ public class ControlFlowGraph {
             List<String> neig = elem.getNeigh();
 
 
-
             ArrayList<String> forbidden = new ArrayList<>();
-            for (String neigId: neig) {
+            for (String neigId : neig) {
                 forbidden.add(assigned.get(neigId));
             }
 
             String assign = null;
-            for (String reg: Allocation.registers) {
+            for (String reg : Allocation.registers) {
                 if (!forbidden.contains(reg)) {
                     assign = reg;
                     allocation.assign(id, reg);
@@ -237,11 +235,11 @@ public class ControlFlowGraph {
 
     private void buildInterferenceGraph() {
         interferenceAdjList = new HashMap<>();
-        for (VarDecl3 var: variableDeclarations) {
+        for (VarDecl3 var : variableDeclarations) {
             interferenceAdjList.put(var.getId().getName(), new ArrayList<>());
         }
-        
-        
+
+
         for (int i = 0; i < variableDeclarations.size() - 1; i++) {
             for (int j = i + 1; j < variableDeclarations.size(); j++) {
                 String fistVar = variableDeclarations.get(i).getId().getName();
@@ -267,7 +265,7 @@ public class ControlFlowGraph {
     private void dfs(CFGNode current) {
         if (!topoSeen.contains(current.getIndex())) {
             topoSeen.add(current.getIndex());
-            for (CFGNode neig: current.getNext()) {
+            for (CFGNode neig : current.getNext()) {
                 dfs(neig);
             }
             topoSortedStmts.add(current);
@@ -277,7 +275,7 @@ public class ControlFlowGraph {
     }
 
     private CFGNode explore(int i) {
-        if (i < 0 || i >= stmts.size()){
+        if (i < 0 || i >= stmts.size()) {
             return null;
         }
 
@@ -309,7 +307,7 @@ public class ControlFlowGraph {
         for (int i = 0; i < stmts.size(); i++) {
             if (stmts.get(i) instanceof LabelStatement) {
                 LabelStatement labelStatement = (LabelStatement) stmts.get(i);
-                if (labelStatement.getLabel().equals(label)){
+                if (labelStatement.getLabel().equals(label)) {
                     return i;
                 }
             }
@@ -328,7 +326,6 @@ public class ControlFlowGraph {
 
         for (int i = 0; i < stmts.size(); i++) {
             if (seen.containsKey(i)) {
-                ;
                 System.out.println(String.format("%d: %s",
                     i,
                     seen.get(i).getNext().stream().map(x -> x.getIndex().toString()).collect(Collectors.joining(", "))));
@@ -339,7 +336,7 @@ public class ControlFlowGraph {
 
         System.out.println("=== TOPO SORTED ===");
 
-        for (CFGNode node: topoSortedStmts) {
+        for (CFGNode node : topoSortedStmts) {
             System.out.println(String.format("%d: %s", node.getIndex(), node.getStmt()));
         }
         System.out.println("=== END TOPO SORTED ===");
@@ -347,10 +344,10 @@ public class ControlFlowGraph {
 
         System.out.println("=== FIRST AND LAST USE ===");
 
-        for (VarDecl3 decl: variableDeclarations) {
+        for (VarDecl3 decl : variableDeclarations) {
             System.out.println(String.format("%s: first def (%d), last use (%d)",
                 decl.getId().getName(),
-                firstDefTable.getOrDefault(decl.getId().getName(),-1),
+                firstDefTable.getOrDefault(decl.getId().getName(), -1),
                 lastUseTable.getOrDefault(decl.getId().getName(), -1)));
         }
         System.out.println("=== END FIRST AND LAST USE ===");
@@ -360,7 +357,7 @@ public class ControlFlowGraph {
 
     private void printInterferenceGraph() {
         System.out.println("=== Interference Graph ===");
-        for (VarDecl3 var: variableDeclarations) {
+        for (VarDecl3 var : variableDeclarations) {
             String varId = var.getId().getName();
             if (interferenceAdjList.containsKey(varId)) {
                 System.out.println(String.format("%s: %s",

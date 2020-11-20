@@ -30,7 +30,7 @@ public class CallExpression3 implements Exp3 {
         this.type = type;
 
         this.uses = new ArrayList<>();
-        for (Exp3 arg: exp3args) {
+        for (Exp3 arg : exp3args) {
             this.uses.addAll(arg.getUses());
         }
     }
