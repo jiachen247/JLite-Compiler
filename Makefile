@@ -7,8 +7,8 @@
 MAIN = Main
 
 # test data
-TEST_IN  = src/test/pa2/pass/1.in
-OUT_GOOD = src/test/pa2/pass/1.ans
+TEST_IN  = src/test/pa3/pass/0.in
+OUT_GOOD = src/test/pa3/pass/0.s
 
 # jflex input and output
 LEXER_IN = src/main/jflex/jlite.flex
