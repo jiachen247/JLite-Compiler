@@ -7,6 +7,6 @@ public class OrOperator extends BinaryOperator {
 
     @Override
     public String generateArm(String target, String operand1, String operand2) {
-        return String.format("    or %s, %s, %s\n", target, operand1, operand2);
+        return String.format("    orr %s, %s, %s\n", target, operand1, operand2);
     }
 }

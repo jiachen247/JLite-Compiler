@@ -31,7 +31,7 @@ public class PropertyAssignmentStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        String target = "a3";
+        String target = "a2";
 
         return String.format("%s%s%s",
             GlobalOffsetTable.getInstance().getLoadInstruction(((Id3) obj).getName(), target),

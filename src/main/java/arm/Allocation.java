@@ -48,7 +48,7 @@ public class Allocation {
     public String toString() {
         return String.format("=== Allocation ===\n" +
             "%s\n" +
-            "==== End Allocation ===", registerMap);
+            "==== End Allocation ===\n", registerMap);
     }
 
     public boolean isClassVariable(String name) {

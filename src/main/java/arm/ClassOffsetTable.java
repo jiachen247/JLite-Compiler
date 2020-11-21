@@ -42,7 +42,7 @@ public class ClassOffsetTable {
             return "";
         }
 
-        return String.format("    str a1, [a3, #%d]\n", classOffsetTable.getOrDefault(key, 9997));
+        return String.format("    str a1, [a2, #%d]\n", classOffsetTable.getOrDefault(key, 9997));
     }
 
     public String getLoadInstruction(String cname, String varname, String target) {

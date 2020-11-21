@@ -16,11 +16,11 @@ public class StringLabels {
     public static final String emptyLabel = "_empty";
     public static final String newlineLabel = "_newline";
 
-    public static final String intFormat = "%d";
-    public static final String stringFormat = "%s";
-    public static final String trueFormat = "true";
-    public static final String falseFormat = "false";
-    public static final String nullFormat = "null";
+    public static final String intFormat = "%d\\n";
+    public static final String stringFormat = "%s\\n";
+    public static final String trueFormat = "true\\n";
+    public static final String falseFormat = "false\\n";
+    public static final String nullFormat = "null\\n";
     public static final String empty = "";
     public static final String newline = "\\\\n";
 

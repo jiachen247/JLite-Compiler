@@ -21,6 +21,7 @@
 
 import java.io.FileReader;
 
+import main.java.arm.Optimizer;
 import main.java.ir3.Program3;
 import main.java.parsetree.Program;
 import main.java.staticcheckers.Checker;
@@ -80,11 +81,15 @@ public class Main {
 
             if (debug) {
                 System.out.println(ir);
-            }
-            if (debug) {
                 System.out.println("==== Start of generated ARM code ====");
             }
+
             String assembly = ir.generateArm(optimize, debug);
+
+            if (optimize) {
+                assembly = Optimizer.optimize(assembly);
+            }
+
             System.out.println(assembly);
 
             if (debug) {

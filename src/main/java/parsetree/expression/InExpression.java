@@ -66,8 +66,8 @@ public class InExpression extends Expression {
         Exp3 obj = objectResult.getResult();
 
         if (!(objectResult.getResult() instanceof Idc3)) {
-            Id3 temp = TempVariableGenerator.getId(returnType);
-            tempVars.add(new VarDecl3(returnType, temp));
+            Id3 temp = TempVariableGenerator.getId(objType);
+            tempVars.add(new VarDecl3(objType, temp));
             stmt3List.add(new AssignmentStatement3(temp, objectResult.getResult()));
             obj = temp;
         }

@@ -2,29 +2,7 @@
 
 class Main {
     Void main() {
-        Dummy d;
 
-        d = new Dummy();
-
-        println(d.fun(1, 2, 3, 4, 5, 6));
-    }
-}
-
-class Dummy {
-       // should get 7?
-    Int fun(Int a, Int b, Int c, Int d, Int e, Int f) {
-    println(a);
-          println("\n");
-          println(b);
-          println("\n");
-          println(c);
-                    println("\n");
-                    println(d);
-                    println("\n");
-        println(e);
-      println("\n");
-      println(f);
-      println("\n");
-        return a * b + c * d + e;
+        println(5 * 4);
     }
 }

@@ -21,9 +21,11 @@ public class NewExpression3 implements Exp3 {
 
     @Override
     public String generateArm(String target) {
+        // Should calloc instead of malloc to get a zero initialized buffer
         return String.format(
-            "    mov a1, #%d\n" +
-                "    bl malloc(PLT)\n" +
+            "    mov a2, #%d\n" +
+                "    mov a1, #1\n" +
+                "    bl calloc(PLT)\n" +
                 "    mov %s, a1\n",
             ClassOffsetTable.getInstance().getClassSize(type.getName()),
             target

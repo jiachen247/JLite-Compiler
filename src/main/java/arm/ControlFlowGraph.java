@@ -20,29 +20,6 @@ import main.java.ir3.stmt.Stmt3;
 import main.java.parsetree.shared.Argument;
 import main.java.parsetree.statement.ReturnStatement;
 
-class Elem {
-    public String getId() {
-        return id;
-    }
-
-    public ArrayList<String> getNeigh() {
-        return neigh;
-    }
-
-    String id;
-    ArrayList<String> neigh;
-
-    public Elem(String id, ArrayList<String> neigh) {
-        this.id = id;
-        this.neigh = neigh;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[id='%s', neigh=%s]", id, String.join(", ", neigh));
-    }
-}
-
 public class ControlFlowGraph {
     private List<VarDecl3> variableDeclarations;
     private List<Stmt3> stmts;
@@ -162,7 +139,6 @@ public class ControlFlowGraph {
                 String id = findElemWithMaxDegree(G);
                 ArrayList<String> nspilled = new ArrayList<>(spilled);
                 nspilled.add(id);
-                // System.out.println("spilling " + id);
                 return findAllocationValidAllocation(nspilled);
 
             } else {
@@ -208,9 +184,6 @@ public class ControlFlowGraph {
                 break;
             }
         }
-
-
-        // System.out.println(allocation);
 
         return allocation;
     }
