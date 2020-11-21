@@ -8,7 +8,6 @@ import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
-import main.java.ir3.exp.InExpression3;
 import main.java.ir3.stmt.AssignmentStatement3;
 import main.java.ir3.stmt.PropertyAssignmentStatement3;
 import main.java.ir3.stmt.Stmt3;
@@ -78,7 +77,7 @@ public class AssignmentStatement extends Statement {
         if (!isLocal) {
 
 
-            if (expression instanceof IdExpression){
+            if (expression instanceof IdExpression) {
                 stmt3s.add(new PropertyAssignmentStatement3(new Id3("this", classType),
                     new Id3(id.name, expression.getType()), result.getResult()));
             } else {

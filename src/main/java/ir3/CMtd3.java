@@ -79,10 +79,10 @@ public class CMtd3 {
         // Store arguments in a1 to a4 if arg length < 5 else push them onto the stack in reverse order
         if (arguments.size() > 4) {
             // arguments spilled but still on stack (prevent double count)
-            for (Argument a: arguments) {
-               if (!allocation.isOnRegister(a.getId().name)) {
-                   frameSize -= 4;
-               }
+            for (Argument a : arguments) {
+                if (!allocation.isOnRegister(a.getId().name)) {
+                    frameSize -= 4;
+                }
             }
         }
 

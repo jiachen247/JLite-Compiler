@@ -24,7 +24,7 @@ public class AssignmentStatement3 implements Stmt3 {
     @Override
     public String generateArm() {
 
-        if (!GlobalOffsetTable.getInstance().getAllocator().isOnRegister(id.getName())){
+        if (!GlobalOffsetTable.getInstance().getAllocator().isOnRegister(id.getName())) {
             // check if spilled
             return String.format("%s%s",
                 exp.generateArm("a1"),

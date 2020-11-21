@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.java.arm.ClassOffsetTable;
-import main.java.arm.GlobalOffsetTable;
 import main.java.staticcheckers.type.BasicType;
 
 public class NewExpression3 implements Exp3 {

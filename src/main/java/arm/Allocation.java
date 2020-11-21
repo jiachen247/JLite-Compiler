@@ -54,9 +54,10 @@ public class Allocation {
     public boolean isClassVariable(String name) {
         return !contains(name);
     }
+
     public List<String> getSpilled() {
         ArrayList<String> spilled = new ArrayList<>();
-        for (String k: registerMap.keySet()) {
+        for (String k : registerMap.keySet()) {
             if (isSpilled(k)) {
                 spilled.add(k);
             }

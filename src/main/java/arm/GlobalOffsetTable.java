@@ -22,7 +22,7 @@ public class GlobalOffsetTable {
     }
 
     public String getStoreInstruction(String varname, String target) {
-        if  (registerAllocator.getAllocation().isClassVariable(varname)) {
+        if (registerAllocator.getAllocation().isClassVariable(varname)) {
             // todo cache at the class level
             // Since its not in the method scope, it has to be in the class scope.
             return String.format("%s%s",

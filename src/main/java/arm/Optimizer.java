@@ -2,7 +2,7 @@ package main.java.arm;
 
 public class Optimizer {
     public static String optimize(String original) {
-        String temp = new String(original);
+        String temp = original;
 
         // Refer to report for explanation and proof!
 

@@ -44,7 +44,7 @@ public class InExpression3 implements Exp3 {
                 ClassOffsetTable.getInstance()
                     .getLoadInstruction(obj.getType().getName(),
                         prop.getName(),
-                        target,GlobalOffsetTable.getInstance().getAllocator().lookup(((Id3) obj).getName())));
+                        target, GlobalOffsetTable.getInstance().getAllocator().lookup(((Id3) obj).getName())));
 
 
         }
