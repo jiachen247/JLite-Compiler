@@ -4,6 +4,7 @@ package main.java.ir3.exp;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.arm.Allocation;
 import main.java.arm.GlobalOffsetTable;
 import main.java.parsetree.operator.BinaryOperator;
 import main.java.staticcheckers.type.BasicType;
@@ -95,7 +96,7 @@ public class BinaryExpression3 implements Exp3 {
         String leftArm = left.generateArm("a2");
         String rightArm = right.generateArm("a1");
         return String.format(
-            "%s%s    push {a1, a2}\n" +
+            "%s%s%s    push {a1, a2}\n" +
                 "    push {a2}\n" +
                 "    bl strlen(PLT)\n" +
                 "    pop {a2}\n" +
@@ -108,9 +109,11 @@ public class BinaryExpression3 implements Exp3 {
                 "    pop {a2}\n" +
                 "    push {a1}\n" +
                 "    bl strcpy(PLT)\n" +
-                "    pop {a2, a1}\n" +
-                "    bl strcat(PLT)\n%s",
-            leftArm, rightArm, target.equals("a1") ? "" : String.format("    mov %s, a1\n", target)
+                "    pop {a1, a2}\n" +
+                "    bl strcat(PLT)\n%s%s",
+            Allocation.pusha3a4,
+            leftArm, rightArm, target.equals("a1") ? "" : String.format("    mov %s, a1\n", target),
+            Allocation.popa3a4
         );
 
     }

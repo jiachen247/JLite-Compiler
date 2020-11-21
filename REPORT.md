@@ -22,28 +22,6 @@ Here is a brief description of the test cases
 ## Phase 1: Lexing and Parsing
 For lexing and parsing we used the JFlex and Cup respectively to generate java code via grammar rules.
 
-We also introduced some error production to catch predictable errors such as missing semi colons.
-
-```cup
-VarDecl
-::= Type:type ID:id SEMI
-  {:
-    RESULT = new VarDecl(typeleft, typeright, type, new Id(idleft, idright, id));
-  :}
-| Type:type CNAME:cname SEMI
-    {:
-      report_error(cnameleft, cnameright, ILLEGAL_CLASSNAME);
-      RESULT = new VarDecl(typeleft, typeright, type, new Id(cnameleft, cnameright, cname));
-        :}
-| Type:type ID:id
-    {:
-      report_error(idleft, idright, MISSING_SEMI);
-      RESULT = new VarDecl(typeleft, typeright, type, new Id(idleft, idright, id));
-    :}
-```
-
-
-
 
 I had to relax the grammar rules a little to handle string concatenation. For example I allowed `1 + "2"` through. We would flag these errors though type checking in the next phase.
 
@@ -62,13 +40,6 @@ We allow overloading iff method signature are different.
 
 This is derived and consistent from overloading rules in modern languages eg Java.
 See implementation of ClassDecl::checkUniqueMethodSignature for implementation details.
-
-- Overloaded methods MUST change the argument type list
-- Overloaded methods CAN change the return type
-- Overloaded methods CAN change the access modifier (not applicable to jlite)
-- Overloaded methods CAN declare new or broader checked exceptions (not applicable to jlite)
-- A method can be overloaded in the same class or in a subclass (not applicable to jlite)
-https://stackoverflow.com/questions/2807840/is-it-possible-to-have-different-return-types-for-a-overloaded-method
 
 #### Method Call Ambiguity
 While coding, I noticed an edge case (see fail test case 6.in) where a method call could potentially be ambiguous when passing nulls as arguments;
@@ -149,26 +120,29 @@ This was one of the best decisions I made! Code generation was a lot easier and 
 ### Register Allocation
 This was perhaps the hardest part of the assignment! But the most fulfilling one as well! Seeing how everything works after graph colouring is simply magical!
 
+Allocation Strategy
+
+a1 and a2 ->  scatch registers
+a3-4 and v1-5 -> allocated to variables
+
 You can print out the intermediate data structures used such as the interference graph with the `-d` or `--debug` flag when compiling! An example of register allocation for the factorial function can be found in appendix A below.
 
 We implemented the graph colouring algorithm proposed in the lecture. We first build the interference graph via the def use chain. Following this we ran simplify and select algorithm with the max degree cardinality heuristic for spilling.
 
-This produced a allocation of registers to variables with no interference.
+This produced an allocation of registers to variables with no interference.
 
 For the spilled variables in the function prolog, we reserve space for it on the stack and assign the associated offsets.
+
+Register A3 and A4 were given out last and if there were used, the necessity push / pop operations had to be made before every function call since they can be trashed / clobbered across function calls.
+
+An example allocation for test case 5 where we forced spilling!
 ```
 === Allocation ===
-{this=v4, _t2=v3, _t1=v1, n=v2, _t3=v1}
+{_t2=v2, _t1=v1, _t4=v2, _t3=v1, _t6=v2, a=spill, _t5=v1, b=spill, _t8=v2, c=spill, _t7=v1, d=spill, e=spill, _t9=v1, f=spill, g=spill, h=spill, i=spill, j=spill, k=v4, l=v3, m=a3, n=v5, o=a4, p=v2, _t14=v2, _t15=v1, _t10=v2, _t11=v1, _t12=v2, _t13=v1}
 ==== End Allocation ===
 ```
-#### Tradeoff 1: Number of registers
-I allocated registers v1 to v5 to registers. Since my test cases are pretty trivial I chose not to assign a3 and a4. (a1 and a2 were used at scratch registers).
 
-The advantage of not allocating a3 and a4 (since they are scratch registers) was I didn’t need to push and pop before and after EVERY function call!
-
-I found that for smaller and simpler functions this was more effective and efficient. For longer, more drawn out and more complex functions adding a3 and a4 to the register pool would be a good idea.
-
-#### Tradeoff 2: Spilling Heuristic
+#### Spilling Heuristic
 When choosing which variable to spill first, I used the max degree. This would allow for more freedom after as we relax constraints on more vertices. I also tried the least use heuristic and also a linear combination of these two. In the end i found for my testcases, max degree heuristic performed the best!
 
 ### Function Calls
@@ -288,6 +262,8 @@ n: _t1, _t2, _t3, this
 {this=v4, _t2=v3, _t1=v1, n=v2, _t3=v1}
 ==== End Allocation ===
 ```
+
+
 
 
 

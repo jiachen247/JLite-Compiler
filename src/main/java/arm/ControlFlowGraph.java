@@ -64,6 +64,7 @@ public class ControlFlowGraph {
 
         buildInterferenceGraph();
         allocation = findAllocationValidAllocation(new ArrayList<>());
+        allocation.initPushPopA3A4();
         return allocation;
     }
 

@@ -75,7 +75,7 @@ public class Program3 {
                 "    .global main\n" +
                 "    .type main, %%function\n\n" +
                 "%s" +
-                "    .end\n",
+                "    .end",
             StringLabels.getInstance().toString(),
             body.toString());
     }

@@ -103,7 +103,7 @@ Animal_2:
     pop {a2}
     push {a1}
     bl strcpy(PLT)
-    pop {a2, a1}
+    pop {a1, a2}
     bl strcat(PLT)
     mov v2, a1
     ldr a2, =S2
@@ -121,7 +121,7 @@ Animal_2:
     pop {a2}
     push {a1}
     bl strcpy(PLT)
-    pop {a2, a1}
+    pop {a1, a2}
     bl strcat(PLT)
     mov v1, a1
     ldr v2, [v3, #8]
@@ -140,7 +140,7 @@ Animal_2:
     pop {a2}
     push {a1}
     bl strcpy(PLT)
-    pop {a2, a1}
+    pop {a1, a2}
     bl strcat(PLT)
     mov v4, a1
     ldr a2, =S3
@@ -158,7 +158,7 @@ Animal_2:
     pop {a2}
     push {a1}
     bl strcpy(PLT)
-    pop {a2, a1}
+    pop {a1, a2}
     bl strcat(PLT)
     mov v1, a1
     mov a2, v1
@@ -187,7 +187,7 @@ Animal_2:
     pop {a2}
     push {a1}
     bl strcpy(PLT)
-    pop {a2, a1}
+    pop {a1, a2}
     bl strcat(PLT)
     mov v1, a1
     mov a2, v1
@@ -209,7 +209,7 @@ Animal_2:
     pop {a2}
     push {a1}
     bl strcpy(PLT)
-    pop {a2, a1}
+    pop {a1, a2}
     bl strcat(PLT)
     mov v1, a1
     mov a2, v1
@@ -231,7 +231,7 @@ Animal_2:
     pop {a2}
     push {a1}
     bl strcpy(PLT)
-    pop {a2, a1}
+    pop {a1, a2}
     bl strcat(PLT)
     mov v1, a1
     mov a2, v1
@@ -389,8 +389,8 @@ main:
 
 
 Main_0_exit:
+    mov a1, #0
     sub sp, fp, #24
     ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
 
     .end
-

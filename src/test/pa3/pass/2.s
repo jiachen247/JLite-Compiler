@@ -2,7 +2,7 @@
 _int:
     .asciz "%d\n"
 _string:
-    .asciz "%s\n"
+    .asciz "%s"
 _true:
     .asciz "true\n"
 _false:
@@ -99,8 +99,8 @@ main:
     b Main_0_exit
 
 Main_0_exit:
+    mov a1, #0
     sub sp, fp, #24
     ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
 
     .end
-

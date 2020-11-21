@@ -2,6 +2,7 @@ package main.java.ir3.stmt;
 
 import java.util.List;
 
+import main.java.arm.Allocation;
 import main.java.arm.StringLabels;
 import main.java.ir3.exp.Exp3;
 import main.java.ir3.exp.Id3;
@@ -21,7 +22,8 @@ public class PrintLineStatement3 implements Stmt3 {
 
     @Override
     public String generateArm() {
-        StringBuilder sb = new StringBuilder(expr.generateArm("a2"));
+        StringBuilder sb = new StringBuilder(Allocation.pusha3a4);
+        sb.append(expr.generateArm("a2"));
         if (expr.getType().equals(BasicType.BOOL_TYPE)) {
             sb.append(String.format("    cmp a2, #1\n" +
                     "    ldreq a1, =%s\n" +
@@ -40,6 +42,7 @@ public class PrintLineStatement3 implements Stmt3 {
         }
 
         sb.append("    bl printf(PLT)\n");
+        sb.append(Allocation.popa3a4);
         return sb.toString();
 
     }

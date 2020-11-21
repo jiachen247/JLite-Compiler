@@ -21,7 +21,7 @@ _newline:
 main:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
-    sub sp, fp, #76
+    sub sp, fp, #68
     ldr a1, =#1
     str a1, [fp, #-28]
     ldr a1, =#2
@@ -42,21 +42,17 @@ main:
     str a1, [fp, #-60]
     ldr a1, [fp, #-52]
     str a1, [fp, #-64]
-    ldr a1, [fp, #-48]
-    str a1, [fp, #-68]
-    ldr a1, [fp, #-44]
-    str a1, [fp, #-72]
-    ldr v3, [fp, #-40]
-    ldr v4, [fp, #-36]
-    ldr v5, [fp, #-32]
+    ldr v4, [fp, #-48]
+    ldr v3, [fp, #-44]
+    ldr v5, [fp, #-40]
+    ldr a3, [fp, #-36]
+    ldr a4, [fp, #-32]
     ldr v2, [fp, #-28]
+    add v1, a4, v2
+    add v2, a3, v1
     add v1, v5, v2
-    add v2, v4, v1
-    add v1, v3, v2
-    ldr a1, [fp, #-72]
-    add v2, a1, v1
-    ldr a1, [fp, #-68]
-    add v1, a1, v2
+    add v2, v3, v1
+    add v1, v4, v2
     ldr a1, [fp, #-64]
     add v2, a1, v1
     ldr a1, [fp, #-60]
@@ -77,13 +73,15 @@ main:
     add v2, a1, v1
     ldr a1, [fp, #-28]
     add v1, a1, v2
+    push {a3, a4}
     mov a2, v1
     ldr a1, =_int
     bl printf(PLT)
+    pop {a3, a4}
 
 Main_0_exit:
+    mov a1, #0
     sub sp, fp, #24
     ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
 
     .end
-

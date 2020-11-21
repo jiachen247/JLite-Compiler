@@ -2,7 +2,7 @@
 _int:
     .asciz "%d\n"
 _string:
-    .asciz "%s\n"
+    .asciz "%s"
 _true:
     .asciz "true\n"
 _false:
@@ -39,6 +39,8 @@ Dummy_1:
     add fp, sp, #24
     sub sp, fp, #32
     ldr v4, [fp, #4]
+    ldr a4, [fp, #24]
+    ldr a3, [fp, #28]
     ldr v5, [fp, #32]
     ldr v3, [fp, #36]
     ldr a1, [fp, #16]
@@ -46,14 +48,12 @@ Dummy_1:
     mul v2, a1, a2
     ldr a2, [fp, #8]
     sub v1, a2, v2
-    ldr a1, [fp, #24]
     ldr a2, [fp, #20]
-    mul v2, a1, a2
+    mul v2, a4, a2
     add a1, v2, v1
     str a1, [fp, #-28]
-    ldr a1, [fp, #28]
     ldr a2, [fp, #-28]
-    add v2, a1, a2
+    add v2, a3, a2
     add v1, v5, v2
     add a1, v3, v1
     b Dummy_1_exit
@@ -66,20 +66,27 @@ main:
     stmfd sp!, {fp, lr, v1, v2, v3, v4, v5}
     add fp, sp, #24
     sub sp, fp, #28
+    push {a3, a4}
     mov a2, #4
     mov a1, #1
     bl calloc(PLT)
     mov v2, a1
+    pop {a3, a4}
+    push {a3, a4}
     ldr a4, =#3
     ldr a3, =#2
     ldr a2, =#1
     mov a1, v2
     bl Dummy_0(PLT)
+    pop {a3, a4}
     mov v1, a1
+    push {a3, a4}
     mov a2, v1
     ldr a1, =_int
     bl printf(PLT)
+    pop {a3, a4}
     ldr v3, =#1
+    push {a3, a4}
     ldr a1, =#0
     push {a1}
     ldr a1, =#0
@@ -98,14 +105,17 @@ main:
     push {v2}
     bl Dummy_1(PLT)
     add sp, sp, #36
+    pop {a3, a4}
     mov v1, a1
+    push {a3, a4}
     mov a2, v1
     ldr a1, =_int
     bl printf(PLT)
+    pop {a3, a4}
 
 Mainnnn_0_exit:
+    mov a1, #0
     sub sp, fp, #24
     ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}
 
     .end
-

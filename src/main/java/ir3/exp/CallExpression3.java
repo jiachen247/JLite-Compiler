@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import main.java.arm.Allocation;
 import main.java.arm.GlobalOffsetTable;
 import main.java.staticcheckers.type.BasicType;
 
@@ -53,6 +54,7 @@ public class CallExpression3 implements Exp3 {
 
         List<Exp3> reversedArgs = new ArrayList<>(args);
         Collections.reverse(reversedArgs);
+        sb.append(Allocation.pusha3a4);
 
         for (Exp3 arg : reversedArgs) {
             sb.append(arg.generateArm("a" + ind--));
@@ -62,9 +64,11 @@ public class CallExpression3 implements Exp3 {
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
+        sb.append(Allocation.popa3a4);
         if (target != null && !target.equals("a1")) {
             sb.append(String.format("    mov %s, a1\n", target));
         }
+
         return sb.toString();
     }
 
@@ -75,6 +79,8 @@ public class CallExpression3 implements Exp3 {
 
         int size = args.size() * 4;
 //        sb.append(String.format("    sub sp, sp, %d\n", size));
+
+        sb.append(Allocation.pusha3a4);
 
         // push in reversed order
         for (Exp3 arg : copy) {
@@ -89,6 +95,7 @@ public class CallExpression3 implements Exp3 {
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
         sb.append(String.format("    add sp, sp, #%d\n", size));
+        sb.append(Allocation.popa3a4);
         if (target != null && !target.equals("a1")) {
             sb.append(String.format("    mov %s, a1\n", target));
         }

@@ -202,8 +202,9 @@ public class CMtd3 {
 
     private String buildEpilogue(String exitLabel) {
         return String.format("%s:\n" +
+                "%s"+
                 "    sub sp, fp, #24\n" +
                 "    ldmfd sp!, {fp, pc, v1, v2, v3, v4, v5}\n",
-            exitLabel); // i get some page fault error if i dont do this
+            exitLabel, (isMain ? "    mov a1, #0\n" : "")); // i get some page fault error if i dont do this
     }
 }

@@ -3,6 +3,7 @@ package main.java.ir3.exp;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.arm.Allocation;
 import main.java.arm.ClassOffsetTable;
 import main.java.staticcheckers.type.BasicType;
 
@@ -22,12 +23,14 @@ public class NewExpression3 implements Exp3 {
     public String generateArm(String target) {
         // Should calloc instead of malloc to get a zero initialized buffer
         return String.format(
-            "    mov a2, #%d\n" +
+            "%s    mov a2, #%d\n" +
                 "    mov a1, #1\n" +
                 "    bl calloc(PLT)\n" +
-                "    mov %s, a1\n",
+                "    mov %s, a1\n%s",
+            Allocation.pusha3a4,
             ClassOffsetTable.getInstance().getClassSize(type.getName()),
-            target
+            target,
+            Allocation.popa3a4
         );
     }
 
