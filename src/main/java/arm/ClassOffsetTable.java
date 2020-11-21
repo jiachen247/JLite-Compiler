@@ -45,7 +45,7 @@ public class ClassOffsetTable {
         return String.format("    str a1, [a2, #%d]\n", classOffsetTable.getOrDefault(key, 9997));
     }
 
-    public String getLoadInstruction(String cname, String varname, String target) {
+    public String getLoadInstruction(String cname, String varname, String target, String objReg) {
         String key = formatKey(cname, varname);
         if (!classOffsetTable.containsKey(key)) {
             System.out.println(
@@ -53,7 +53,7 @@ public class ClassOffsetTable {
             return "";
         }
 
-        return String.format("    ldr %s, [%s, #%d]\n", target,target, classOffsetTable.getOrDefault(key, 9999));
+        return String.format("    ldr %s, [%s, #%d]\n", target, objReg, classOffsetTable.getOrDefault(key, 9999));
     }
 
     public void print() {

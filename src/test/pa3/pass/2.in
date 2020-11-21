@@ -5,7 +5,6 @@ class Main {
         factorial = new Factorial();
 
         println(factorial.recursive(5));
-        println("\n");
         println(factorial.iterative(5));
         return ;
 

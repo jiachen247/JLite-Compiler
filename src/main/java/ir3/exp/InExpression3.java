@@ -3,6 +3,7 @@ package main.java.ir3.exp;
 import java.util.List;
 
 import main.java.arm.ClassOffsetTable;
+import main.java.arm.GlobalOffsetTable;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.type.BasicType;
 
@@ -33,8 +34,22 @@ public class InExpression3 implements Exp3 {
 
     @Override
     public String generateArm(String target) {
+
+        if (obj instanceof Id3
+            && GlobalOffsetTable.getInstance().getAllocator().isOnRegister(((Id3) obj).getName())) {
+
+
+            return String.format("%s",
+
+                ClassOffsetTable.getInstance()
+                    .getLoadInstruction(obj.getType().getName(),
+                        prop.getName(),
+                        target,GlobalOffsetTable.getInstance().getAllocator().lookup(((Id3) obj).getName())));
+
+
+        }
         return String.format("%s%s",
             obj.generateArm(target),
-            ClassOffsetTable.getInstance().getLoadInstruction(obj.getType().getName(), prop.getName(), target));
+            ClassOffsetTable.getInstance().getLoadInstruction(obj.getType().getName(), prop.getName(), target, target));
     }
 }

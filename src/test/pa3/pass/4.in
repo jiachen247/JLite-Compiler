@@ -14,6 +14,7 @@ class Main {
         dog.setName("doggy");
 
         cat.print();
+        println("\n\n");
         dog.print();
     }
 }
@@ -40,7 +41,7 @@ class Animal {
         println(" years old. I go ");
         println(sound + " ");
         println(sound + " ");
-        println(sound + "!!!\n");
+        println(sound + "!!!");
     }
 
 }

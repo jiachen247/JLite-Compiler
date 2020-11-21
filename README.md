@@ -55,7 +55,9 @@ You can run the generated arm assembly code on an emulator like Gem5!
 $ java -cp ./bin/java-cup-11b.jar:out Main sample.in > sample.s
 $ arm-linux-gnueabi-gcc -c sample.s -o sample.o
 $ arm-linux-gnueabi-gcc -o sample.bin sample.o --static
-$ ./gem5/build/ARM/gem5.opt gem5/configs/example/se.py -c ./sample.o
+$ # depends on where your gem5 is located (path should be the same)
+$ ./gem5/build/ARM/gem5.opt gem5/configs/example/se.py -c ./sample.o --output $PWD/output.txt
+$ cat output.txt
 ```
 
 

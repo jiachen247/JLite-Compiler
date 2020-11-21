@@ -48,7 +48,7 @@ public class GlobalOffsetTable {
 
             return String.format("%s%s",
                 getLoadInstruction("this", target),
-                ClassOffsetTable.getInstance().getLoadInstruction(Program3.getCurrentClass(), varname, target));
+                ClassOffsetTable.getInstance().getLoadInstruction(Program3.getCurrentClass(), varname, target, target));
         }
 
 //        StringBuilder sb = new StringBuilder();

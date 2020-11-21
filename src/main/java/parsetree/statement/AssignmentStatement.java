@@ -4,6 +4,7 @@ package main.java.parsetree.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.ir3.TempVariableGenerator;
 import main.java.ir3.VarDecl3;
 import main.java.ir3.exp.Exp3Result;
 import main.java.ir3.exp.Id3;
@@ -13,6 +14,7 @@ import main.java.ir3.stmt.PropertyAssignmentStatement3;
 import main.java.ir3.stmt.Stmt3;
 import main.java.ir3.stmt.Stmt3Result;
 import main.java.parsetree.expression.Expression;
+import main.java.parsetree.expression.IdExpression;
 import main.java.parsetree.shared.Id;
 import main.java.staticcheckers.CheckError;
 import main.java.staticcheckers.TypeChecker;
@@ -74,8 +76,21 @@ public class AssignmentStatement extends Statement {
         tempVars.addAll(result.getTempVars());
 
         if (!isLocal) {
-            stmt3s.add(new PropertyAssignmentStatement3(new Id3("this", classType),
-                new Id3(id.name, expression.getType()), result.getResult()));
+
+
+            if (expression instanceof IdExpression){
+                stmt3s.add(new PropertyAssignmentStatement3(new Id3("this", classType),
+                    new Id3(id.name, expression.getType()), result.getResult()));
+            } else {
+
+                Id3 temp = TempVariableGenerator.getId(expression.getType());
+                tempVars.add(new VarDecl3(expression.getType(), temp));
+                stmt3s.add(new AssignmentStatement3(temp, result.getResult()));
+
+                stmt3s.add(new PropertyAssignmentStatement3(new Id3("this", classType),
+                    new Id3(id.name, expression.getType()), temp));
+
+            }
         } else {
             stmt3s.add(new AssignmentStatement3(new Id3(id.name, expression.getType()), result.getResult()));
         }

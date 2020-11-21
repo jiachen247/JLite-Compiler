@@ -17,7 +17,7 @@ public class StringLabels {
     public static final String newlineLabel = "_newline";
 
     public static final String intFormat = "%d\\n";
-    public static final String stringFormat = "%s\\n";
+    public static final String stringFormat = "%s";
     public static final String trueFormat = "true\\n";
     public static final String falseFormat = "false\\n";
     public static final String nullFormat = "null\\n";

@@ -65,7 +65,7 @@ public class CallExpression3 implements Exp3 {
         }
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
-        if (target != null) {
+        if (target != null && !target.equals("a1")) {
             sb.append(String.format("    mov %s, a1\n", target));
         }
         return sb.toString();
@@ -92,7 +92,7 @@ public class CallExpression3 implements Exp3 {
 
         sb.append(String.format("    bl %s(PLT)\n", methodId));
         sb.append(String.format("    add sp, sp, #%d\n", size));
-        if (target != null) {
+        if (target != null && !target.equals("a1")) {
             sb.append(String.format("    mov %s, a1\n", target));
         }
         return sb.toString();
